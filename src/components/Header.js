@@ -12,8 +12,7 @@ export default function Header(props) {
         color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
         borderBottomColor: darkMode
           ? 'var(--dark-grey)'
-          : 'var(--lightmode-keys)',
-        opacity: props.viewStats ? 0.4 : 1
+          : 'var(--lightest-grey)'
       }}
     >
       <div className="question-non-div">
