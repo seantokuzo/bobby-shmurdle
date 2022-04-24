@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 import './header.css'
-import HelpModal from './Modals/HelpModal'
-import SettingsModal from './Modals/SettingsModal'
+
 
 export default function Header(props) {
   const { darkMode } = useContext(ThemeContext)
@@ -46,14 +45,6 @@ export default function Header(props) {
   return (
     <>
       {header}
-      {props.showHelp && <HelpModal toggleHelp={props.toggleHelp} />}
-      {props.showSettings && (
-        <SettingsModal
-          toggleSettings={props.toggleSettings}
-          hardMode={props.hardMode}
-          toggleHardMode={props.toggleHardMode}
-        />
-      )}
     </>
   )
 }

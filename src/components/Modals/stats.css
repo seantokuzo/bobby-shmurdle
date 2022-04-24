@@ -1,0 +1,157 @@
+.stats__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+  max-width: fit-content;
+  border-radius: 15px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  opacity: 1 !important;
+}
+
+@media (max-width: 300px) {
+  .stats__container {
+    max-width: 100vw;
+  }
+}
+
+.stats__stat--nonchart-container {
+  width: 100%;
+  justify-content: space-evenly;
+  margin-bottom: 25px;
+
+  border: 1px solid red;
+}
+
+.stat--nonchart-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid aqua;
+}
+
+.stat--nonchart-div:nth-child(2),
+.stat--nonchart-div:nth-child(3) {
+  margin: 0 1rem;
+}
+
+.stat--nonchart-stat {
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 2rem 0 0;
+}
+
+.nonchart-text {
+  margin: 0;
+  font-family: 'Inter';
+  font-size: .85em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.stats__chart-title {
+  margin-bottom: 15px;
+}
+
+.stats--chart-div {
+  margin-top: 0;
+  min-width: 290px;
+  max-width: 100%;
+  /* width: fit-content; */
+
+  border: 1px solid red;
+}
+
+.chart-guess-stat-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* width: 450px; */
+}
+
+.chart-guess-stat-label {
+  font-family: 'Inter';
+  width: 1em;
+  font-size: .85em;
+  font-weight: 300;
+  margin: 7px 5px;
+}
+
+.chart-bar-div {
+  display: flex;
+  align-items: center;
+  background-color: var(--med-grey);
+  max-width: 280px;
+  min-width: fit-content;
+  height: 25px;
+  margin: 0;
+}
+
+.chart-bar-text {
+  color: #FFFFFF;
+  margin: 0 5.5px;
+}
+
+.stats__buttons-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+
+  /* border: 1px solid green; */
+}
+
+.stats__btn {
+  min-width: 45%;
+}
+
+.stats__btn-divider {
+  font-size: 3rem;
+  font-family: 'Inter';
+  font-weight: 100;
+  color: var(--med-grey);
+}
+
+.dark-mode .stats__btn-divider {
+  color: var(--dark-grey);
+}
+
+
+.new-game-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 120px;
+  height: 50px;
+  background-color: var(--green);
+  padding: 0;
+}
+
+.new-game-text {
+  font-size: 1.2em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.new-game-div:hover {
+  cursor: pointer;
+}
+
+.share-div:hover {
+  cursor: pointer;
+}
+
+.share {
+  font-size: 1.2em;
+  margin: 0 18px 0 9px;
+}
+
+.share-icon {
+  font-size: 1.2em;
+  color: white;
+}
