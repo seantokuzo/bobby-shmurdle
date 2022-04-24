@@ -1,31 +1,33 @@
-.header--div {
+.header__div {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
-  max-width: 600px;
   border-bottom: 1px solid;
+  
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
 }
 
-.header--icon:hover {
+.modal-open .header__div {
+  opacity: 0.3;
+}
+
+.header__icon {
   cursor: pointer;
+  font-size: 1.1em;
 }
 
-.header--title {
+.header__title {
   margin: 8px 0;
-  position: relative;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 700;
 }
 
-.header--question {
-  margin-right: 10px;
+.header__question {
+  margin-left: .75em;
 }
 
-.header--non {
-  width: 1.5em;
-}
-
-.header--gear {
-  margin-left: 10px;
+.header__gear {
+  margin-left: .75em;
 }

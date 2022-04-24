@@ -8,7 +8,7 @@ export default function Header(props) {
 
   const header = (
     <header
-      className="header--div"
+      className="header__div"
       style={{
         color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
         borderBottomColor: darkMode
@@ -17,25 +17,25 @@ export default function Header(props) {
       }}
     >
       <div className="question-non-div">
+        <i className="fa-solid fa-bars header__icon header__hamburger"></i>
         <i
-          className="far fa-question-circle header--icon header--question"
+          className="far fa-question-circle header__icon header__question"
           onClick={props.toggleHelp}
         ></i>
-        <div className="header--non"></div>
       </div>
       <h1
-        className="header--title"
+        className="header__title"
         style={{ color: darkMode ? '#FFFFFF' : '#000000' }}
       >
         BOBBY SHMURDLE
       </h1>
       <div className="chart-gear-div">
         <i
-          className="fas fa-chart-bar header--icon header--chart"
+          className="fas fa-chart-column header__icon header__chart"
           onClick={props.toggleStats}
         ></i>
         <i
-          className="fas fa-cog header--icon header--gear"
+          className="fas fa-cog header__icon header__gear"
           onClick={props.toggleSettings}
         ></i>
       </div>
@@ -45,7 +45,7 @@ export default function Header(props) {
   return (
     <>
       {header}
-      {props.showHelp && <HelpModal />}
+      {props.showHelp && <HelpModal toggleHelp={props.toggleHelp} />}
     </>
   )
 }

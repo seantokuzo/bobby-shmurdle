@@ -1,24 +1,27 @@
-.popup--title {
-  position: relative;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  font-size: 1.2em;
-}
-
-.popup--text {
-  font-size: .9em;
-  font-weight: 400;
-  margin: 15px 0px 20px 0px;
-}
-
 .help__container {
-  margin: 0;
-  max-width: 500px;
-  position: relative;
-  margin: 0 auto;
-  color: #FFFFFF;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
+
   padding: 15px;
-  z-index: 5;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: #ffffff;
+  
+  z-index: 100;
+  animation: modal-slide 250ms;
+}
+
+.dark-mode .help__container {
+  background-color: var(--background);
 }
 
 .help__how-to-play {
@@ -31,40 +34,22 @@
   position: absolute;
   margin-top: 3px;
   margin-left: 90%;
-  color: var(--dark-grey)
-}
-
-.help__close:hover {
+  color: var(--dark-grey);
   cursor: pointer;
 }
 
-.help__examples {
-  border-bottom: 1px solid
-}
-
-.help__subtitle {
-  margin-bottom: 10px;
+.help__close:hover {
+  transform: scale(1.1);
 }
 
 .help__eg-div {
   display: inline-block;
-  margin-top: 20px;
-}
-
-.help__eg-box-dark {
-  width: 50px;
-  height: 50px;
-  border: 2px solid var(--dark-grey);
-  margin-right: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .help__eg-box {
   width: 50px;
   height: 50px;
-  border: 2px solid var(--med-grey);
   margin-right: 4px;
   display: flex;
   justify-content: center;

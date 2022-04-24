@@ -51,7 +51,9 @@ body {
 }
 
 .app {
-  /* border: 1px solid red; */
+  width: 95%;
+  max-width: 600px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
@@ -59,11 +61,42 @@ body {
   padding: 5px;
 }
 
+/* --- GLOBAL BOTTOM BORDERS --- */
+.border-bottom {
+  border-bottom: 1px solid var(--lightest-grey);
+}
+
+.dark-mode .border-bottom {
+  border-bottom: 1px solid var(--dark-grey);
+}
+
 /* --- GLOBAL BOX BORDER STYLE --- */
 .box {
   border: 2px solid;
-  border-color: inherit;
+  /* border-color: inherit; */
   border-radius: 1px;
+}
+
+.box-filled {
+  color: white;
+}
+
+.modal__title {
+  margin: 0;
+  text-align: center;
+  margin-bottom: .75em;
+  font-size: 1.2em;
+  line-height: 1em;
+}
+
+.modal__subtitle {
+  margin: 10px 0 10px;
+}
+
+.modal__text {
+  font-size: .8em;
+  font-weight: 400;
+  margin: 15px 0px;
 }
 
 /* --- GLOBAL COLOR CLASSES --- */
@@ -104,4 +137,17 @@ body {
 
 .dark-mode .empty-box {
   border-color: var(--dark-grey);
+}
+
+/* --- MODAL ENTER ANIMATION --- */
+@keyframes modal-slide {
+  0% {
+    margin-top: 50px;
+    opacity: 0;
+  }
+
+  100% {
+    margin-top: 0;
+    opacity: 1;
+  }
 }

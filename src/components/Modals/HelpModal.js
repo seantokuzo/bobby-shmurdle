@@ -2,107 +2,87 @@ import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { nanoid } from 'nanoid'
 import './help.css'
+import {
+  helpTitle,
+  helpSubtitle,
+  helpText,
+  exampleIndices,
+  exampleWords
+} from '../../data/modal-data/helpPageData.js'
 
+// HELP PAGE COMPONENT
 export default function HelpPage(props) {
   const { darkMode, highContrastMode } = useContext(ThemeContext)
-  const weary = ['A', 'N', 'G', 'R', 'Y']
-  const farts = ['M', 'O', 'I', 'S', 'T']
-  const moist = ['F', 'A', 'R', 'T', 'S']
 
-  const helpBoxDarkMode = darkMode
-    ? 'help__eg-box-dark box empty-box'
-    : 'help__eg-box box empty-box'
+  const helpBoxClasses = (mapIndex, target, boxStatus) => {
+    if (mapIndex === target) {
+      return `help__eg-box box box-filled ${boxStatus}`
+    } else return 'help__eg-box box empty-box'
+  }
 
-  const exampleOne = weary.map((item, index) => {
+  const exampleOne = exampleWords[0].map((item, index) => {
     return (
       <div className="help__eg-div" key={nanoid()}>
-        <div
-          className={index === 0 ? 'help__eg-box box correct' : helpBoxDarkMode}
-        >
+        <div className={helpBoxClasses(index, exampleIndices[0], 'correct')}>
           <h2 className="help__eg-text">{item}</h2>
         </div>
       </div>
     )
   })
-  const exampleTwo = farts.map((item, index) => {
+  const exampleTwo = exampleWords[1].map((item, index) => {
     return (
       <div className="help__eg-div" key={nanoid()}>
-        <div
-          className={
-            index === 1 ? 'help__eg-box box wrong-spot' : helpBoxDarkMode
-          }
-        >
+        <div className={helpBoxClasses(index, exampleIndices[1], 'wrong-spot')}>
           <h2 className="help__eg-text">{item}</h2>
         </div>
       </div>
     )
   })
-  const exampleThree = moist.map((item, index) => {
+  const exampleThree = exampleWords[2].map((item, index) => {
     return (
       <div className="help__eg-div" key={nanoid()}>
-        <div
-          className={
-            index === 0 ? 'help__eg-box box incorrect' : helpBoxDarkMode
-          }
-        >
+        <div className={helpBoxClasses(index, exampleIndices[2], 'incorrect')}>
           <h2 className="help__eg-text">{item}</h2>
         </div>
       </div>
     )
   })
   return (
-    <div
-      className="help__container fadein"
-      style={{ color: darkMode ? '#FFFFFF' : '#000000' }}
-    >
-      <div
-        className="help__how-to-play"
-        style={{
-          borderBottomColor: darkMode
-            ? 'var(--dark-grey)'
-            : 'var(--lightest-grey)'
-        }}
-      >
-        <title>HOW TO PLAY</title>
-        <h4 className="popup--title">HOW TO PLAY</h4>
+    <div className="help__container fadein">
+      <div className="help__how-to-play border-bottom">
+        <title>{helpTitle}</title>
+        <h4 className="modal__title">{helpTitle}</h4>
         <h4 className="help__close" onClick={props.toggleHelp}>
           X
         </h4>
-        <p className="popup--text">Guess the word in 6 tries.</p>
-        <p className="popup--text">
-          Each guess must be a valid 5 letter word. Hit the enter button to
-          submit.
-        </p>
-        <p className="popup--text">
-          After each guess, the color of the tiles will change to show how close
-          your guess was to the word
-        </p>
+        <p className="modal__text">{helpText[0]}</p>
+        <p className="modal__text">{helpText[1]}</p>
+        <p className="modal__text">{helpText[2]}</p>
       </div>
-      <div
-        className="help__examples"
-        style={{
-          borderBottomColor: darkMode
-            ? 'var(--dark-grey)'
-            : 'var(--lightest-grey)'
-        }}
-      >
-        <h4 className="help__subtitle">Examples</h4>
+      <div className="help__examples border-bottom">
+        <h4 className="modal__subtitle">{helpSubtitle}</h4>
         {exampleOne}
-        <p className="popup--text">
-          The letter <strong>A</strong> is in the word and in the corrent spot.
+        <p className="modal__text">
+          {helpText[3]}
+          <strong>{exampleWords[0][exampleIndices[0]]}</strong>
+          {helpText[4]}
         </p>
         {exampleTwo}
-        <p className="popup--text">
-          The letter <strong>O</strong> is in the word but in a stinky spot.
+        <p className="modal__text">
+          {helpText[3]}
+          <strong>{exampleWords[1][exampleIndices[1]]}</strong>
+          {helpText[5]}
         </p>
         {exampleThree}
-        <p className="popup--text">
-          The letter <strong>T</strong> is not in any spot
+        <p className="modal__text">
+          {helpText[3]}
+          <strong>{exampleWords[2][exampleIndices[2]]}</strong>
+          {helpText[6]}
         </p>
       </div>
       <div>
         <h4 className="help__subtitle">
-          <strong>Don't let Bobby Shmurdle down</strong>
+          <strong>{helpText[7]}</strong>
         </h4>
       </div>
     </div>
