@@ -3,9 +3,10 @@ import Header from './components/Header'
 import './app.css'
 
 export default function App() {
-  const [showHelp, setShowHelp] = useState(true)
+  const [showHelp, setShowHelp] = useState(false)
   const [showStats, setShowStats] = useState(false)
-  const [showSettings, setShowSettings] = useState(false)
+  const [showSettings, setShowSettings] = useState(true)
+  const [hardMode, setHardMode] = useState(false)
 
   useEffect(() => {
     if (showHelp || showStats || showSettings) {
@@ -28,6 +29,10 @@ export default function App() {
     setShowSettings((prev) => !prev)
   }
 
+  function toggleHardMode() {
+    setHardMode((prev) => !prev)
+  }
+
   return (
     <div className="app">
       <Header
@@ -37,6 +42,8 @@ export default function App() {
         toggleStats={toggleStats}
         showSettings={showSettings}
         toggleSettings={toggleSettings}
+        hardMode={hardMode}
+        toggleHardMode={toggleHardMode}
       />
     </div>
   )

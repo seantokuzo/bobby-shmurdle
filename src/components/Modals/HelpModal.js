@@ -48,11 +48,11 @@ export default function HelpPage(props) {
     )
   })
   return (
-    <div className="help__container fadein">
-      <div className="help__how-to-play border-bottom">
+    <div className="help__container modal__container">
+      <div className="help__rules-div border-bottom">
         <title>{helpTitle}</title>
-        <h4 className="modal__title">{helpTitle}</h4>
-        <h4 className="help__close" onClick={props.toggleHelp}>
+        <h4 className="help__title modal__title">{helpTitle}</h4>
+        <h4 className="help__close modal__close" onClick={props.toggleHelp}>
           X
         </h4>
         <p className="modal__text">{helpText[0]}</p>

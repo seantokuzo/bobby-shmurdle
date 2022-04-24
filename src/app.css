@@ -9,6 +9,9 @@
   --green: #6aaa64;
   --orange: #f5793a;
   --blue: #85c0f9;
+
+  --bs: 0 0 0.75em rgba(0, 0, 0, .25),
+  0 0 0.25em rgba(0, 0, 0, .15);
 }
 
 * {
@@ -19,6 +22,7 @@ body {
   margin: 0;
   font-family: 'Arimo';
   font-size: 1rem;
+  transition: background-color 250ms;
 }
 
 @media (min-width: 750px) {
@@ -81,24 +85,6 @@ body {
   color: white;
 }
 
-.modal__title {
-  margin: 0;
-  text-align: center;
-  margin-bottom: .75em;
-  font-size: 1.2em;
-  line-height: 1em;
-}
-
-.modal__subtitle {
-  margin: 10px 0 10px;
-}
-
-.modal__text {
-  font-size: .8em;
-  font-weight: 400;
-  margin: 15px 0px;
-}
-
 /* --- GLOBAL COLOR CLASSES --- */
 
 .correct {
@@ -139,7 +125,67 @@ body {
   border-color: var(--dark-grey);
 }
 
-/* --- MODAL ENTER ANIMATION --- */
+/* --- GLOBAL MODAL STYLES --- */
+.modal__container {
+  width: 100vw;
+  max-height: 95vh;
+  box-shadow: var(--bs);
+  animation: modal-slide 250ms;
+  color: #000000;
+  background-color: #ffffff;
+  padding: 1em;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dark-mode .modal__container {
+  color: #ffffff;
+  background-color: var(--background);
+}
+
+.modal__title {
+  text-align: center;
+  margin-bottom: .75em;
+  font-size: 1.2em;
+  line-height: 1em;
+}
+
+.modal__close {
+  position: absolute;
+  top: 0%;
+  right: 5%;
+
+  color: #000000;
+
+  cursor: pointer;
+}
+
+.dark-mode .modal__close {
+  color: var(--dark-grey);
+}
+
+.modal__close:hover {
+  transform: scale(1.1);
+}
+
+.modal__subtitle {
+  margin: 10px 0 10px;
+}
+
+.modal__text {
+  font-size: .8em;
+  font-weight: 400;
+  margin: 10px 0px;
+}
+
 @keyframes modal-slide {
   0% {
     margin-top: 50px;
@@ -150,4 +196,40 @@ body {
     margin-top: 0;
     opacity: 1;
   }
+}
+
+.btn {
+  padding: 10px 0;
+  
+  border-radius: 5px;
+  
+  background-color: var(--green);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  cursor: pointer;
+
+  transition: all 250ms;
+}
+
+.high-contrast .btn {
+  background-color: var(--orange);
+}
+
+.btn--text {
+  font-size: 1.2em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }

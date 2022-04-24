@@ -1,45 +1,23 @@
 .help__container {
   width: 100%;
   max-width: 450px;
-  height: 100vh;
 
-  padding: 15px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-
-  background-color: #ffffff;
-  
-  z-index: 100;
-  animation: modal-slide 250ms;
 }
 
 .dark-mode .help__container {
   background-color: var(--background);
 }
 
-.help__how-to-play {
+.help__rules-div {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid
+  border-bottom: 1px solid;
 }
 
-.help__close {
-  position: absolute;
-  margin-top: 3px;
-  margin-left: 90%;
-  color: var(--dark-grey);
-  cursor: pointer;
-}
-
-.help__close:hover {
-  transform: scale(1.1);
+.help__title {
+  margin: 0;
+  margin-top: 5px;
 }
 
 .help__eg-div {
