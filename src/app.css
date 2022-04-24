@@ -17,6 +17,7 @@
 
 body {
   margin: 0;
+  font-family: 'Arimo';
   font-size: 1rem;
 }
 
@@ -58,19 +59,49 @@ body {
   padding: 5px;
 }
 
+/* --- GLOBAL BOX BORDER STYLE --- */
+.box {
+  border: 2px solid;
+  border-color: inherit;
+  border-radius: 1px;
+}
+
 /* --- GLOBAL COLOR CLASSES --- */
+
 .correct {
   background-color: var(--green);
+  border-color: var(--green);
 }
 
 .high-contrast .correct {
   background-color: var(--orange);
+  border-color: var(--orange);
 }
 
 .wrong-spot {
   background-color: var(--yellow);
+  border-color: var(--yellow);
 }
 
 .high-contrast .wrong-spot {
   background-color: var(--blue);
+  border-color: var(--blue);
+}
+
+.incorrect {
+  background-color: var(--med-grey);
+  border-color: var(--med-grey);
+}
+
+.dark-mode .incorrect {
+  background-color: var(--dark-grey);
+  border-color: var(--dark-grey);
+}
+
+.empty-box {
+  border-color: var(--med-grey);
+}
+
+.dark-mode .empty-box {
+  border-color: var(--dark-grey);
 }

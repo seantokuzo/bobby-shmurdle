@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
 import './header.css'
+import HelpModal from './Modals/HelpModal'
 
 export default function Header(props) {
   const { darkMode } = useContext(ThemeContext)
 
-  return (
-    <div
+  const header = (
+    <header
       className="header--div"
       style={{
         color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
@@ -38,6 +39,13 @@ export default function Header(props) {
           onClick={props.toggleSettings}
         ></i>
       </div>
-    </div>
+    </header>
+  )
+
+  return (
+    <>
+      {header}
+      {props.showHelp && <HelpModal />}
+    </>
   )
 }
