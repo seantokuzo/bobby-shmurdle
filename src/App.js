@@ -5,7 +5,7 @@ import './app.css'
 export default function App() {
   const [showHelp, setShowHelp] = useState(false)
   const [showStats, setShowStats] = useState(false)
-  const [showSettings, setShowSettings] = useState(true)
+  const [showSettings, setShowSettings] = useState(false)
   const [hardMode, setHardMode] = useState(false)
 
   useEffect(() => {
