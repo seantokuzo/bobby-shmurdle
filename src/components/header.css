@@ -1,0 +1,31 @@
+.header--div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  max-width: 600px;
+  border-bottom: 1px solid;
+}
+
+.header--icon:hover {
+  cursor: pointer;
+}
+
+.header--title {
+  margin: 8px 0;
+  position: relative;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.header--question {
+  margin-right: 10px;
+}
+
+.header--non {
+  width: 17px;
+}
+
+.header--gear {
+  margin-left: 10px;
+}
