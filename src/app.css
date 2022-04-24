@@ -1,0 +1,37 @@
+:root {
+  --background: #121213;
+  --background-light: #1e1e20;
+  --dark-grey: #3a3a3c;
+  --med-grey: #787c7e;
+  --light-grey: #818384;
+  --lightest-grey: #d3d6da;
+  --yellow: #c9b458;
+  --green: #6aaa64;
+  --orange: #f5793a;
+  --blue: #85c0f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0
+}
+
+/* --- GLOBAL COLOR CLASSES --- */
+.yellow {
+  background-color: var(--yellow);
+}
+
+.green {
+  background-color: var(--green);
+}
+
+.orange {
+  background-color: var(--orange);
+}
+
+.blue {
+  background-color: var(--blue);
+}
