@@ -19,23 +19,23 @@ export default function App() {
   console.log(answer)
   const [currentGuess, setCurrentGuess] = useState([])
   const [prevGuesses, setPrevGuesses] = useState([1, 2, 3])
-  const [didWin, setDidWin] = useState(false)
+  const [didWin, setDidWin] = useState(true)
   const [didLose, setDidLose] = useState(false)
   // USER STATS STATE
   const [streak, setStreak] = useState(53)
   const [maxStreak, setMaxStreak] = useState(57)
   const [guessStats, setGuessStats] = useState({
     one: 1,
-    two: 8,
-    three: 5,
-    four: 31,
-    five: 33,
-    six: 20
+    two: 7,
+    three: 23,
+    four: 41,
+    five: 34,
+    six: 17
   })
   const [wins, setWins] = useState(
     Object.values(guessStats).reduce((a, b) => a + b)
   )
-  const [losses, setLosses] = useState(5)
+  const [losses, setLosses] = useState(Math.floor(wins * 0.1))
 
   useEffect(() => {
     if (showHelp || showStats || showSettings) {
