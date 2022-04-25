@@ -9,6 +9,15 @@ export default function StatsModal(props) {
   const [windowWidth, setWindowWidth] = useState(0)
   console.log(windowWidth)
 
+  const maxBarWidth =
+    windowWidth > 1000
+      ? 375
+      : windowWidth > 750
+      ? 350
+      : windowWidth > 500
+      ? 340
+      : 280
+
   // DESTRUCTURE USER STATS FROM PROPS
   const { streak, maxStreak, wins, losses, guessStats } = props.userStats
   console.log(guessStats)
@@ -21,58 +30,60 @@ export default function StatsModal(props) {
     if (guessStatsValues.every((val) => val <= 13)) {
       return (n + 1) * 20
     } else if (n && wins) {
-      return Math.floor((n / maxGuessStat) * 250)
+      return Math.floor((n / maxGuessStat) * maxBarWidth)
     } else return 20
   })
   console.log(chartWidthArray)
 
   useEffect(() => {
-    function watchWindowWidth() {
+    setWindowWidth(window.innerWidth)
+
+    window.addEventListener('resize', () => {
       setWindowWidth(window.innerWidth)
-    }
+    })
 
-    window.addEventListener('resize', watchWindowWidth)
-
-    return window.removeEventListener('resize', watchWindowWidth)
-  }, [])
+    return window.removeEventListener('resize', () => {
+      setWindowWidth(window.innerWidth)
+    })
+  }, [windowWidth])
 
   const stats = (
     <div className="stats__stat--nonchart-container flex-row">
       <div className="stat--nonchart-div">
         <h2 className="stat--nonchart-stat">{wins + losses}</h2>
-        <p className="popup--text nonchart-text">Played</p>
+        <p className="stat--nonchart-text">Played</p>
+        <br />
       </div>
       <div className="stat--nonchart-div">
         <h2 className="stat--nonchart-stat">
           {wins + losses === 0 ? 0 : Math.floor((wins / (wins + losses)) * 100)}
         </h2>
-        <p className="popup--text nonchart-text">Win %</p>
+        <p className="stat--nonchart-text">Win %</p>
+        <br />
       </div>
       <div className="stat--nonchart-div">
         <h2 className="stat--nonchart-stat">{streak}</h2>
-        <p className="popup--text nonchart-text">Current Streak</p>
+        <p className="stat--nonchart-text min-content">Current Streak</p>
       </div>
       <div className="stat--nonchart-div">
         <h2 className="stat--nonchart-stat">{maxStreak}</h2>
-        <p className="popup--text nonchart-text">Max Streak</p>
+        <p className="stat--nonchart-text min-content">Max Streak</p>
       </div>
     </div>
   )
 
+  console.log(props.lastGameGuessCount)
+
   const chart = guessStatsValues.map((n, i) => (
     <div className="stats--chart-div" key={`chart-bar${i}`}>
       <div className="chart-guess-stat-div">
-        <p className="chart-guess-stat-label">{i + 1}</p>
+        <div className="chart-label-div">
+          <p className="chart-guess-stat-label">{i + 1}</p>
+        </div>
         <div
           className={
-            props.didWin &&
-            highContrastMode &&
-            props.lastGameGuessCount === i + 1
-              ? 'chart-bar-div orange'
-              : props.didWin && props.lastGameGuessCount === i + 1
-              ? 'chart-bar-div green'
-              : darkMode
-              ? 'chart-bar-div dark-grey-background'
+            props.didWin && props.lastGameGuessCount === i + 1
+              ? 'chart-bar-div correct'
               : 'chart-bar-div'
           }
           style={{ width: chartWidthArray[i] + 'px' }}

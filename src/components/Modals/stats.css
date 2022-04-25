@@ -3,11 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90vw;
-  max-width: fit-content;
+  width: 80vw;
+  max-width: 550px;
   border-radius: 15px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px;
   opacity: 1 !important;
 }
 
@@ -20,36 +20,35 @@
 .stats__stat--nonchart-container {
   width: 100%;
   justify-content: space-evenly;
-  margin-bottom: 25px;
 
-  border: 1px solid red;
+  margin-top: 1rem;
 }
 
-.stat--nonchart-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  border: 1px solid aqua;
+.stat--nonchart-div:nth-child(2) {
+  margin: 0 0.5rem 0 1rem;  
 }
 
-.stat--nonchart-div:nth-child(2),
 .stat--nonchart-div:nth-child(3) {
-  margin: 0 1rem;
+  margin: 0 1rem 0 0.5rem;  
 }
 
 .stat--nonchart-stat {
   font-size: 2.5em;
   font-weight: 400;
-  margin: 2rem 0 0;
+  margin: 0;
 }
 
-.nonchart-text {
+.stat--nonchart-text {
   margin: 0;
   font-family: 'Inter';
   font-size: .85em;
   font-weight: 300;
   text-align: center;
+  /* width: min-content; */
+}
+
+.min-content {
+  width: min-content;
 }
 
 .stats__chart-title {
@@ -58,11 +57,10 @@
 
 .stats--chart-div {
   margin-top: 0;
-  min-width: 290px;
-  max-width: 100%;
-  /* width: fit-content; */
+  width: 80%;
+  padding: 0 10px;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .chart-guess-stat-div {
@@ -70,25 +68,39 @@
   justify-content: flex-start;
   align-items: center;
   /* width: 450px; */
+  padding: 7px 0;
+
+  /* border: solid red 1px; */
+}
+
+.chart-label-div {
+  /* border: 1px solid blue; */
 }
 
 .chart-guess-stat-label {
   font-family: 'Inter';
-  width: 1em;
   font-size: .85em;
   font-weight: 300;
-  margin: 7px 5px;
+  width: 1em;
+  margin: 0 5px;
 }
 
 .chart-bar-div {
   display: flex;
   align-items: center;
   background-color: var(--med-grey);
-  max-width: 280px;
   min-width: fit-content;
   height: 25px;
   margin: 0;
 }
+/* 
+.chart-bar-div-selected {
+  background-color: var(--green);
+}
+
+.high-contrast .chart-bar-div-selected {
+  background-color: var(--orange);
+} */
 
 .chart-bar-text {
   color: #FFFFFF;

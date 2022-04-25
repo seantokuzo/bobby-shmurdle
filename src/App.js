@@ -9,7 +9,7 @@ import { getNewWord } from './utils/gameUtils'
 export default function App() {
   // MODAL DISPLAY STATE
   const [showHelp, setShowHelp] = useState(false)
-  const [showStats, setShowStats] = useState(true)
+  const [showStats, setShowStats] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showBobby, setShowBobby] = useState(false)
   // HARD MODE STATE
@@ -27,15 +27,15 @@ export default function App() {
   const [guessStats, setGuessStats] = useState({
     one: 1,
     two: 8,
-    three: 125,
-    four: 21,
-    five: 23,
-    six: 10
+    three: 5,
+    four: 31,
+    five: 33,
+    six: 20
   })
   const [wins, setWins] = useState(
     Object.values(guessStats).reduce((a, b) => a + b)
   )
-  const [losses, setLosses] = useState(0)
+  const [losses, setLosses] = useState(5)
 
   useEffect(() => {
     if (showHelp || showStats || showSettings) {
