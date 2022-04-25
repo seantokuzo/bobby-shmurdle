@@ -15,7 +15,7 @@ import { getNewWord } from './utils/gameUtils'
 export default function App() {
   // MODAL DISPLAY STATE
   const [showHelp, setShowHelp] = useState(false)
-  const [showStats, setShowStats] = useState(true)
+  const [showStats, setShowStats] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showBobby, setShowBobby] = useState(false)
   // HARD MODE STATE
