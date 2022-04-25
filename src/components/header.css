@@ -17,9 +17,10 @@
 }
 
 .header__icon-div {
-  width: fit-content;
-  align-items: center;
-  justify-content: space-around;
+  /* width: fit-content; */
+  justify-content: center;
+
+  border: 1px solid green;
 }
 
 .header__btn {
@@ -44,10 +45,10 @@
   font-size: 1.4em;
   font-weight: 700;
 
-  /* border: 1px solid red; */
+  border: 1px solid black;
 }
 
-@media (min-width: 450px) {
+/* @media (min-width: 450px) {
   .header__icon-div {
     padding: .25em;
   }
@@ -55,4 +56,4 @@
   .header__btn {
     margin: 0 .25em;
   }
-}
+} */

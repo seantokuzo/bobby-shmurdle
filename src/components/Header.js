@@ -23,14 +23,14 @@ export default function Header(props) {
           onClick={toggleBobby}
           disabled={isModalOpen}
         >
-          <i className="fa-solid fa-bars header__hamburger"></i>
+          <i className="fa-solid fa-bars"></i>
         </button>
         <button
           className="header__btn"
           onClick={toggleHelp}
           disabled={isModalOpen}
         >
-          <i className="far fa-question-circle header__question"></i>
+          <i className="far fa-question-circle"></i>
         </button>
       </div>
       <h1
@@ -45,14 +45,14 @@ export default function Header(props) {
           onClick={toggleStats}
           disabled={isModalOpen}
         >
-          <i className="fas fa-chart-column header__chart"></i>
+          <i className="fas fa-chart-column"></i>
         </button>
         <button
           className="header__btn"
           onClick={toggleSettings}
           disabled={isModalOpen}
         >
-          <i className="fas fa-cog header__gear"></i>
+          <i className="fas fa-cog"></i>
         </button>
       </div>
     </header>
