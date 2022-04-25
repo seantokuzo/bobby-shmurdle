@@ -109,7 +109,6 @@ export default function StatsModal(props) {
 
   return (
     <div className="modal__container stats__container">
-      <title>BOBBY SHMURDLE STATS</title>
       <h4 className="modal__title stats__title">STATISTICS</h4>
       <h4 className="modal__close" onClick={props.toggleStats}>
         X

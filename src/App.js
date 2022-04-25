@@ -43,6 +43,7 @@ export default function App() {
   )
   const [losses, setLosses] = useState(Math.floor(wins * 0.1))
 
+  // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
     if (showHelp || showStats || showSettings) {
       document.body.classList.add('modal-open')
@@ -50,6 +51,67 @@ export default function App() {
       document.body.classList.remove('modal-open')
     }
   }, [showHelp, showStats, showSettings])
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+
+    return window.addEventListener('keydown', handleKeyDown)
+  })
+
+  //COMPUTER KEYBOARD
+  const handleKeyDown = (e) => {
+    const letterRegex = /[a-zA-z]/
+    //TOGGLE BOBBY, HELP. STATS AND SETTINGS WITH KEYBOARD ENTER KEY
+    if (e.key === 'Enter' && bobby) {
+      exitBobby()
+      return
+    } else if (e.key === 'Enter' && viewSettings) {
+      toggleSettings()
+      return
+    } else if (e.key === 'Enter' && needHelp) {
+      toggleHelp()
+      return
+    } else if (
+      e.key === 'Enter' &&
+      (viewStats || didWin || didLose)
+    ) {
+      toggleStats()
+      return
+      //ADD LETTER TO CURRENT GUESS IF CURRENT GUESS HAS ROOM
+    } else if (
+      e.key.length === 1 &&
+      letterRegex.test(e.key) &&
+      currentGuess.length >= 0 &&
+      currentGuess.length < 5
+    ) {
+      setWordleState((prevWordleState) => ({
+        ...prevWordleState,
+        currentGuess: [...prevWordleState.currentGuess, e.key.toUpperCase()]
+      }))
+      return
+      //HANDLE BACKSPACE
+    } else if (
+      e.key === 'Backspace' &&
+      currentGuess.length > 0 &&
+      currentGuess.length <= 5
+    ) {
+      return setWordleState((prevWordleState) => ({
+        ...prevWordleState,
+        currentGuess: prevWordleState.currentGuess.slice(
+          0,
+          prevWordleState.currentGuess.length - 1
+        )
+      }))
+      //HANDLE ENTER KEY
+    } else if (
+      e.key === 'Enter' &&
+      !didWin &&
+      !didLose
+    ) {
+      submitGuess()
+      return
+    } else return
+  }
 
   // HEADER MODAL TOGGLES
   function toggleHelp() {

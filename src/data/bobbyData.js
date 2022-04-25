@@ -25,13 +25,13 @@ const winInTwoPhrase = [
   'GEE WILLACKERS'
 ]
 const winThreeFourPhrase = [
-  // 'NICE WIN THERE',
-  // '*GOLF CLAP*',
-  // 'NOT BAD, NOT BAD',
-  // "THAT'LL DO PIG, THAT'LL DO",
-  // 'THERE WE GO',
-  // 'NICE, REAL FREAKIN NICE',
-  // 'YE YE GET IT',
+  'NICE WIN THERE',
+  '*GOLF CLAP*',
+  'NOT BAD, NOT BAD',
+  "THAT'LL DO PIG, THAT'LL DO",
+  'THERE WE GO',
+  'NICE, REAL FREAKIN NICE',
+  'YE YE GET IT',
   "THERE'S BETTER THERE'S WORSES THEN THERE'S YOU"
 ]
 const winInFivePhrase = [

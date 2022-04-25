@@ -104,6 +104,7 @@ export default function SettingsModal(props) {
 
   return (
     <div className="settings__container modal__container">
+      <title>Bobby Shmurdle</title>
       {settingsTitleDiv}
       {hardModeSettings}
       {darkModeSettings}

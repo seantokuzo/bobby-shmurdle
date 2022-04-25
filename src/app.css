@@ -25,11 +25,16 @@ body {
   transition: background-color 250ms;
 }
 
+@media (max-width: 400px) {
+  body {
+    font-size: 0.85rem;
+  }
+}
+
 @media (min-width: 750px) {
   body {
     font-size: 1.15rem;
   }
-  
 }
 
 @media (min-width: 1000px) {
@@ -55,14 +60,40 @@ body {
 }
 
 .app {
-  width: 95%;
-  max-width: 600px;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
   margin: 0 auto;
-
+  
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px;
+
+  border: 1px solid red;
+}
+
+@media (min-width: 500px) {
+  .app {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 750px) {
+  .app {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .app {
+    max-width: 650px;
+  }
+}
+
+@media (min-width: 1250px) {
+  .app {
+    max-width: 700px;
+  }
 }
 
 /* --- GLOBAL BOTTOM BORDERS --- */

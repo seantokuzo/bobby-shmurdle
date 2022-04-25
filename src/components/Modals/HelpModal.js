@@ -50,7 +50,6 @@ export default function HelpPage(props) {
   return (
     <div className="help__container modal__container">
       <div className="help__rules-div border-bottom">
-        <title>{helpTitle}</title>
         <h4 className="help__title modal__title">{helpTitle}</h4>
         <h4 className="help__close modal__close" onClick={props.toggleHelp}>
           X

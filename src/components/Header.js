@@ -9,7 +9,7 @@ export default function Header(props) {
 
   const header = (
     <header
-      className="header__div flex-row"
+      className="header__container flex-row"
       style={{
         color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
         borderBottomColor: darkMode
