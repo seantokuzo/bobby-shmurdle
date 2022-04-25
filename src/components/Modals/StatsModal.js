@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import './stats.css'
+// import './stats.css'
 import { ThemeContext } from '../context/ThemeContext'
 
 export default function StatsModal(props) {
@@ -7,23 +7,23 @@ export default function StatsModal(props) {
 
   // WINDOW WIDTH STATE FOR CHART BAR WIDTH
   const [windowWidth, setWindowWidth] = useState(0)
-  console.log(windowWidth)
+  // console.log(windowWidth)
 
   const maxBarWidth =
-    windowWidth > 1000
-      ? 375
-      : windowWidth > 750
-      ? 350
-      : windowWidth > 500
-      ? 340
-      : 280
+    windowWidth > 450
+      ? 325
+      : windowWidth > 425
+      ? 300
+      : windowWidth > 400
+      ? 275
+      : windowWidth > 350
+      ? 250
+      : 200
 
   // DESTRUCTURE USER STATS FROM PROPS
   const { streak, maxStreak, wins, losses, guessStats } = props.userStats
-  console.log(guessStats)
 
   const guessStatsValues = Object.values(guessStats)
-  console.log(guessStatsValues)
   const maxGuessStat = Math.max(...guessStatsValues)
 
   const chartWidthArray = guessStatsValues.map((n) => {
@@ -33,7 +33,6 @@ export default function StatsModal(props) {
       return Math.floor((n / maxGuessStat) * maxBarWidth)
     } else return 20
   })
-  console.log(chartWidthArray)
 
   useEffect(() => {
     setWindowWidth(window.innerWidth)
@@ -72,8 +71,6 @@ export default function StatsModal(props) {
     </div>
   )
 
-  console.log(props.lastGameGuessCount)
-
   const chart = guessStatsValues.map((n, i) => (
     <div className="stats--chart-div" key={`chart-bar${i}`}>
       <div className="chart-guess-stat-div">
@@ -100,7 +97,10 @@ export default function StatsModal(props) {
         <h3 className="btn--text">NEW GAME</h3>
       </div>
       <span className="stats__btn-divider">|</span>
-      <div className="btn stats__btn" onClick={props.shareStats}>
+      <div
+        className="btn stats__btn stats__btn-share"
+        onClick={props.shareStats}
+      >
         <h3 className="btn--text">SHARE</h3>
         <i className="fas fa-share-alt share-icon"></i>
       </div>

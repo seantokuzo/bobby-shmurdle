@@ -3,13 +3,19 @@ import Header from './components/Header'
 import HelpModal from './components/Modals/HelpModal'
 import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
+import BobbyModal from './components/Modals/BobbyModal'
 import './app.css'
+import './components/header.css'
+import './components/Modals/help.css'
+import './components/Modals/stats.css'
+import './components/Modals/settings.css'
+import './components/Modals/bobby.css'
 import { getNewWord } from './utils/gameUtils'
 
 export default function App() {
   // MODAL DISPLAY STATE
   const [showHelp, setShowHelp] = useState(false)
-  const [showStats, setShowStats] = useState(false)
+  const [showStats, setShowStats] = useState(true)
   const [showSettings, setShowSettings] = useState(false)
   const [showBobby, setShowBobby] = useState(false)
   // HARD MODE STATE
@@ -62,13 +68,25 @@ export default function App() {
     setHardMode((prev) => !prev)
   }
 
+  function toggleBobby() {
+    setShowBobby((prev) => !prev)
+  }
+
+  function exitBobby() {
+    setShowBobby(false)
+  }
+
+  const isModalOpen = showHelp || showStats || showSettings || showBobby
+
   return (
     <div className="app">
       <Header
+        isModalOpen={isModalOpen}
         toggleHelp={toggleHelp}
         toggleStats={toggleStats}
         toggleSettings={toggleSettings}
         toggleHardMode={toggleHardMode}
+        toggleBobby={toggleBobby}
       />
       {showHelp && <HelpModal toggleHelp={toggleHelp} />}
       {showSettings && (
@@ -92,6 +110,14 @@ export default function App() {
           lastGameGuessCount={prevGuesses.length}
           // newGame={newGame}
           // shareStats={shareStats}
+        />
+      )}
+      {showBobby && (
+        <BobbyModal
+          exitBobby={exitBobby}
+          didWin={didWin}
+          didLose={didLose}
+          prevGuesses={prevGuesses}
         />
       )}
     </div>

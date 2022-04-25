@@ -1,20 +1,12 @@
 .stats__container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80vw;
-  max-width: 550px;
+  max-width: 450px;
   border-radius: 15px;
   margin: 0 auto;
   padding: 40px;
   opacity: 1 !important;
-}
-
-@media (max-width: 300px) {
-  .stats__container {
-    max-width: 100vw;
-  }
 }
 
 .stats__stat--nonchart-container {
@@ -44,7 +36,6 @@
   font-size: .85em;
   font-weight: 300;
   text-align: center;
-  /* width: min-content; */
 }
 
 .min-content {
@@ -57,24 +48,17 @@
 
 .stats--chart-div {
   margin-top: 0;
-  width: 80%;
-  padding: 0 10px;
-
-  /* border: 1px solid red; */
+  width: 100%;
 }
 
 .chart-guess-stat-div {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* width: 450px; */
-  padding: 7px 0;
-
-  /* border: solid red 1px; */
+  padding: .3em 0;
 }
 
 .chart-label-div {
-  /* border: 1px solid blue; */
 }
 
 .chart-guess-stat-label {
@@ -88,10 +72,14 @@
 .chart-bar-div {
   display: flex;
   align-items: center;
-  background-color: var(--med-grey);
+  background-color: var(--light-grey);
   min-width: fit-content;
   height: 25px;
   margin: 0;
+}
+
+.dark-mode .chart-bar-div {
+  background-color: var(--dark-grey);
 }
 /* 
 .chart-bar-div-selected {
@@ -113,12 +101,18 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 40px;
-
-  /* border: 1px solid green; */
 }
 
 .stats__btn {
   min-width: 45%;
+}
+
+.stats__btn-share h3 {
+  margin-right: 7.5px;
+}
+
+.stats__btn-share i {
+  margin-left: 7.5px;
 }
 
 .stats__btn-divider {
@@ -130,37 +124,6 @@
 
 .dark-mode .stats__btn-divider {
   color: var(--dark-grey);
-}
-
-
-.new-game-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  width: 120px;
-  height: 50px;
-  background-color: var(--green);
-  padding: 0;
-}
-
-.new-game-text {
-  font-size: 1.2em;
-  color: #FFFFFF;
-  margin: 0;
-}
-
-.new-game-div:hover {
-  cursor: pointer;
-}
-
-.share-div:hover {
-  cursor: pointer;
-}
-
-.share {
-  font-size: 1.2em;
-  margin: 0 18px 0 9px;
 }
 
 .share-icon {

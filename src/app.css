@@ -88,41 +88,41 @@ body {
 /* --- GLOBAL COLOR CLASSES --- */
 
 .correct {
-  background-color: var(--green);
-  border-color: var(--green);
+  background-color: var(--green) !important;
+  border-color: var(--green) !important;
 }
 
 .high-contrast .correct {
-  background-color: var(--orange);
-  border-color: var(--orange);
+  background-color: var(--orange) !important;
+  border-color: var(--orange) !important;
 }
 
 .wrong-spot {
-  background-color: var(--yellow);
-  border-color: var(--yellow);
+  background-color: var(--yellow) !important;
+  border-color: var(--yellow) !important;
 }
 
 .high-contrast .wrong-spot {
-  background-color: var(--blue);
-  border-color: var(--blue);
+  background-color: var(--blue) !important;
+  border-color: var(--blue) !important;
 }
 
 .incorrect {
-  background-color: var(--med-grey);
-  border-color: var(--med-grey);
+  background-color: var(--med-grey) !important;
+  border-color: var(--med-grey) !important;
 }
 
 .dark-mode .incorrect {
-  background-color: var(--dark-grey);
-  border-color: var(--dark-grey);
+  background-color: var(--dark-grey) !important;
+  border-color: var(--dark-grey) !important;
 }
 
 .empty-box {
-  border-color: var(--med-grey);
+  border-color: var(--med-grey) !important;
 }
 
 .dark-mode .empty-box {
-  border-color: var(--dark-grey);
+  border-color: var(--dark-grey) !important;
 }
 
 /* --- GLOBAL MODAL STYLES --- */

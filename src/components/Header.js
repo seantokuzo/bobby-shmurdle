@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
-import './header.css'
-
+// import './header.css'
 
 export default function Header(props) {
   const { darkMode } = useContext(ThemeContext)
+  const { isModalOpen, toggleHelp, toggleStats, toggleSettings, toggleBobby } =
+    props
 
   const header = (
     <header
-      className="header__div"
+      className="header__div flex-row"
       style={{
         color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
         borderBottomColor: darkMode
@@ -16,12 +17,21 @@ export default function Header(props) {
           : 'var(--lightest-grey)'
       }}
     >
-      <div className="question-non-div">
-        <i className="fa-solid fa-bars header__icon header__hamburger"></i>
-        <i
-          className="far fa-question-circle header__icon header__question"
-          onClick={props.toggleHelp}
-        ></i>
+      <div className="header__icon-div flex-row">
+        <button
+          className="header__btn"
+          onClick={toggleBobby}
+          disabled={isModalOpen}
+        >
+          <i className="fa-solid fa-bars header__hamburger"></i>
+        </button>
+        <button
+          className="header__btn"
+          onClick={toggleHelp}
+          disabled={isModalOpen}
+        >
+          <i className="far fa-question-circle header__question"></i>
+        </button>
       </div>
       <h1
         className="header__title"
@@ -29,22 +39,24 @@ export default function Header(props) {
       >
         BOBBY SHMURDLE
       </h1>
-      <div className="chart-gear-div">
-        <i
-          className="fas fa-chart-column header__icon header__chart"
-          onClick={props.toggleStats}
-        ></i>
-        <i
-          className="fas fa-cog header__icon header__gear"
-          onClick={props.toggleSettings}
-        ></i>
+      <div className="header__icon-div flex-row">
+        <button
+          className="header__btn"
+          onClick={toggleStats}
+          disabled={isModalOpen}
+        >
+          <i className="fas fa-chart-column header__chart"></i>
+        </button>
+        <button
+          className="header__btn"
+          onClick={toggleSettings}
+          disabled={isModalOpen}
+        >
+          <i className="fas fa-cog header__gear"></i>
+        </button>
       </div>
     </header>
   )
 
-  return (
-    <>
-      {header}
-    </>
-  )
+  return <>{header}</>
 }
