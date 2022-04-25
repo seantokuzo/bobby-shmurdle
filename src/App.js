@@ -5,11 +5,11 @@ import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
 import BobbyModal from './components/Modals/BobbyModal'
 import './app.css'
-import './components/header.css'
-import './components/Modals/help.css'
-import './components/Modals/stats.css'
-import './components/Modals/settings.css'
-import './components/Modals/bobby.css'
+// import './components/header.css'
+// import './components/Modals/help.css'
+// import './components/Modals/stats.css'
+// import './components/Modals/settings.css'
+// import './components/Modals/bobby.css'
 import { getNewWord } from './utils/gameUtils'
 
 export default function App() {
@@ -71,10 +71,7 @@ export default function App() {
     } else if (e.key === 'Enter' && needHelp) {
       toggleHelp()
       return
-    } else if (
-      e.key === 'Enter' &&
-      (viewStats || didWin || didLose)
-    ) {
+    } else if (e.key === 'Enter' && (viewStats || didWin || didLose)) {
       toggleStats()
       return
       //ADD LETTER TO CURRENT GUESS IF CURRENT GUESS HAS ROOM
@@ -103,11 +100,7 @@ export default function App() {
         )
       }))
       //HANDLE ENTER KEY
-    } else if (
-      e.key === 'Enter' &&
-      !didWin &&
-      !didLose
-    ) {
+    } else if (e.key === 'Enter' && !didWin && !didLose) {
       submitGuess()
       return
     } else return

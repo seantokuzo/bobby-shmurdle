@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from './context/ThemeContext'
-// import './header.css'
 
 export default function Header(props) {
   const { darkMode } = useContext(ThemeContext)
@@ -8,15 +7,7 @@ export default function Header(props) {
     props
 
   const header = (
-    <header
-      className="header__container flex-row"
-      style={{
-        color: darkMode ? 'var(--dark-grey)' : 'var(--light-grey)',
-        borderBottomColor: darkMode
-          ? 'var(--dark-grey)'
-          : 'var(--lightest-grey)'
-      }}
-    >
+    <header className="header__container flex-row border-bottom">
       <div className="header__icon-div flex-row">
         <button
           className="header__btn"

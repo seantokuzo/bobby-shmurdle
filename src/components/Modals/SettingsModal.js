@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-// import './settings.css'
+import './settings.css'
 
 export default function SettingsModal(props) {
   const { darkMode, toggleDarkMode, highContrastMode, toggleHighContrastMode } =

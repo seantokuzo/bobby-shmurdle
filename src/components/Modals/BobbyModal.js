@@ -1,5 +1,5 @@
 import React from 'react'
-// import './bobby.css'
+import './bobby.css'
 import {
   bobbyWinGifs,
   bobbyLoseGifs,

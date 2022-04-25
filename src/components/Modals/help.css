@@ -2,11 +2,13 @@
   width: 100%;
   max-width: 450px;
 
+  color: var(--light-grey);
+  
   justify-content: space-between;
 }
 
 .dark-mode .help__container {
-  background-color: var(--background);
+  color: var(--dark-grey);
 }
 
 .help__rules-div {
@@ -45,16 +47,4 @@
 
   animation-name: slidein;
   animation-duration: .25s;
-}
-
-@keyframes slidein {
-  from {
-    margin-top: 5%;
-    opacity: 0;
-  }
-
-  to {
-    margin-top: 0;
-    opacity: 100%;
-  }
 }

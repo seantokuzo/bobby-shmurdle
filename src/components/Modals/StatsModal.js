@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-// import './stats.css'
+import './stats.css'
 import { ThemeContext } from '../context/ThemeContext'
 
 export default function StatsModal(props) {

@@ -48,7 +48,7 @@
 
 .stats--chart-div {
   margin-top: 0;
-  width: 100%;
+  width: 85%;
 }
 
 .chart-guess-stat-div {
@@ -81,14 +81,6 @@
 .dark-mode .chart-bar-div {
   background-color: var(--dark-grey);
 }
-/* 
-.chart-bar-div-selected {
-  background-color: var(--green);
-}
-
-.high-contrast .chart-bar-div-selected {
-  background-color: var(--orange);
-} */
 
 .chart-bar-text {
   color: #FFFFFF;

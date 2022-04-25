@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { nanoid } from 'nanoid'
-// import './help.css'
+import './help.css'
 import {
   helpTitle,
   helpSubtitle,

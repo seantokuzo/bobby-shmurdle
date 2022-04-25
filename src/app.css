@@ -23,15 +23,13 @@ body {
   font-family: 'Arimo';
   font-size: 1rem;
   transition: background-color 250ms;
-  width: 100vw;
-  /* height: 100vh; */
 
   /* border: 1px solid blue; */
 }
 
 @media (max-width: 400px) {
   body {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -59,15 +57,11 @@ body {
   background-color: var(--background);
 }
 
-.high-contrast {
-
-}
-
+/* --- MAIN APP CONTAINER --- */
 .app {
-  width: 100%;
-  /* max-width: 100%; */
-  /* height: 100%;
-  max-height: 100%; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
   
   display: flex;
   flex-direction: column;
@@ -100,65 +94,9 @@ body {
   }
 }
 
-/* --- GLOBAL BOTTOM BORDERS --- */
-.border-bottom {
-  border-bottom: 1px solid var(--lightest-grey);
-}
-
-.dark-mode .border-bottom {
-  border-bottom: 1px solid var(--dark-grey);
-}
-
-/* --- GLOBAL BOX BORDER STYLE --- */
-.box {
-  border: 2px solid;
-  /* border-color: inherit; */
-  border-radius: 1px;
-}
-
-.box-filled {
-  color: white;
-}
-
-/* --- GLOBAL COLOR CLASSES --- */
-
-.correct {
-  background-color: var(--green) !important;
-  border-color: var(--green) !important;
-}
-
-.high-contrast .correct {
-  background-color: var(--orange) !important;
-  border-color: var(--orange) !important;
-}
-
-.wrong-spot {
-  background-color: var(--yellow) !important;
-  border-color: var(--yellow) !important;
-}
-
-.high-contrast .wrong-spot {
-  background-color: var(--blue) !important;
-  border-color: var(--blue) !important;
-}
-
-.incorrect {
-  background-color: var(--med-grey) !important;
-  border-color: var(--med-grey) !important;
-}
-
-.dark-mode .incorrect {
-  background-color: var(--dark-grey) !important;
-  border-color: var(--dark-grey) !important;
-}
-
-.empty-box {
-  border-color: var(--med-grey) !important;
-}
-
-.dark-mode .empty-box {
-  border-color: var(--dark-grey) !important;
-}
+/* ********************************** */
+/* ***   GLOBAL ELEMENT CLASSES   *** */
+/* ********************************** */
 
 /* --- GLOBAL MODAL STYLES --- */
 .modal__container {
@@ -174,7 +112,7 @@ body {
 
   display: flex;
   flex-direction: column;
-  
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -233,17 +171,18 @@ body {
   }
 }
 
+/* --- GLOBAL BUTTON CLASSES --- */
 .btn {
   padding: 10px 0;
-  
+
   border-radius: 5px;
-  
+
   background-color: var(--green);
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   cursor: pointer;
 
   transition: all 250ms;
@@ -259,6 +198,132 @@ body {
   margin: 0;
 }
 
+/* ************************** */
+/* ***       HEADER       *** */
+/* ************************** */
+.header__container {
+  width: 100%;
+
+  border-bottom: 1px solid;
+
+  margin: 8px 0;
+  padding: 0 5px;
+
+  justify-content: space-between;
+  align-items: center;
+
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}
+
+.modal-open .header__container {
+  opacity: 0.3;
+}
+
+.header__icon-div {
+  justify-content: center;
+}
+
+.header__btn {
+  width: min-content;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: var(--light-grey);
+}
+
+.dark-mode .header__btn {
+  color: var(--dark-grey);
+}
+
+.header__btn:disabled {
+  cursor: default;
+}
+
+.header__title {
+  min-width: fit-content;
+  font-size: 1.4em;
+  font-weight: 700;
+
+  /* border: 1px solid orange; */
+}
+
+@media (min-width: 450px) {
+  .header__icon-div {
+    padding: .25em;
+  }
+
+  .header__btn {
+    margin: 0 .25em;
+  }
+}
+
+/* ********************************** */
+/* ***    GLOBAL STYLE CLASSES    *** */
+/* ********************************** */
+
+/* --- GLOBAL BOTTOM BORDERS --- */
+.border-bottom {
+  border-bottom: 1px solid var(--lightest-grey);
+}
+
+.dark-mode .border-bottom {
+  border-bottom: 1px solid var(--dark-grey);
+}
+
+/* --- GLOBAL BOX BORDER STYLE --- */
+.box {
+  border: 2px solid;
+  /* border-color: inherit; */
+  border-radius: 1px;
+}
+
+.box-filled {
+  color: white;
+}
+
+/* --- GLOBAL COLOR CLASSES --- */
+
+.correct {
+  background-color: var(--green);
+  border-color: var(--green);
+}
+
+.high-contrast .correct {
+  background-color: var(--orange);
+  border-color: var(--orange);
+}
+
+.wrong-spot {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+}
+
+.high-contrast .wrong-spot {
+  background-color: var(--blue);
+  border-color: var(--blue);
+}
+
+.incorrect {
+  background-color: var(--med-grey);
+  border-color: var(--med-grey);
+}
+
+.dark-mode .incorrect {
+  background-color: var(--dark-grey);
+  border-color: var(--dark-grey);
+}
+
+.empty-box {
+  border-color: var(--med-grey);
+}
+
+.dark-mode .empty-box {
+  border-color: var(--dark-grey);
+}
+
+/* --- FLEXBOX CLASSES --- */
 .flex-row {
   display: flex;
   align-items: center;
