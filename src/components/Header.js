@@ -14,14 +14,14 @@ export default function Header(props) {
           onClick={toggleBobby}
           disabled={isModalOpen}
         >
-          <i className="fa-solid fa-bars"></i>
+          <i className="fa-solid fa-bars header__btn-icon"></i>
         </button>
         <button
           className="header__btn"
           onClick={toggleHelp}
           disabled={isModalOpen}
         >
-          <i className="far fa-question-circle"></i>
+          <i className="fa-regular fa-circle-question header__btn-icon"></i>
         </button>
       </div>
       <h1 className="header__title">BOBBY SHMURDLE</h1>
@@ -31,14 +31,14 @@ export default function Header(props) {
           onClick={toggleStats}
           disabled={isModalOpen}
         >
-          <i className="fas fa-chart-column"></i>
+          <i className="fa-solid fa-chart-column header__btn-icon"></i>
         </button>
         <button
           className="header__btn"
           onClick={toggleSettings}
           disabled={isModalOpen}
         >
-          <i className="fas fa-cog"></i>
+          <i className="fa-solid fa-gear header__btn-icon"></i>
         </button>
       </div>
     </header>
