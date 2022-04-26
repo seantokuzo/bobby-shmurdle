@@ -16,7 +16,7 @@ export default function App() {
   const [showHelp, setShowHelp] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [showBobby, setShowBobby] = useState(true)
+  const [showBobby, setShowBobby] = useState(false)
   // HARD MODE STATE
   const [hardMode, setHardMode] = useState(false)
   // GAME STATE
