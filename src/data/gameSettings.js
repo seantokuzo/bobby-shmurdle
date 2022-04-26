@@ -1,5 +1,5 @@
-const wordLength = 5
-const numberOfGuesses = 6
-const animeDelay = 350
+const WORD_LENGTH = 5
+const NUMBER_GUESSES = 6
+const ANIME_DELAY = 350
 
-export { wordLength, numberOfGuesses, animeDelay }
+export { WORD_LENGTH, NUMBER_GUESSES, ANIME_DELAY }

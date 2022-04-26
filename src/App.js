@@ -11,7 +11,8 @@ import './app.css'
 // import './components/Modals/settings.css'
 // import './components/Modals/bobby.css'
 import { getNewWord } from './utils/gameUtils'
-import { numberOfGuesses, wordLength } from './data/gameSettings'
+import { ANIME_DELAY, NUMBER_GUESSES, WORD_LENGTH } from './data/gameSettings'
+import { VALID_GUESSES } from './data/words/validGuesses'
 
 export default function App() {
   // MODAL DISPLAY STATE
@@ -22,34 +23,27 @@ export default function App() {
   // HARD MODE STATE
   const [hardMode, setHardMode] = useState(false)
   // GAME STATE
-  // const [answer, setAnswer] = useState(getNewWord())
-  const [answer, setAnswer] = useState(['S', 'Q', 'D', 'E', 'S'])
+  const [answer, setAnswer] = useState(getNewWord())
   console.log(answer)
-  const [currentGuess, setCurrentGuess] = useState(['A', 'S', 'S'])
-  console.log(currentGuess)
-  const [prevGuesses, setPrevGuesses] = useState([
-    ['D', 'E', 'R', 'P', 'S'],
-    ['B', 'U', 'R', 'P', 'S'],
-    ['S', 'Q', 'R', 'P', 'S']
-  ])
-  const [didWin, setDidWin] = useState(true)
+  const [currentGuess, setCurrentGuess] = useState([])
+  // console.log(currentGuess)
+  const [prevGuesses, setPrevGuesses] = useState([])
+  const [didWin, setDidWin] = useState(false)
   const [didLose, setDidLose] = useState(false)
   // USER STATS STATE
   const [streak, setStreak] = useState(53)
   const [maxStreak, setMaxStreak] = useState(57)
   const [guessStats, setGuessStats] = useState({
-    one: 1,
-    two: 7,
-    three: 23,
-    four: 41,
-    five: 34,
-    six: 17
+    one: 0,
+    two: 0,
+    three: 0,
+    four: 0,
+    five: 0,
+    six: 0
   })
-  const [wins, setWins] = useState(
-    Object.values(guessStats).reduce((a, b) => a + b)
-  )
-  const [losses, setLosses] = useState(Math.floor(wins * 0.1))
-  const [isRevealing, setIsRevealing] = useState(true)
+  const [wins, setWins] = useState(0)
+  const [losses, setLosses] = useState(0)
+  const [isRevealing, setIsRevealing] = useState(false)
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
@@ -60,18 +54,22 @@ export default function App() {
     }
   }, [showHelp, showStats, showSettings])
 
+  // useEffect(() => {
+
+  //   document.addEventListener('keydown', handleComputerKeyboard)
+
+  //   return document.addEventListener('keydown', handleComputerKeyboard)
+  // }, [])
+
   // COMPUTER KEYBOARD
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-
-    return document.addEventListener('keydown', handleKeyDown)
-  }, [])
-
-  const handleKeyDown = (e) => {
+  const handleComputerKeyboard = (e) => {
     const letterRegex = /[a-zA-z]/
     //TOGGLE BOBBY, HELP. STATS AND SETTINGS WITH KEYBOARD ENTER KEY
-    if (e.key === 'Enter' && showBobby) {
+    if (e.key === 'Enter' && showBobby && (didWin || didLose)) {
       exitBobby()
+      return
+    } else if (e.key === 'Enter' && showBobby) {
+      toggleBobby()
       return
     } else if (e.key === 'Enter' && showSettings) {
       toggleSettings()
@@ -87,8 +85,9 @@ export default function App() {
       e.key.length === 1 &&
       letterRegex.test(e.key) &&
       currentGuess.length >= 0 &&
-      currentGuess.length < wordLength
+      currentGuess.length < WORD_LENGTH
     ) {
+      console.log(currentGuess)
       setCurrentGuess((prevCurrentGuess) => [
         ...prevCurrentGuess,
         e.key.toUpperCase()
@@ -105,9 +104,87 @@ export default function App() {
       )
       //HANDLE ENTER KEY
     } else if (e.key === 'Enter' && !didWin && !didLose) {
-      submitGuess()
+      handleEnter()
       return
     } else return
+  }
+
+  // HANDLE APP KEYBOARD
+  //USING APP KEYBOARD - LETTERS
+  function handleKeyClick(key) {
+    if (currentGuess.length >= 0 && currentGuess.length < WORD_LENGTH) {
+      setCurrentGuess((prevCurrentGuess) => [...prevCurrentGuess, key])
+    }
+  }
+
+  //USING APP KEYBOARD - BACKSPACE
+  function handleBackspace() {
+    if (currentGuess.length > 0) {
+      setCurrentGuess((prevCurrentGuess) =>
+        prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
+      )
+    } else return
+  }
+
+  // HANDLE ENTER KEY
+  function handleEnter() {
+    //HANDLE WORDS LESS THAN 5 LETTERS
+    if (currentGuess.length !== WORD_LENGTH) {
+      alert("That ain't a 5 letters fool")
+      return
+      // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
+    } else if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
+      alert('Beep boop... cannot find your word on our (tiny) list')
+      return
+      //HANDLE A WIN
+    } else if (answer.every((letter, i) => letter === currentGuess[i])) {
+      setDidWin(true)
+      setWins((prevWins) => prevWins + 1)
+      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+      setCurrentGuess([])
+      setStreak((prevStreak) => prevStreak + 1)
+      if (streak + 1 > maxStreak) {
+        setMaxStreak((prevMaxStreak) => prevMaxStreak + 1)
+      }
+      setGuessStats((prevGuessStats) => {
+        const numberOfGuesses = prevGuesses.length + 1
+        const key = Object.keys(guessStats)[numberOfGuesses]
+        return {
+          ...prevGuessStats,
+          [key]: prevGuessStats[key] + 1
+        }
+      })
+      setIsRevealing(true)
+      setTimeout(() => {
+        setIsRevealing(false)
+        setShowBobby(true)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+      console.log('You win!')
+      return
+      //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
+    } else if (
+      prevGuesses.length >= 0 &&
+      prevGuesses.length < NUMBER_GUESSES - 1
+    ) {
+      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+      setCurrentGuess([])
+      setIsRevealing(true)
+      setTimeout(() => {
+        setIsRevealing(false)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+      return
+      //HANDLE LOSS
+    } else if (
+      prevGuesses.length === NUMBER_GUESSES - 1 &&
+      currentGuess !== answer
+    ) {
+      setDidLose(true)
+      setStreak(0)
+      setLosses((prevLosses) => prevLosses + 1)
+      setShowBobby(true)
+      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+      setCurrentGuess([])
+    }
   }
 
   // HEADER MODAL TOGGLES
@@ -133,16 +210,18 @@ export default function App() {
 
   function exitBobby() {
     setShowBobby(false)
-  }
-
-  function handleKeyClick(key) {
-    console.log(key)
+    setShowStats(true)
   }
 
   const isModalOpen = showHelp || showStats || showSettings || showBobby
 
   return (
-    <div className="app">
+    <div
+      className="app"
+      onKeyDown={handleComputerKeyboard}
+      tabIndex="0"
+      selected="selected"
+    >
       <Header
         isModalOpen={isModalOpen}
         toggleHelp={toggleHelp}
@@ -177,7 +256,7 @@ export default function App() {
       )}
       {showBobby && (
         <BobbyModal
-          exitBobby={exitBobby}
+          toggleBobby={toggleBobby}
           didWin={didWin}
           didLose={didLose}
           prevGuesses={prevGuesses}
@@ -192,6 +271,8 @@ export default function App() {
         />
         <Keyboard
           handleKeyClick={handleKeyClick}
+          handleBackspace={handleBackspace}
+          handleEnter={handleEnter}
           answer={answer}
           prevGuesses={prevGuesses}
         />

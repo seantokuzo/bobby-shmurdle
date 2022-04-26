@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import FilledRow from './FilledRow'
 import CurrentRow from './CurrentRow'
 import EmptyRow from './EmptyRow'
-import { numberOfGuesses } from '../../data/gameSettings'
+import { NUMBER_GUESSES } from '../../data/gameSettings'
 
 export default function GuessGrid(props) {
   const { answer, currentGuess, prevGuesses, isRevealing } = props
@@ -19,7 +19,7 @@ export default function GuessGrid(props) {
     />
   ))
 
-  const howManyEmpty = numberOfGuesses - 1 - prevGuesses.length
+  const howManyEmpty = NUMBER_GUESSES - 1 - prevGuesses.length
 
   const emptyRows = new Array(howManyEmpty)
     .fill('')

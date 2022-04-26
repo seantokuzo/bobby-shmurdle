@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { nanoid } from 'nanoid'
-import { wordLength, animeDelay } from '../../data/gameSettings'
+// import { WORD_LENGTH, ANIME_DELAY } from '../../data/gameSettings'
 
 export default function Keyboard(props) {
-  const { answer, prevGuesses, handleKeyClick } = props
+  const { answer, prevGuesses, handleKeyClick, handleBackspace, handleEnter } = props
 
   const guessedLettersArray = [
     ...new Set(
@@ -49,7 +49,7 @@ export default function Keyboard(props) {
     <div
       key="Enter"
       className="keys__key keys__key-btn keys__key-enter"
-      onClick={props.submitGuess}
+      onClick={handleEnter}
     >
       <p>ENTER</p>
     </div>
@@ -59,7 +59,7 @@ export default function Keyboard(props) {
     <div
       key="backspace"
       className="keys__key keys__key-btn"
-      onClick={props.handleBackspace}
+      onClick={handleBackspace}
     >
       <i className="fa-solid fa-delete-left keys__key-backspace"></i>
     </div>

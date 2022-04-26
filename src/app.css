@@ -67,6 +67,16 @@ body {
   align-items: center;
 }
 
+select .app {
+  border: 0px;
+  outline: 0px;
+}
+
+*:focus {
+  box-shadow: none;
+  outline: none;
+}
+
 @media (min-width: 500px) {
   .app {
     max-width: 500px;

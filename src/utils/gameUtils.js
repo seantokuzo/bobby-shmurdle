@@ -1,7 +1,7 @@
-import { WORDS } from '../data/words/wordList'
+import { ANSWERS_LIST } from '../data/words/wordList'
 
 export function getNewWord() {
-  const randex = Math.floor(Math.random() * WORDS.length)
-  const newWord = WORDS[randex].toUpperCase().split('')
+  const randex = Math.floor(Math.random() * ANSWERS_LIST.length)
+  const newWord = ANSWERS_LIST[randex].toUpperCase().split('')
   return newWord
 }
