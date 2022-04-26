@@ -1,7 +1,5 @@
-import React, { useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext'
+import React from 'react'
 import { nanoid } from 'nanoid'
-import './help.css'
 import {
   helpTitle,
   helpSubtitle,
@@ -10,10 +8,7 @@ import {
   exampleWords
 } from '../../data/modal-data/helpPageData.js'
 
-// HELP PAGE COMPONENT
 export default function HelpPage(props) {
-  const { darkMode, highContrastMode } = useContext(ThemeContext)
-
   const helpBoxClasses = (mapIndex, target, boxStatus) => {
     if (mapIndex === target) {
       return `help__eg-box box box-filled ${boxStatus}`
@@ -51,7 +46,7 @@ export default function HelpPage(props) {
     <div className="help__container modal__container">
       <div className="help__rules-div border-bottom">
         <h4 className="help__title modal__title">{helpTitle}</h4>
-        <h4 className="help__close modal__close" onClick={props.toggleHelp}>
+        <h4 className="modal__close" onClick={props.toggleHelp}>
           X
         </h4>
         <p className="modal__text">{helpText[0]}</p>

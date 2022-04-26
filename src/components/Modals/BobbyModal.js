@@ -1,5 +1,4 @@
 import React from 'react'
-import './bobby.css'
 import {
   bobbyWinGifs,
   bobbyLoseGifs,
@@ -35,13 +34,13 @@ export default function BobbyModal(props) {
 
   const MarkUp = (
     <div className="modal__container bobby__container flex-column">
-      <p className="modal__close" onClick={exitBobby}>
+      <h4 className="modal__close" onClick={exitBobby}>
         X
-      </p>
+      </h4>
       <h1 className="modal__title bobby__title">{choosePhrase}</h1>
       <img
         src={chooseGif}
-        className="winlose--bobby"
+        className="bobby__gif"
         alt="Bobby Shmurda Dancing"
       />
     </div>

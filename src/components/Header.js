@@ -24,12 +24,7 @@ export default function Header(props) {
           <i className="far fa-question-circle"></i>
         </button>
       </div>
-      <h1
-        className="header__title"
-        style={{ color: darkMode ? '#FFFFFF' : '#000000' }}
-      >
-        BOBBY SHMURDLE
-      </h1>
+      <h1 className="header__title">BOBBY SHMURDLE</h1>
       <div className="header__icon-div flex-row">
         <button
           className="header__btn"

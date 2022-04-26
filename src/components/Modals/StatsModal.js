@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import './stats.css'
 import { ThemeContext } from '../context/ThemeContext'
 
 export default function StatsModal(props) {
@@ -11,13 +10,13 @@ export default function StatsModal(props) {
 
   const maxBarWidth =
     windowWidth > 450
-      ? 325
+      ? 280
       : windowWidth > 425
-      ? 300
+      ? 260
       : windowWidth > 400
-      ? 275
-      : windowWidth > 350
       ? 250
+      : windowWidth > 350
+      ? 220
       : 200
 
   // DESTRUCTURE USER STATS FROM PROPS
@@ -47,52 +46,50 @@ export default function StatsModal(props) {
   }, [windowWidth])
 
   const stats = (
-    <div className="stats__stat--nonchart-container flex-row">
-      <div className="stat--nonchart-div">
-        <h2 className="stat--nonchart-stat">{wins + losses}</h2>
-        <p className="stat--nonchart-text">Played</p>
+    <div className="stats__stat-container flex-row">
+      <div className="stats__stat-div">
+        <h2 className="stats__stat-stat">{wins + losses}</h2>
+        <p className="stats__stat-text">Played</p>
         <br />
       </div>
-      <div className="stat--nonchart-div">
-        <h2 className="stat--nonchart-stat">
+      <div className="stats__stat-div">
+        <h2 className="stats__stat-stat">
           {wins + losses === 0 ? 0 : Math.floor((wins / (wins + losses)) * 100)}
         </h2>
-        <p className="stat--nonchart-text">Win %</p>
+        <p className="stats__stat-text">Win %</p>
         <br />
       </div>
-      <div className="stat--nonchart-div">
-        <h2 className="stat--nonchart-stat">{streak}</h2>
-        <p className="stat--nonchart-text min-content">Current Streak</p>
+      <div className="stats__stat-div">
+        <h2 className="stats__stat-stat">{streak}</h2>
+        <p className="stats__stat-text min-content">Current Streak</p>
       </div>
-      <div className="stat--nonchart-div">
-        <h2 className="stat--nonchart-stat">{maxStreak}</h2>
-        <p className="stat--nonchart-text min-content">Max Streak</p>
+      <div className="stats__stat-div">
+        <h2 className="stats__stat-stat">{maxStreak}</h2>
+        <p className="stats__stat-text min-content">Max Streak</p>
       </div>
     </div>
   )
 
   const chart = guessStatsValues.map((n, i) => (
-    <div className="stats--chart-div" key={`chart-bar${i}`}>
-      <div className="chart-guess-stat-div">
-        <div className="chart-label-div">
-          <p className="chart-guess-stat-label">{i + 1}</p>
-        </div>
+    <div className="stats__chart-container" key={`chart-bar${i}`}>
+      <div className="stats__chart-bar-container flex-row">
+        <p className="chart-guess-stat-label">{i + 1}</p>
         <div
           className={
             props.didWin && props.lastGameGuessCount === i + 1
-              ? 'chart-bar-div correct'
-              : 'chart-bar-div'
+              ? 'stats__chart-bar flex-row correct'
+              : 'stats__chart-bar flex-row'
           }
           style={{ width: chartWidthArray[i] + 'px' }}
         >
-          <p className="chart-bar-text">{guessStatsValues[i]}</p>
+          <p className="stats__chart-bar-text">{guessStatsValues[i]}</p>
         </div>
       </div>
     </div>
   ))
 
   const statsButtons = (
-    <div className="stats__buttons-div">
+    <div className="stats__buttons-div flex-row">
       <div className="btn stats__btn" onClick={props.newGame}>
         <h3 className="btn--text">NEW GAME</h3>
       </div>
@@ -102,14 +99,14 @@ export default function StatsModal(props) {
         onClick={props.shareStats}
       >
         <h3 className="btn--text">SHARE</h3>
-        <i className="fas fa-share-alt share-icon"></i>
+        <i className="fas fa-share-alt stats__btn-share-icon"></i>
       </div>
     </div>
   )
 
   return (
     <div className="modal__container stats__container">
-      <h4 className="modal__title stats__title">STATISTICS</h4>
+      <h4 className="modal__title">STATISTICS</h4>
       <h4 className="modal__close" onClick={props.toggleStats}>
         X
       </h4>

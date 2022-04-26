@@ -4,9 +4,8 @@ import HelpModal from './components/Modals/HelpModal'
 import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
 import BobbyModal from './components/Modals/BobbyModal'
+import Box from './components/GuessGrid/Box'
 import './app.css'
-// import './components/header.css'
-// import './components/Modals/help.css'
 // import './components/Modals/stats.css'
 // import './components/Modals/settings.css'
 // import './components/Modals/bobby.css'
@@ -17,7 +16,7 @@ export default function App() {
   const [showHelp, setShowHelp] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-  const [showBobby, setShowBobby] = useState(false)
+  const [showBobby, setShowBobby] = useState(true)
   // HARD MODE STATE
   const [hardMode, setHardMode] = useState(false)
   // GAME STATE
@@ -175,6 +174,7 @@ export default function App() {
           prevGuesses={prevGuesses}
         />
       )}
+      {/* <Box /> */}
     </div>
   )
 }
