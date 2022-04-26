@@ -6,7 +6,7 @@ function ThemeContextProvider(props) {
     '(prefers-color-scheme: dark)'
   ).matches
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
   const [highContrastMode, setHighContrastMode] = useState(false)
 
   function toggleDarkMode() {

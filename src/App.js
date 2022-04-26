@@ -5,6 +5,7 @@ import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
 import BobbyModal from './components/Modals/BobbyModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
+import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
 // import './components/Modals/stats.css'
 // import './components/Modals/settings.css'
@@ -21,7 +22,8 @@ export default function App() {
   // HARD MODE STATE
   const [hardMode, setHardMode] = useState(false)
   // GAME STATE
-  const [answer, setAnswer] = useState(getNewWord())
+  // const [answer, setAnswer] = useState(getNewWord())
+  const [answer, setAnswer] = useState(['S', 'Q', 'D', 'E', 'S'])
   console.log(answer)
   const [currentGuess, setCurrentGuess] = useState(['A', 'S', 'S'])
   console.log(currentGuess)
@@ -133,6 +135,10 @@ export default function App() {
     setShowBobby(false)
   }
 
+  function handleKeyClick(key) {
+    console.log(key)
+  }
+
   const isModalOpen = showHelp || showStats || showSettings || showBobby
 
   return (
@@ -177,12 +183,19 @@ export default function App() {
           prevGuesses={prevGuesses}
         />
       )}
-      <GuessGrid
-        answer={answer}
-        currentGuess={currentGuess}
-        prevGuesses={prevGuesses}
-        isRevealing={isRevealing}
-      />
+      <div className="game__container flex-column">
+        <GuessGrid
+          answer={answer}
+          currentGuess={currentGuess}
+          prevGuesses={prevGuesses}
+          isRevealing={isRevealing}
+        />
+        <Keyboard
+          handleKeyClick={handleKeyClick}
+          answer={answer}
+          prevGuesses={prevGuesses}
+        />
+      </div>
     </div>
   )
 }

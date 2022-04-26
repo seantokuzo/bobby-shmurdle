@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { nanoid } from 'nanoid'
+import { animeDelay } from '../../data/gameSettings'
 
 export default function FilledRow(props) {
   const { guess, answer, index, isRevealing, prevGuesses } = props
 
   const animate = isRevealing && index === prevGuesses.length - 1
-
-  const delay = 500
 
   useEffect(() => {
     if (isRevealing) {
@@ -21,7 +20,7 @@ export default function FilledRow(props) {
             } else {
               flipper.classList.add('incorrect')
             }
-          }, delay * ind + delay + delay / 4)
+          }, animeDelay * ind + animeDelay + animeDelay / 4)
         })
       }
     }
@@ -32,7 +31,7 @@ export default function FilledRow(props) {
       {guess.map((letter, i) => (
         <div
           className={animate ? 'guess-box box-flip' : 'guess-box'}
-          style={{ animationDelay: `${delay * (i + 1)}ms` }}
+          style={{ animationDelay: `${animeDelay * (i + 1)}ms` }}
           key={nanoid()}
         >
           <h1 className="guess-box-text">{letter}</h1>
