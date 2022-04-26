@@ -96,6 +96,58 @@ body {
 /* ***     GUESS GRID     *** */
 /* ************************** */
 
+.grid__container {
+  width: 100%;
+}
+
+.guess-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guess-box {
+  width: 3.9em;
+  height: 3.9em;
+  border-radius: 1px;
+  margin: .15em;
+  padding: 0;
+  border: 2px solid;
+  border-color: var(--light-grey);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark-mode .guess-box {
+  border-color: var(--dark-grey);
+}
+
+.box-flip {
+  animation-name: flip;
+  animation-duration: 500ms;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+
+  }
+}
+
+.guess-box-text {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+.dark-mode .guess-box-text {
+  color: #ffffff;
+}
+
 /* ************************** */
 /* ***       HEADER       *** */
 /* ************************** */
@@ -143,7 +195,7 @@ body {
 
 .header__title {
   min-width: fit-content;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: 700;
   margin: 0;
 
@@ -622,8 +674,8 @@ body {
 }
 
 .incorrect {
-  background-color: var(--med-grey);
-  border-color: var(--med-grey);
+  background-color: var(--light-grey);
+  border-color: var(--light-grey);
 }
 
 .dark-mode .incorrect {

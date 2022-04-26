@@ -4,12 +4,13 @@ import HelpModal from './components/Modals/HelpModal'
 import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
 import BobbyModal from './components/Modals/BobbyModal'
-import Box from './components/GuessGrid/Box'
+import GuessGrid from './components/GuessGrid/GuessGrid'
 import './app.css'
 // import './components/Modals/stats.css'
 // import './components/Modals/settings.css'
 // import './components/Modals/bobby.css'
 import { getNewWord } from './utils/gameUtils'
+import { numberOfGuesses, wordLength } from './data/gameSettings'
 
 export default function App() {
   // MODAL DISPLAY STATE
@@ -22,8 +23,13 @@ export default function App() {
   // GAME STATE
   const [answer, setAnswer] = useState(getNewWord())
   console.log(answer)
-  const [currentGuess, setCurrentGuess] = useState([])
-  const [prevGuesses, setPrevGuesses] = useState([1, 2, 3])
+  const [currentGuess, setCurrentGuess] = useState(['A', 'S', 'S'])
+  console.log(currentGuess)
+  const [prevGuesses, setPrevGuesses] = useState([
+    ['D', 'E', 'R', 'P', 'S'],
+    ['B', 'U', 'R', 'P', 'S'],
+    ['S', 'Q', 'R', 'P', 'S']
+  ])
   const [didWin, setDidWin] = useState(true)
   const [didLose, setDidLose] = useState(false)
   // USER STATS STATE
@@ -41,6 +47,7 @@ export default function App() {
     Object.values(guessStats).reduce((a, b) => a + b)
   )
   const [losses, setLosses] = useState(Math.floor(wins * 0.1))
+  const [isRevealing, setIsRevealing] = useState(true)
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
@@ -51,26 +58,26 @@ export default function App() {
     }
   }, [showHelp, showStats, showSettings])
 
+  // COMPUTER KEYBOARD
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown)
 
-    return window.addEventListener('keydown', handleKeyDown)
-  })
+    return document.addEventListener('keydown', handleKeyDown)
+  }, [])
 
-  //COMPUTER KEYBOARD
   const handleKeyDown = (e) => {
     const letterRegex = /[a-zA-z]/
     //TOGGLE BOBBY, HELP. STATS AND SETTINGS WITH KEYBOARD ENTER KEY
-    if (e.key === 'Enter' && bobby) {
+    if (e.key === 'Enter' && showBobby) {
       exitBobby()
       return
-    } else if (e.key === 'Enter' && viewSettings) {
+    } else if (e.key === 'Enter' && showSettings) {
       toggleSettings()
       return
-    } else if (e.key === 'Enter' && needHelp) {
+    } else if (e.key === 'Enter' && showHelp) {
       toggleHelp()
       return
-    } else if (e.key === 'Enter' && (viewStats || didWin || didLose)) {
+    } else if (e.key === 'Enter' && (showStats || didWin || didLose)) {
       toggleStats()
       return
       //ADD LETTER TO CURRENT GUESS IF CURRENT GUESS HAS ROOM
@@ -78,12 +85,12 @@ export default function App() {
       e.key.length === 1 &&
       letterRegex.test(e.key) &&
       currentGuess.length >= 0 &&
-      currentGuess.length < 5
+      currentGuess.length < wordLength
     ) {
-      setWordleState((prevWordleState) => ({
-        ...prevWordleState,
-        currentGuess: [...prevWordleState.currentGuess, e.key.toUpperCase()]
-      }))
+      setCurrentGuess((prevCurrentGuess) => [
+        ...prevCurrentGuess,
+        e.key.toUpperCase()
+      ])
       return
       //HANDLE BACKSPACE
     } else if (
@@ -91,13 +98,9 @@ export default function App() {
       currentGuess.length > 0 &&
       currentGuess.length <= 5
     ) {
-      return setWordleState((prevWordleState) => ({
-        ...prevWordleState,
-        currentGuess: prevWordleState.currentGuess.slice(
-          0,
-          prevWordleState.currentGuess.length - 1
-        )
-      }))
+      return setCurrentGuess((prevCurrentGuess) =>
+        prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
+      )
       //HANDLE ENTER KEY
     } else if (e.key === 'Enter' && !didWin && !didLose) {
       submitGuess()
@@ -174,7 +177,12 @@ export default function App() {
           prevGuesses={prevGuesses}
         />
       )}
-      {/* <Box /> */}
+      <GuessGrid
+        answer={answer}
+        currentGuess={currentGuess}
+        prevGuesses={prevGuesses}
+        isRevealing={isRevealing}
+      />
     </div>
   )
 }
