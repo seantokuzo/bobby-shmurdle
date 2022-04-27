@@ -193,39 +193,13 @@ export default function App() {
 
   function newGame() {
     //HANDLE NEW GAME PRESS DURING CURRENT GAME
-    if (!didWin && !didLose) {
-      setAnswer(getNewWord())
-      setCurrentGuess([])
-      setDidLose(false)
-      setDidWin(false)
-    }
-
-    if (!wordleState.didWin && !wordleState.didLose) {
-      setWordleState((prevWordleState) => ({
-        ...prevWordleState,
-        answer: firstWord,
-        currentGuess: [],
-        prevGuesses: [],
-        didWin: false,
-        didLose: false,
-        viewStats: false,
-        viewSettings: false
-      }))
-      // console.log(wordleState.answer)
-      //HANDLE NEW GAME PRESS ON WIN / LOSE PAGE
-    } else if (wordleState.didWin || wordleState.didLose) {
-      setWordleState((prevWordleState) => ({
-        ...prevWordleState,
-        answer:
-          wordsArray[Math.floor(Math.random() * wordsArray.length)].split(''),
-        currentGuess: [],
-        prevGuesses: [],
-        didWin: false,
-        didLose: false,
-        viewStats: false
-      }))
-      // console.log(wordleState.answer)
-    }
+    setAnswer(getNewWord())
+    setCurrentGuess([])
+    setPrevGuesses([])
+    setDidLose(false)
+    setDidWin(false)
+    setShowStats(false)
+    setShowSettings(false)
   }
 
   // HEADER MODAL TOGGLES
@@ -277,6 +251,7 @@ export default function App() {
           toggleSettings={toggleSettings}
           hardMode={hardMode}
           toggleHardMode={toggleHardMode}
+          newGame={newGame}
         />
       )}
       {showStats && (
@@ -291,7 +266,7 @@ export default function App() {
           }}
           didWin={didWin}
           lastGameGuessCount={prevGuesses.length}
-          // newGame={newGame}
+          newGame={newGame}
           // shareStats={shareStats}
         />
       )}
@@ -315,6 +290,7 @@ export default function App() {
         handleEnter={handleEnter}
         answer={answer}
         prevGuesses={prevGuesses}
+        isRevealing={isRevealing}
       />
     </div>
   )

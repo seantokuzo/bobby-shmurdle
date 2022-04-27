@@ -1,10 +1,14 @@
 const bobbyWinGifs = [
+  'https://i.pinimg.com/originals/6b/7c/67/6b7c6706c9363489b107c1c8f567433a.gif',
   'https://c.tenor.com/o8ZvXkfdEXMAAAAC/bobby-shmurda.gif',
-  'https://i.makeagif.com/media/6-22-2015/iEVrt1.gif'
+  'https://i.makeagif.com/media/6-22-2015/iEVrt1.gif',
+  'https://c.tenor.com/jYeLbQaDIK4AAAAC/bobby-bitch.gif'
 ]
 const bobbyLoseGifs = [
   'https://33.media.tumblr.com/bd7197e49d33c4cd32b365698db3e233/tumblr_nel4hwyLgi1qcuv78o2_500.gif',
-  'https://media0.giphy.com/media/2OMvJ309FxUGc/200.gif'
+  'https://media0.giphy.com/media/2OMvJ309FxUGc/200.gif',
+  'https://thumbs.gfycat.com/CooperativeWelcomeFrilledlizard-max-1mb.gif',
+  'https://cdn8.hifigif.cc/picture/original/nUE0pUZ6Yl90nUIgLaZhM_M5L_S0YzAioF9FLKWyDaWin_IhDJ1ypzywLJ5vnKE0MKWhYKAcrzIspzImqUWcL3EyMP5anJLcXltbFTyTnHqWEv5wLlyspzSlMJWlo_gyozSgMKWcL_ShLzy0qTIlov1mnKcyYKWyp3ElnJA0MJDhM_yz/(HiFiGIF.cc)_rowdy-rebel-ft-bobby-shmurda-shmoney-dance-official-music-video-dir-by-fettifilms-full.gif'
 ]
 
 const winInOnePhrase = [
@@ -62,7 +66,7 @@ const losePhrase = [
 
 const gameNotOverPhrase = [
   "DON'T LET BOBBY DOWN",
-  'SMURRRRDLE',
+  'SHMURRRRDLE',
   'YOU GOT THIS',
   'NO PRESSURE BUT I BET ALOT OF MONEY ON YOU'
 ]

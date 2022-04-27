@@ -108,6 +108,13 @@ select .app {
 .grid__container {
   width: 100%;
   margin-top: 10px;
+  opacity: 1;
+  
+  transition: all 250ms;
+}
+  
+.modal-open .grid__container {
+  opacity: 0.3;
 }
 
 .guess-row {
@@ -169,8 +176,16 @@ select .app {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 10px auto 10px auto;
+  margin: 10px auto;
   z-index: 1;
+
+  opacity: 1;
+
+  transition: all 250ms;
+}
+
+.modal-open .keys__container {
+  opacity: 0.3;
 }
 
 .keys__row-div {
@@ -205,6 +220,8 @@ select .app {
 .keys__key-letter {
   width: 1.75rem;
   margin: 0 3px;
+
+  transition: all 250ms ease-in-out;
 }
 
 .keys__key-text {
