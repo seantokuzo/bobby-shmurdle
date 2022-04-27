@@ -13,9 +13,6 @@ export default function GuessGrid(props) {
       guess={guess}
       answer={answer}
       key={nanoid()}
-      index={i}
-      isRevealing={isRevealing}
-      prevGuesses={prevGuesses}
     />
   ))
 
@@ -28,7 +25,11 @@ export default function GuessGrid(props) {
   const guessGrid = (
     <div className="grid__container">
       {filledRows}
-      <CurrentRow currentGuess={currentGuess} />
+      <CurrentRow
+        currentGuess={currentGuess}
+        isRevealing={isRevealing}
+        answer={answer}
+      />
       {emptyRows}
     </div>
   )

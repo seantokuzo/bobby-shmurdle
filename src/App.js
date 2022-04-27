@@ -140,8 +140,6 @@ export default function App() {
     } else if (answer.every((letter, i) => letter === currentGuess[i])) {
       setDidWin(true)
       setWins((prevWins) => prevWins + 1)
-      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-      setCurrentGuess([])
       setStreak((prevStreak) => prevStreak + 1)
       if (streak + 1 > maxStreak) {
         setMaxStreak((prevMaxStreak) => prevMaxStreak + 1)
@@ -158,6 +156,8 @@ export default function App() {
       setTimeout(() => {
         setIsRevealing(false)
         setShowBobby(true)
+        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+        setCurrentGuess([])
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
       console.log('You win!')
       return
@@ -166,11 +166,11 @@ export default function App() {
       prevGuesses.length >= 0 &&
       prevGuesses.length < NUMBER_GUESSES - 1
     ) {
-      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-      setCurrentGuess([])
       setIsRevealing(true)
       setTimeout(() => {
         setIsRevealing(false)
+        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+        setCurrentGuess([])
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
       return
       //HANDLE LOSS
@@ -178,12 +178,53 @@ export default function App() {
       prevGuesses.length === NUMBER_GUESSES - 1 &&
       currentGuess !== answer
     ) {
+      setIsRevealing(true)
       setDidLose(true)
       setStreak(0)
       setLosses((prevLosses) => prevLosses + 1)
-      setShowBobby(true)
-      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+      setTimeout(() => {
+        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+        setCurrentGuess([])
+        setIsRevealing(false)
+        setShowBobby(true)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+    }
+  }
+
+  function newGame() {
+    //HANDLE NEW GAME PRESS DURING CURRENT GAME
+    if (!didWin && !didLose) {
+      setAnswer(getNewWord())
       setCurrentGuess([])
+      setDidLose(false)
+      setDidWin(false)
+    }
+
+    if (!wordleState.didWin && !wordleState.didLose) {
+      setWordleState((prevWordleState) => ({
+        ...prevWordleState,
+        answer: firstWord,
+        currentGuess: [],
+        prevGuesses: [],
+        didWin: false,
+        didLose: false,
+        viewStats: false,
+        viewSettings: false
+      }))
+      // console.log(wordleState.answer)
+      //HANDLE NEW GAME PRESS ON WIN / LOSE PAGE
+    } else if (wordleState.didWin || wordleState.didLose) {
+      setWordleState((prevWordleState) => ({
+        ...prevWordleState,
+        answer:
+          wordsArray[Math.floor(Math.random() * wordsArray.length)].split(''),
+        currentGuess: [],
+        prevGuesses: [],
+        didWin: false,
+        didLose: false,
+        viewStats: false
+      }))
+      // console.log(wordleState.answer)
     }
   }
 
@@ -262,21 +303,19 @@ export default function App() {
           prevGuesses={prevGuesses}
         />
       )}
-      <div className="game__container flex-column">
-        <GuessGrid
-          answer={answer}
-          currentGuess={currentGuess}
-          prevGuesses={prevGuesses}
-          isRevealing={isRevealing}
-        />
-        <Keyboard
-          handleKeyClick={handleKeyClick}
-          handleBackspace={handleBackspace}
-          handleEnter={handleEnter}
-          answer={answer}
-          prevGuesses={prevGuesses}
-        />
-      </div>
+      <GuessGrid
+        answer={answer}
+        currentGuess={currentGuess}
+        prevGuesses={prevGuesses}
+        isRevealing={isRevealing}
+      />
+      <Keyboard
+        handleKeyClick={handleKeyClick}
+        handleBackspace={handleBackspace}
+        handleEnter={handleEnter}
+        answer={answer}
+        prevGuesses={prevGuesses}
+      />
     </div>
   )
 }
