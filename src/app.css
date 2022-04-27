@@ -164,9 +164,6 @@ select .app {
 .guess-box-text {
   font-size: 2.5em;
   font-weight: 600;
-}
-
-.dark-mode .guess-box-text {
   color: #ffffff;
 }
 
