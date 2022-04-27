@@ -23,16 +23,17 @@ export default function App() {
   // HARD MODE STATE
   const [hardMode, setHardMode] = useState(false)
   // GAME STATE
-  const [answer, setAnswer] = useState(getNewWord())
-  console.log(answer)
+  const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
+  // const [answer, setAnswer] = useState(getNewWord())
+  // console.log(answer)
   const [currentGuess, setCurrentGuess] = useState([])
   // console.log(currentGuess)
   const [prevGuesses, setPrevGuesses] = useState([])
   const [didWin, setDidWin] = useState(false)
   const [didLose, setDidLose] = useState(false)
   // USER STATS STATE
-  const [streak, setStreak] = useState(53)
-  const [maxStreak, setMaxStreak] = useState(57)
+  const [streak, setStreak] = useState(0)
+  const [maxStreak, setMaxStreak] = useState(0)
   const [guessStats, setGuessStats] = useState({
     one: 0,
     two: 0,
@@ -47,19 +48,12 @@ export default function App() {
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
-    if (showHelp || showStats || showSettings) {
+    if (showHelp || showStats || showSettings || showBobby) {
       document.body.classList.add('modal-open')
     } else {
       document.body.classList.remove('modal-open')
     }
-  }, [showHelp, showStats, showSettings])
-
-  // useEffect(() => {
-
-  //   document.addEventListener('keydown', handleComputerKeyboard)
-
-  //   return document.addEventListener('keydown', handleComputerKeyboard)
-  // }, [])
+  }, [showHelp, showStats, showSettings, showBobby])
 
   // COMPUTER KEYBOARD
   const handleComputerKeyboard = (e) => {
@@ -87,7 +81,7 @@ export default function App() {
       currentGuess.length >= 0 &&
       currentGuess.length < WORD_LENGTH
     ) {
-      console.log(currentGuess)
+      // console.log(currentGuess)
       setCurrentGuess((prevCurrentGuess) => [
         ...prevCurrentGuess,
         e.key.toUpperCase()
@@ -145,7 +139,7 @@ export default function App() {
         setMaxStreak((prevMaxStreak) => prevMaxStreak + 1)
       }
       setGuessStats((prevGuessStats) => {
-        const numberOfGuesses = prevGuesses.length + 1
+        const numberOfGuesses = prevGuesses.length
         const key = Object.keys(guessStats)[numberOfGuesses]
         return {
           ...prevGuessStats,
@@ -193,7 +187,8 @@ export default function App() {
 
   function newGame() {
     //HANDLE NEW GAME PRESS DURING CURRENT GAME
-    setAnswer(getNewWord())
+    setAnswer(['F', 'A', 'R', 'T', 'S'])
+    // setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
     setDidLose(false)
@@ -272,6 +267,7 @@ export default function App() {
       )}
       {showBobby && (
         <BobbyModal
+          exitBobby={exitBobby}
           toggleBobby={toggleBobby}
           didWin={didWin}
           didLose={didLose}

@@ -6,7 +6,6 @@ export default function CurrentRow(props) {
   const { currentGuess, answer, isRevealing } = props
 
   useEffect(() => {
-    console.log(isRevealing)
     if (isRevealing) {
       const flippers = document.getElementsByClassName('box-flip')
       if (flippers) {

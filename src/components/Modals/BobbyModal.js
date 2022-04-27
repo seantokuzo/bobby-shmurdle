@@ -12,7 +12,7 @@ import {
 } from '../../data/bobbyData.js'
 
 export default function BobbyModal(props) {
-  const { didWin, didLose, prevGuesses, toggleBobby } = props
+  const { didWin, didLose, prevGuesses, exitBobby, toggleBobby } = props
 
   const chooseGif = didWin
     ? bobbyWinGifs[Math.floor(Math.random() * bobbyWinGifs.length)]
@@ -34,15 +34,14 @@ export default function BobbyModal(props) {
 
   const MarkUp = (
     <div className="modal__container bobby__container flex-column">
-      <h4 className="modal__close" onClick={toggleBobby}>
+      <h4
+        className="modal__close"
+        onClick={didWin || didLose ? exitBobby : toggleBobby}
+      >
         X
       </h4>
       <h1 className="modal__title bobby__title">{choosePhrase}</h1>
-      <img
-        src={chooseGif}
-        className="bobby__gif"
-        alt="Bobby Shmurda Dancing"
-      />
+      <img src={chooseGif} className="bobby__gif" alt="Bobby Shmurda Dancing" />
     </div>
   )
 

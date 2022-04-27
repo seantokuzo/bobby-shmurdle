@@ -5590,7 +5590,6 @@ export const ANSWERS_LIST = [
   'whoso',
   'rials',
   'sawer',
-  'spics',
   'bedim',
   'snugs',
   'fanin',
