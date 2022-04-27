@@ -3,14 +3,8 @@ import { nanoid } from 'nanoid'
 // import { WORD_LENGTH, ANIME_DELAY } from '../../data/gameSettings'
 
 export default function Keyboard(props) {
-  const {
-    answer,
-    prevGuesses,
-    handleKeyClick,
-    handleBackspace,
-    handleEnter,
-    isRevealing
-  } = props
+  const { answer, prevGuesses, handleKeyClick, handleBackspace, handleEnter } =
+    props
 
   const guessedLettersArray = [
     ...new Set(

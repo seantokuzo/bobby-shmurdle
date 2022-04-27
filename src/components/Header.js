@@ -1,9 +1,7 @@
-import React, { useContext } from 'react'
-import { ThemeContext } from './context/ThemeContext'
+import React from 'react'
 
 export default function Header(props) {
-  const { darkMode } = useContext(ThemeContext)
-  const { isModalOpen, toggleHelp, toggleStats, toggleSettings, toggleBobby } =
+  const { toggleHelp, toggleStats, toggleSettings, toggleBobby } =
     props
 
   const header = (
