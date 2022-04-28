@@ -57,7 +57,7 @@ export default function App() {
   const [didLose, setDidLose] = useState(false)
 
   // STATE LOGS
-  console.log(answer)
+  // console.log(answer)
   // console.log(currentGuess)
   // console.log(prevGuesses)
 

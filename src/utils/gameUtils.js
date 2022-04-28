@@ -1,9 +1,9 @@
 import { ANSWERS_LIST } from '../data/words/wordList'
-import { UAParser } from 'ua-parser-js'
-const webShareApiDeviceTypes = ['mobile', 'smarttv', 'wearable']
-const parser = new UAParser()
-const browser = parser.getBrowser()
-const device = parser.getDevice()
+// import { UAParser } from 'ua-parser-js'
+// const webShareApiDeviceTypes = ['mobile', 'smarttv', 'wearable']
+// const parser = new UAParser()
+// const browser = parser.getBrowser()
+// const device = parser.getDevice()
 
 // GET A NEW ANSWER
 function getNewWord() {
@@ -74,9 +74,11 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode) {
       } else if (!answer.includes(letter)) {
         squareGrid = squareGrid + getSquare('incorrect')
       }
-      if (i === guess.length) squareGrid = squareGrid + '\n'
+      if (i === guess.length - 1) squareGrid = squareGrid + '\n'
     })
   })
+
+  console.log(squareGrid)
 
   const score = `${prevGuesses.length}/${answer.length}`
   const game = `${score}\n${answer.join('')}\n\n${squareGrid}`
@@ -94,7 +96,6 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode) {
   } catch (error) {
     shareSuccess = false
   }
-
   if (!shareSuccess) {
     navigator.clipboard.writeText(message)
     alert('Score copied to clipboard')
