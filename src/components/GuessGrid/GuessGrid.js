@@ -8,8 +8,18 @@ import { NUMBER_GUESSES } from '../../data/gameSettings'
 export default function GuessGrid(props) {
   const { answer, currentGuess, prevGuesses, isRevealing, didWin } = props
 
+  console.log(isRevealing)
+
   const filledRows = prevGuesses.map((guess, i) => (
-    <FilledRow guess={guess} answer={answer} didWin={didWin} row={i + 1} prevGuesses={prevGuesses} key={nanoid()} />
+    <FilledRow
+      guess={guess}
+      answer={answer}
+      didWin={didWin}
+      row={i + 1}
+      prevGuesses={prevGuesses}
+      isRevealing={isRevealing}
+      key={nanoid()}
+    />
   ))
 
   const emptyRows =

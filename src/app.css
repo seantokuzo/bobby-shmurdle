@@ -167,15 +167,18 @@ select .app {
 
 @keyframes jump {
   0% {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
+  }
+  10% {
+    transform: translateY(0) scaleY(.75);
   }
 
-  50% {
-    transform: translateY(-25px);
+  55% {
+    transform: translateY(-30px) scaleY(1);
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
   }
 }
 

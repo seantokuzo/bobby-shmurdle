@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import { WIN_ANIME_DELAY, WIN_ANIME_DURATION } from '../../data/gameSettings'
 
 export default function FilledRow(props) {
-  const { guess, answer, didWin, row, prevGuesses } = props
+  const { guess, answer, isRevealing, didWin, row, prevGuesses } = props
 
   const delay = (ind) => WIN_ANIME_DELAY * ind
 
@@ -12,7 +12,10 @@ export default function FilledRow(props) {
       {guess.map((letter, i) => (
         <div
           className={
-            letter === answer[i] && didWin && row === prevGuesses.length
+            letter === answer[i] &&
+            didWin &&
+            !isRevealing &&
+            row === prevGuesses.length
               ? 'guess-box guess-box-win correct'
               : letter === answer[i]
               ? 'guess-box correct'
