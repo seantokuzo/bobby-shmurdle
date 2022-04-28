@@ -6,10 +6,10 @@ import EmptyRow from './EmptyRow'
 import { NUMBER_GUESSES } from '../../data/gameSettings'
 
 export default function GuessGrid(props) {
-  const { answer, currentGuess, prevGuesses, isRevealing } = props
+  const { answer, currentGuess, prevGuesses, isRevealing, didWin } = props
 
   const filledRows = prevGuesses.map((guess, i) => (
-    <FilledRow guess={guess} answer={answer} key={nanoid()} />
+    <FilledRow guess={guess} answer={answer} didWin={didWin} row={i + 1} prevGuesses={prevGuesses} key={nanoid()} />
   ))
 
   const emptyRows =
@@ -26,9 +26,9 @@ export default function GuessGrid(props) {
       {filledRows}
       {prevGuesses.length < NUMBER_GUESSES && (
         <CurrentRow
+          answer={answer}
           currentGuess={currentGuess}
           isRevealing={isRevealing}
-          answer={answer}
         />
       )}
       {emptyRows}

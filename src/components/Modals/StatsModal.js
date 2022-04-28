@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext'
+import React, { useState, useEffect } from 'react'
 
 export default function StatsModal(props) {
-  const { darkMode, highContrastMode } = useContext(ThemeContext)
-
   // WINDOW WIDTH STATE FOR CHART BAR WIDTH
   const [windowWidth, setWindowWidth] = useState(0)
   // console.log(windowWidth)

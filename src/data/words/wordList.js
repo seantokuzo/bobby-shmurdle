@@ -4112,7 +4112,6 @@ export const ANSWERS_LIST = [
   'telex',
   'cutup',
   'nisei',
-  'neato',
   'decaf',
   'softy',
   'bimbo',

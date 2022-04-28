@@ -7,28 +7,32 @@ import BobbyModal from './components/Modals/BobbyModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
-// import { getNewWord } from './utils/gameUtils'
+import { getNewWord } from './utils/gameUtils'
 import { ANIME_DELAY, NUMBER_GUESSES, WORD_LENGTH } from './data/gameSettings'
 import { VALID_GUESSES } from './data/words/validGuesses'
 
 export default function App() {
+  // THEME STATE
+  const prefersDarkMode = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+  const [darkMode, setDarkMode] = useState(prefersDarkMode)
+  const [highContrastMode, setHighContrastMode] = useState(false)
+
   // MODAL DISPLAY STATE
   const [showHelp, setShowHelp] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [showBobby, setShowBobby] = useState(false)
-  // HARD MODE STATE
-  const [hardMode, setHardMode] = useState(false)
+
   // GAME STATE
-  const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
-  // const [answer, setAnswer] = useState(getNewWord())
-  // console.log(answer)
+  // const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
+  const [answer, setAnswer] = useState(getNewWord())
   const [currentGuess, setCurrentGuess] = useState([])
-  // console.log(currentGuess)
   const [prevGuesses, setPrevGuesses] = useState([])
-  const [didWin, setDidWin] = useState(false)
-  const [didLose, setDidLose] = useState(false)
   // USER STATS STATE
+  const [wins, setWins] = useState(0)
+  const [losses, setLosses] = useState(0)
   const [streak, setStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0)
   const [guessStats, setGuessStats] = useState({
@@ -39,9 +43,47 @@ export default function App() {
     five: 0,
     six: 0
   })
-  const [wins, setWins] = useState(0)
-  const [losses, setLosses] = useState(0)
+  // GAME CONTEXT STATE
+  const [hardMode, setHardMode] = useState(false)
   const [isRevealing, setIsRevealing] = useState(false)
+  const [didWin, setDidWin] = useState(false)
+  const [didLose, setDidLose] = useState(false)
+
+  // STATE LOGS
+  console.log(answer)
+  console.log(currentGuess)
+  // console.log(prevGuess)
+
+  // LOCAL STORAGE
+  const statsObj = {
+    wins,
+    losses,
+    streak,
+    maxStreak,
+    guessStats
+  }
+
+  useEffect(() => {
+    const localStats = JSON.parse(localStorage.getItem('userStats'))
+    // console.log(localStats)
+    if (localStats) {
+      setWins(localStats.wins)
+      setLosses(localStats.losses)
+      setStreak(localStats.streak)
+      setMaxStreak(localStats.maxStreak)
+      setGuessStats(localStats.guessStats)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('userStats', JSON.stringify(statsObj))
+  }, [statsObj])
+
+  // FOCUS THE APP ON PAGE LOAD
+  useEffect(() => {
+    const app = document.getElementById('app')
+    app.focus()
+  }, [])
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
@@ -52,8 +94,46 @@ export default function App() {
     }
   }, [showHelp, showStats, showSettings, showBobby])
 
+  // EVENT LISTENER FOR CHANGES IN BROWSER'S COLOR SCHEME PREFERENCE
+  // useEffect(() => {
+  //   const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  //   colorSchemeQuery.addEventListener('change', (event) => {
+  //     event.matches ? setDarkMode(true) : setDarkMode(false)
+  //   })
+
+  //   return () => {
+  //     colorSchemeQuery.removeEventListener('change', (event) => {
+  //       event.matches ? setDarkMode(true) : setDarkMode(false)
+  //     })
+  //   }
+  // }, [])
+
+  //DARKMODE SET BACKGROUND COLOR
+  useEffect(() => {
+    if (darkMode) {
+      // console.log("code class added")
+      document.body.classList.add('dark-mode')
+    } else {
+      // console.log("code class removed")
+      document.body.classList.remove('dark-mode')
+      return
+    }
+  }, [darkMode])
+  //DARKMODE SET BACKGROUND COLOR
+  useEffect(() => {
+    if (highContrastMode) {
+      // console.log("code class added")
+      document.body.classList.add('high-contrast')
+    } else {
+      // console.log("code class removed")
+      document.body.classList.remove('high-contrast')
+      return
+    }
+  }, [highContrastMode])
+
   // COMPUTER KEYBOARD
   const handleComputerKeyboard = (e) => {
+    if (isRevealing) return
     const letterRegex = /[a-zA-z]/
     //TOGGLE BOBBY, HELP. STATS AND SETTINGS WITH KEYBOARD ENTER KEY
     if (e.key === 'Enter' && showBobby && (didWin || didLose)) {
@@ -103,6 +183,7 @@ export default function App() {
   // HANDLE APP KEYBOARD
   //USING APP KEYBOARD - LETTERS
   function handleKeyClick(key) {
+    if (isRevealing || didWin || didLose) return
     if (currentGuess.length >= 0 && currentGuess.length < WORD_LENGTH) {
       setCurrentGuess((prevCurrentGuess) => [...prevCurrentGuess, key])
     }
@@ -110,6 +191,7 @@ export default function App() {
 
   //USING APP KEYBOARD - BACKSPACE
   function handleBackspace() {
+    if (isRevealing || didWin || didLose) return
     if (currentGuess.length > 0) {
       setCurrentGuess((prevCurrentGuess) =>
         prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
@@ -119,6 +201,7 @@ export default function App() {
 
   // HANDLE ENTER KEY
   function handleEnter() {
+    if (isRevealing || didWin || didLose) return
     //HANDLE WORDS LESS THAN 5 LETTERS
     if (currentGuess.length !== WORD_LENGTH) {
       alert("That ain't a 5 letters fool")
@@ -129,7 +212,6 @@ export default function App() {
       return
       //HANDLE A WIN
     } else if (answer.every((letter, i) => letter === currentGuess[i])) {
-      setDidWin(true)
       setWins((prevWins) => prevWins + 1)
       setStreak((prevStreak) => prevStreak + 1)
       if (streak + 1 > maxStreak) {
@@ -143,6 +225,7 @@ export default function App() {
           [key]: prevGuessStats[key] + 1
         }
       })
+      setDidWin(true)
       setIsRevealing(true)
       setTimeout(() => {
         setIsRevealing(false)
@@ -184,8 +267,8 @@ export default function App() {
 
   function newGame() {
     //HANDLE NEW GAME PRESS DURING CURRENT GAME
-    setAnswer(['F', 'A', 'R', 'T', 'S'])
-    // setAnswer(getNewWord())
+    // setAnswer(['F', 'A', 'R', 'T', 'S'])
+    setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
     setDidLose(false)
@@ -194,24 +277,33 @@ export default function App() {
     setShowSettings(false)
   }
 
+  // THEME TOGGLERS
+  function toggleDarkMode() {
+    setDarkMode((prevDarkMode) => !prevDarkMode)
+  }
+
+  function toggleHighContrastMode() {
+    setHighContrastMode((prevMode) => !prevMode)
+  }
+
   // HEADER MODAL TOGGLES
   function toggleHelp() {
+    if (isRevealing) return
     setShowHelp((prev) => !prev)
   }
 
   function toggleStats() {
+    if (isRevealing) return
     setShowStats((prev) => !prev)
   }
 
   function toggleSettings() {
+    if (isRevealing) return
     setShowSettings((prev) => !prev)
   }
 
-  function toggleHardMode() {
-    setHardMode((prev) => !prev)
-  }
-
   function toggleBobby() {
+    if (isRevealing) return
     setShowBobby((prev) => !prev)
   }
 
@@ -220,11 +312,16 @@ export default function App() {
     setShowStats(true)
   }
 
+  function toggleHardMode() {
+    setHardMode((prev) => !prev)
+  }
+
   const isModalOpen = showHelp || showStats || showSettings || showBobby
 
   return (
     <div
       className="app"
+      id="app"
       onKeyDown={handleComputerKeyboard}
       tabIndex="0"
       selected="selected"
@@ -244,6 +341,10 @@ export default function App() {
           hardMode={hardMode}
           toggleHardMode={toggleHardMode}
           newGame={newGame}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          highContrastMode={highContrastMode}
+          toggleHighContrastMode={toggleHighContrastMode}
         />
       )}
       {showStats && (
@@ -276,6 +377,7 @@ export default function App() {
         currentGuess={currentGuess}
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
+        didWin={didWin}
       />
       <Keyboard
         handleKeyClick={handleKeyClick}

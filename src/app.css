@@ -149,7 +149,6 @@ select .app {
 
 .box-flip {
   animation-name: flip;
-  animation-duration: 500ms;
 }
 
 @keyframes flip {
@@ -158,6 +157,25 @@ select .app {
   }
   100% {
     transform: rotateY(1turn);
+  }
+}
+
+.guess-box-win {
+  animation-name: jump;
+  animation-timing-function: ease-in;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-25px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -799,11 +817,6 @@ select .app {
   border-color: var(--green);
   color: #ffffff;
 }
-/* 
-.dark-mode .correct {
-  background-color: var(--green);
-  border-color: var(--green);
-} */
 
 .high-contrast .correct {
   background-color: var(--orange);

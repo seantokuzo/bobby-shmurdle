@@ -1,14 +1,21 @@
-import React, { useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext'
+import React from 'react'
 
 export default function SettingsModal(props) {
-  const { darkMode, toggleDarkMode, highContrastMode, toggleHighContrastMode } =
-    useContext(ThemeContext)
+  const {
+    darkMode,
+    toggleDarkMode,
+    highContrastMode,
+    toggleHighContrastMode,
+    toggleSettings,
+    hardMode,
+    toggleHardMode,
+    newGame
+  } = props
 
   const settingsTitleDiv = (
     <>
       <h4 className="modal__title settings___title">SETTINGS</h4>
-      <h4 className="modal__close" onClick={props.toggleSettings}>
+      <h4 className="modal__close" onClick={toggleSettings}>
         X
       </h4>
     </>
@@ -49,8 +56,8 @@ export default function SettingsModal(props) {
   const hardModeSettings = createSetting(
     'Hard Mode',
     'Any revealed hints must be used in subsequent guesses',
-    props.hardMode,
-    props.toggleHardMode
+    hardMode,
+    toggleHardMode
   )
 
   const darkModeSettings = createSetting(
@@ -96,7 +103,7 @@ export default function SettingsModal(props) {
     </div>
   )
   const newGameButton = (
-    <div className="btn settings__btn" onClick={props.newGame}>
+    <div className="btn settings__btn" onClick={newGame}>
       <h3 className="btn--text">NEW GAME</h3>
     </div>
   )
