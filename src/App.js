@@ -10,13 +10,13 @@ import './app.css'
 import { getNewWord } from './utils/gameUtils'
 import {
   ANIME_DELAY,
-  ANIME_DURATION,
   NUMBER_GUESSES,
   WIN_ANIME_DELAY,
   WIN_ANIME_DURATION,
   WORD_LENGTH
 } from './data/gameSettings'
 import { VALID_GUESSES } from './data/words/validGuesses'
+import AnswerModal from './components/Modals/AnswerModal'
 
 export default function App() {
   // THEME STATE
@@ -33,8 +33,8 @@ export default function App() {
   const [showBobby, setShowBobby] = useState(false)
 
   // GAME STATE
-  const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
-  // const [answer, setAnswer] = useState(getNewWord())
+  // const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
+  const [answer, setAnswer] = useState(getNewWord())
   const [currentGuess, setCurrentGuess] = useState([])
   const [prevGuesses, setPrevGuesses] = useState([])
   // USER STATS STATE
@@ -51,7 +51,7 @@ export default function App() {
     six: 0
   })
   // GAME CONTEXT STATE
-  const [hardMode, setHardMode] = useState(true)
+  const [hardMode, setHardMode] = useState(false)
   const [invalidGuessWiggle, setInvalidGuessWiggle] = useState(false)
   const [isRevealing, setIsRevealing] = useState(false)
   const [didWin, setDidWin] = useState(false)
@@ -278,7 +278,7 @@ export default function App() {
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
       setTimeout(() => {
         setShowBobby(true)
-      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY + 200)
       return
       //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
     } else if (
@@ -433,6 +433,7 @@ export default function App() {
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
       />
+      {(didLose || didWin) && <AnswerModal answer={answer} />}
     </div>
   )
 }
