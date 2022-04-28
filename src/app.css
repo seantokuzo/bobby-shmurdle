@@ -31,7 +31,7 @@ body {
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 370px) {
   body {
     font-size: .9rem;
   }
@@ -217,7 +217,7 @@ select .app {
     }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 370px) {
   .guess-box {
     width: 3.25rem;
     height: 3.25rem;
@@ -250,7 +250,7 @@ select .app {
 
 .keys__row-div {
   display: flex;
-  margin: 3px 0;
+  margin: 2px 0;
 }
 
 .keys__key {
@@ -278,8 +278,8 @@ select .app {
 }
 
 .keys__key-letter {
-  width: 1.85rem;
-  margin: 0 3px;
+  width: 2rem;
+  margin: 0 2px;
 
   transition: all 250ms ease-in-out;
 }
@@ -292,14 +292,14 @@ select .app {
 .keys__key-btn {
   width: 3.1rem;
 
-  margin: 0 0.25em;
+  margin: 0 2px;
 }
 
 .keys__key-enter {
   font-size: .8em;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 370px) {
   .grid__container,
   .keys__container {
     margin-top: 5px;
@@ -309,11 +309,9 @@ select .app {
   }
   .keys__key-letter {
     width: 1.6rem;
-    margin: 0 2px;
   }
   .keys__key-btn {
     width: 2.75rem;
-    margin: 0 0.25em;
   }
 }
 
