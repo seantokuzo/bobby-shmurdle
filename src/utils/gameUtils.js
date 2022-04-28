@@ -40,4 +40,4 @@ function getLettersArray(str, answer, prevGuesses) {
   }
 }
 
-export { getNewWord, getLettersArray }
+export { getNewWord }
