@@ -433,7 +433,7 @@ export default function App() {
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
       />
-      {(didLose || didWin) && <AnswerModal answer={answer} />}
+      {didLose && <AnswerModal answer={answer} />}
     </div>
   )
 }
