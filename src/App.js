@@ -7,7 +7,7 @@ import BobbyModal from './components/Modals/BobbyModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
-import { getNewWord } from './utils/gameUtils'
+import { getNewWord, getLettersArray } from './utils/gameUtils'
 import {
   ANIME_DELAY,
   NUMBER_GUESSES,
@@ -24,7 +24,11 @@ export default function App() {
     '(prefers-color-scheme: dark)'
   ).matches
   const [darkMode, setDarkMode] = useState(prefersDarkMode)
-  const [highContrastMode, setHighContrastMode] = useState(false)
+  const [highContrastMode, setHighContrastMode] = useState(
+    localStorage.getItem('localHighContrastMode')
+      ? JSON.parse(localStorage.getItem('localHighContrastMode'))
+      : false
+  )
 
   // MODAL DISPLAY STATE
   const [showHelp, setShowHelp] = useState(false)
@@ -59,8 +63,8 @@ export default function App() {
 
   // STATE LOGS
   console.log(answer)
-  console.log(currentGuess)
-  console.log(prevGuesses)
+  // console.log(currentGuess)
+  // console.log(prevGuesses)
 
   // localStorage.clear()
 
@@ -89,8 +93,7 @@ export default function App() {
       setHardMode(gameState.hardMode)
     }
     if (localDarkMode) setDarkMode(localDarkMode)
-    if (localHighContrastMode) setHighContrastMode(localHighContrastMode)
-    // if (gameState.didWin || gameState.didLose) setShowStats(true)
+    if (gameState.didWin || gameState.didLose) setShowBobby(true)
   }, [])
 
   // SET USER STATS IN LOCAL STORAGE
@@ -203,6 +206,8 @@ export default function App() {
     } else if (e.key === 'Enter' && (showStats || didWin || didLose)) {
       toggleStats()
       return
+    } else if (didWin || didLose) {
+      return
       //ADD LETTER TO CURRENT GUESS IF CURRENT GUESS HAS ROOM
     } else if (
       e.key.length === 1 &&
@@ -259,7 +264,12 @@ export default function App() {
     }, WIN_ANIME_DURATION + 100)
   }
 
-  
+  function hardModeChecker() {
+    const correctLetters = getLettersArray('correct', answer, prevGuesses)
+    const wrongSpotLetters = getLettersArray('wrong spot', answer, prevGuesses)
+    const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
+    return !mustUseLetters.every((letter) => currentGuess.includes(letter))
+  }
 
   // HANDLE ENTER KEY
   function handleEnter() {
@@ -267,25 +277,25 @@ export default function App() {
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     // HARD MODE CONDITION CHECKER
     if (hardMode && prevGuesses.length > 0) {
-      const guessedLettersArray = [
-        ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
-      ]
-      const correctLetters = guessedLettersArray.filter((letter) => {
-        return prevGuesses.some(
-          (word) => word[answer.indexOf(letter)] === letter
-        )
-      })
-      const wrongSpotLetters = guessedLettersArray.filter((letter) => {
-        return (
-          answer.includes(letter) &&
-          prevGuesses.some((word) => word.includes(letter)) &&
-          !correctLetters.includes(letter)
-        )
-      })
-      const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
-      console.log(guessedLettersArray)
-      console.log(mustUseLetters)
-      if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
+      // const guessedLettersArray = [
+      //   ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
+      // ]
+      // const correctLetters = guessedLettersArray.filter((letter) => {
+      //   return prevGuesses.some(
+      //     (word) => word[answer.indexOf(letter)] === letter
+      //   )
+      // })
+      // const wrongSpotLetters = guessedLettersArray.filter((letter) => {
+      //   return (
+      //     answer.includes(letter) &&
+      //     prevGuesses.some((word) => word.includes(letter)) &&
+      //     !correctLetters.includes(letter)
+      //   )
+      // })
+      // const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
+      // console.log(guessedLettersArray)
+      // console.log(mustUseLetters)
+      if (hardModeChecker()) {
         handleInvalidGuess(
           'You must use all use all previously revealed hints in your guesses!'
         )
