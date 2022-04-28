@@ -59,8 +59,8 @@ export default function App() {
 
   // STATE LOGS
   console.log(answer)
-  console.log(currentGuess)
-  console.log(prevGuesses)
+  // console.log(currentGuess)
+  // console.log(prevGuesses)
 
   // localStorage.clear()
 
@@ -90,7 +90,7 @@ export default function App() {
     }
     if (localDarkMode) setDarkMode(localDarkMode)
     if (localHighContrastMode) setHighContrastMode(localHighContrastMode)
-    // if (gameState.didWin || gameState.didLose) setShowStats(true)
+    // if (gameState.didWin || gameState.didLose) setShowBobby(true)
   }, [])
 
   // SET USER STATS IN LOCAL STORAGE
@@ -259,8 +259,6 @@ export default function App() {
     }, WIN_ANIME_DURATION + 100)
   }
 
-  
-
   // HANDLE ENTER KEY
   function handleEnter() {
     // DISABLE BUTTON AFTER GAME ENDS OR DURING ANIMATIONS
@@ -283,8 +281,6 @@ export default function App() {
         )
       })
       const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
-      console.log(guessedLettersArray)
-      console.log(mustUseLetters)
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
         handleInvalidGuess(
           'You must use all use all previously revealed hints in your guesses!'
