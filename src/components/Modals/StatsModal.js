@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 export default function StatsModal(props) {
   // WINDOW WIDTH STATE FOR CHART BAR WIDTH
   const [windowWidth, setWindowWidth] = useState(0)
-  // console.log(windowWidth)
 
   const maxBarWidth =
     windowWidth > 450
@@ -93,7 +92,7 @@ export default function StatsModal(props) {
       <span className="stats__btn-divider">|</span>
       <div
         className="btn stats__btn stats__btn-share"
-        onClick={props.shareStats}
+        onClick={props.handleShare}
       >
         <h3 className="btn--text">SHARE</h3>
         <i className="fas fa-share-alt stats__btn-share-icon"></i>

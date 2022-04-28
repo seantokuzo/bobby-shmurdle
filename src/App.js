@@ -7,7 +7,7 @@ import BobbyModal from './components/Modals/BobbyModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
-import { getNewWord } from './utils/gameUtils'
+import { getNewWord, shareResults } from './utils/gameUtils'
 import {
   ANIME_DELAY,
   NUMBER_GUESSES,
@@ -33,7 +33,6 @@ export default function App() {
   const [showBobby, setShowBobby] = useState(false)
 
   // GAME STATE
-  // const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
   const [answer, setAnswer] = useState(getNewWord())
   const [currentGuess, setCurrentGuess] = useState([])
   const [prevGuesses, setPrevGuesses] = useState([])
@@ -132,10 +131,12 @@ export default function App() {
   }, [highContrastMode])
 
   // FOCUS THE APP ON PAGE LOAD
-  useEffect(() => {
-    const app = document.getElementById('app')
-    app.focus()
-  }, [])
+  // useEffect(() => {
+  //   const app = document.getElementById('app')
+  //   setTimeout(() => {
+  //     app.focus()
+  //   }, 100)
+  // }, [])
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
@@ -402,6 +403,15 @@ export default function App() {
     setHardMode((prev) => !prev)
   }
 
+  function handleShare() {
+    if (!didWin && !didLose) {
+      alert('Finish your game to share your score!')
+      return
+    }
+
+    shareResults(answer, prevGuesses, darkMode, highContrastMode)
+  }
+
   const isModalOpen = showHelp || showStats || showSettings || showBobby
 
   return (
@@ -446,7 +456,7 @@ export default function App() {
           didWin={didWin}
           lastGameGuessCount={prevGuesses.length}
           newGame={newGame}
-          // shareStats={shareStats}
+          handleShare={handleShare}
         />
       )}
       {showBobby && (
