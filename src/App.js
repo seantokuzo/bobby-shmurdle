@@ -58,21 +58,20 @@ export default function App() {
   const [didLose, setDidLose] = useState(false)
 
   // STATE LOGS
-  // console.log(answer)
-  // console.log(currentGuess)
-  // console.log(prevGuess)
+  console.log(answer)
+  console.log(currentGuess)
+  console.log(prevGuesses)
 
-  // LOCAL STORAGE
-  const statsObj = {
-    wins,
-    losses,
-    streak,
-    maxStreak,
-    guessStats
-  }
+  // localStorage.clear()
 
+  // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
     const localStats = JSON.parse(localStorage.getItem('userStats'))
+    const gameState = JSON.parse(localStorage.getItem('gameState'))
+    const localDarkMode = JSON.parse(localStorage.getItem('localDarkMode'))
+    const localHighContrastMode = JSON.parse(
+      localStorage.getItem('localHighContrastMode')
+    )
     // console.log(localStats)
     if (localStats) {
       setWins(localStats.wins)
@@ -81,12 +80,56 @@ export default function App() {
       setMaxStreak(localStats.maxStreak)
       setGuessStats(localStats.guessStats)
     }
+    if (gameState) {
+      setAnswer(gameState.answer)
+      setCurrentGuess(gameState.currentGuess)
+      setPrevGuesses(gameState.prevGuesses)
+      setDidWin(gameState.didWin)
+      setDidLose(gameState.didLose)
+      setHardMode(gameState.hardMode)
+    }
+    if (localDarkMode) setDarkMode(localDarkMode)
+    if (localHighContrastMode) setHighContrastMode(localHighContrastMode)
+    // if (gameState.didWin || gameState.didLose) setShowStats(true)
   }, [])
 
+  // SET USER STATS IN LOCAL STORAGE
   useEffect(() => {
-    localStorage.setItem('userStats', JSON.stringify(statsObj))
-    // localStorage.clear()
-  }, [statsObj])
+    const userStats = {
+      wins,
+      losses,
+      streak,
+      maxStreak,
+      guessStats
+    }
+    localStorage.setItem('userStats', JSON.stringify(userStats))
+  }, [wins, losses, streak, maxStreak, guessStats])
+
+  // SET GAME STATE IN LOCAL STORAGE
+  useEffect(() => {
+    const gameState = {
+      answer,
+      currentGuess,
+      prevGuesses,
+      didWin,
+      didLose,
+      hardMode
+    }
+    localStorage.setItem('gameState', JSON.stringify(gameState))
+  }, [answer, currentGuess, prevGuesses, didWin, didLose, hardMode])
+
+  // SET DARK MODE IN LOCAL STORAGE IF USER CHANGES
+  useEffect(() => {
+    localStorage.setItem('localDarkMode', JSON.stringify(darkMode))
+  }, [darkMode])
+
+  // SET HIGH CONTRAST MODE IN LOCAL STORAGE IF CHANGED
+  useEffect(() => {
+    localStorage.setItem(
+      'localHighContrastMode',
+      JSON.stringify(highContrastMode)
+    )
+  }, [highContrastMode])
 
   // FOCUS THE APP ON PAGE LOAD
   useEffect(() => {
@@ -216,8 +259,11 @@ export default function App() {
     }, WIN_ANIME_DURATION + 100)
   }
 
+  
+
   // HANDLE ENTER KEY
   function handleEnter() {
+    // DISABLE BUTTON AFTER GAME ENDS OR DURING ANIMATIONS
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     // HARD MODE CONDITION CHECKER
     if (hardMode && prevGuesses.length > 0) {
@@ -272,9 +318,9 @@ export default function App() {
       setDidWin(true)
       setIsRevealing(true)
       setTimeout(() => {
-        setIsRevealing(false)
         setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
         setCurrentGuess([])
+        setIsRevealing(false)
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
       setTimeout(() => {
         setShowBobby(true)
@@ -287,9 +333,9 @@ export default function App() {
     ) {
       setIsRevealing(true)
       setTimeout(() => {
-        setIsRevealing(false)
         setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
         setCurrentGuess([])
+        setIsRevealing(false)
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
       return
       //HANDLE LOSS
@@ -297,10 +343,10 @@ export default function App() {
       prevGuesses.length === NUMBER_GUESSES - 1 &&
       currentGuess !== answer
     ) {
-      setIsRevealing(true)
-      setDidLose(true)
       setStreak(0)
       setLosses((prevLosses) => prevLosses + 1)
+      setDidLose(true)
+      setIsRevealing(true)
       setTimeout(() => {
         setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
         setCurrentGuess([])
@@ -311,9 +357,8 @@ export default function App() {
   }
 
   function newGame() {
-    //HANDLE NEW GAME PRESS DURING CURRENT GAME
-    setAnswer(['F', 'A', 'R', 'T', 'S'])
-    // setAnswer(getNewWord())
+    // setAnswer(['F', 'A', 'R', 'T', 'S'])
+    setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
     setDidLose(false)
