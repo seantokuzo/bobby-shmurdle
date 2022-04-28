@@ -7,11 +7,7 @@ export default function Keyboard(props) {
     props
 
   const guessedLettersArray = [
-    ...new Set(
-      prevGuesses.reduce((acc, guess) => {
-        return [...acc, ...guess]
-      }, [])
-    )
+    ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
   ]
 
   const correctLetters = guessedLettersArray.filter((letter) => {

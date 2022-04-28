@@ -6,9 +6,7 @@ import EmptyRow from './EmptyRow'
 import { NUMBER_GUESSES } from '../../data/gameSettings'
 
 export default function GuessGrid(props) {
-  const { answer, currentGuess, prevGuesses, isRevealing, didWin } = props
-
-  console.log(isRevealing)
+  const { answer, currentGuess, prevGuesses, isRevealing, didWin, invalidGuessWiggle } = props
 
   const filledRows = prevGuesses.map((guess, i) => (
     <FilledRow
@@ -39,6 +37,7 @@ export default function GuessGrid(props) {
           answer={answer}
           currentGuess={currentGuess}
           isRevealing={isRevealing}
+          invalidGuessWiggle={invalidGuessWiggle}
         />
       )}
       {emptyRows}

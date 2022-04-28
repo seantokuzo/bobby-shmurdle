@@ -129,6 +129,25 @@ select .app {
   align-items: center;
 }
 
+.guess-row-wiggle {
+  animation: wiggle
+}
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .guess-box {
   width: 3.75rem;
   height: 3.75rem;
@@ -772,7 +791,8 @@ select .app {
 .bobby__container {
   align-items: center;
   max-width: 400px;
-  padding: 2rem !important;
+  top: 40%;
+  padding: 2rem;
   border-radius: 20px;
   z-index: 1000;
 }

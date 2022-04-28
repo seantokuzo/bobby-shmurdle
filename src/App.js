@@ -8,7 +8,14 @@ import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
 import { getNewWord } from './utils/gameUtils'
-import { ANIME_DELAY, NUMBER_GUESSES, WORD_LENGTH } from './data/gameSettings'
+import {
+  ANIME_DELAY,
+  ANIME_DURATION,
+  NUMBER_GUESSES,
+  WIN_ANIME_DELAY,
+  WIN_ANIME_DURATION,
+  WORD_LENGTH
+} from './data/gameSettings'
 import { VALID_GUESSES } from './data/words/validGuesses'
 
 export default function App() {
@@ -26,8 +33,8 @@ export default function App() {
   const [showBobby, setShowBobby] = useState(false)
 
   // GAME STATE
-  // const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
-  const [answer, setAnswer] = useState(getNewWord())
+  const [answer, setAnswer] = useState(['F', 'A', 'R', 'T', 'S'])
+  // const [answer, setAnswer] = useState(getNewWord())
   const [currentGuess, setCurrentGuess] = useState([])
   const [prevGuesses, setPrevGuesses] = useState([])
   // USER STATS STATE
@@ -44,14 +51,15 @@ export default function App() {
     six: 0
   })
   // GAME CONTEXT STATE
-  const [hardMode, setHardMode] = useState(false)
+  const [hardMode, setHardMode] = useState(true)
+  const [invalidGuessWiggle, setInvalidGuessWiggle] = useState(false)
   const [isRevealing, setIsRevealing] = useState(false)
   const [didWin, setDidWin] = useState(false)
   const [didLose, setDidLose] = useState(false)
 
   // STATE LOGS
   console.log(answer)
-  console.log(currentGuess)
+  // console.log(currentGuess)
   // console.log(prevGuess)
 
   // LOCAL STORAGE
@@ -77,6 +85,7 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem('userStats', JSON.stringify(statsObj))
+    // localStorage.clear()
   }, [statsObj])
 
   // FOCUS THE APP ON PAGE LOAD
@@ -95,18 +104,18 @@ export default function App() {
   }, [showHelp, showStats, showSettings, showBobby])
 
   // EVENT LISTENER FOR CHANGES IN BROWSER'S COLOR SCHEME PREFERENCE
-  // useEffect(() => {
-  //   const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  //   colorSchemeQuery.addEventListener('change', (event) => {
-  //     event.matches ? setDarkMode(true) : setDarkMode(false)
-  //   })
+  useEffect(() => {
+    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    colorSchemeQuery.addEventListener('change', (event) => {
+      event.matches ? setDarkMode(true) : setDarkMode(false)
+    })
 
-  //   return () => {
-  //     colorSchemeQuery.removeEventListener('change', (event) => {
-  //       event.matches ? setDarkMode(true) : setDarkMode(false)
-  //     })
-  //   }
-  // }, [])
+    return () => {
+      colorSchemeQuery.removeEventListener('change', (event) => {
+        event.matches ? setDarkMode(true) : setDarkMode(false)
+      })
+    }
+  }, [])
 
   //DARKMODE SET BACKGROUND COLOR
   useEffect(() => {
@@ -183,7 +192,7 @@ export default function App() {
   // HANDLE APP KEYBOARD
   //USING APP KEYBOARD - LETTERS
   function handleKeyClick(key) {
-    if (isRevealing || didWin || didLose) return
+    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     if (currentGuess.length >= 0 && currentGuess.length < WORD_LENGTH) {
       setCurrentGuess((prevCurrentGuess) => [...prevCurrentGuess, key])
     }
@@ -191,7 +200,7 @@ export default function App() {
 
   //USING APP KEYBOARD - BACKSPACE
   function handleBackspace() {
-    if (isRevealing || didWin || didLose) return
+    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     if (currentGuess.length > 0) {
       setCurrentGuess((prevCurrentGuess) =>
         prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
@@ -199,16 +208,51 @@ export default function App() {
     } else return
   }
 
+  const handleInvalidGuess = (message) => {
+    setInvalidGuessWiggle(true)
+    setTimeout(() => {
+      setInvalidGuessWiggle(false)
+      alert(message)
+    }, WIN_ANIME_DURATION + 100)
+  }
+
   // HANDLE ENTER KEY
   function handleEnter() {
-    if (isRevealing || didWin || didLose) return
+    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
+    // HARD MODE CONDITION CHECKER
+    if (hardMode && prevGuesses.length > 0) {
+      const guessedLettersArray = [
+        ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
+      ]
+      const correctLetters = guessedLettersArray.filter((letter) => {
+        return prevGuesses.some(
+          (word) => word[answer.indexOf(letter)] === letter
+        )
+      })
+      const wrongSpotLetters = guessedLettersArray.filter((letter) => {
+        return (
+          answer.includes(letter) &&
+          prevGuesses.some((word) => word.includes(letter)) &&
+          !correctLetters.includes(letter)
+        )
+      })
+      const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
+      console.log(guessedLettersArray)
+      console.log(mustUseLetters)
+      if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
+        handleInvalidGuess(
+          'You must use all use all previously revealed hints in your guesses!'
+        )
+        return
+      }
+    }
     //HANDLE WORDS LESS THAN 5 LETTERS
     if (currentGuess.length !== WORD_LENGTH) {
-      alert("That ain't a 5 letters fool")
+      handleInvalidGuess("That ain't a 5 letters fool")
       return
       // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
     } else if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
-      alert('Beep boop... cannot find your word on our (tiny) list')
+      handleInvalidGuess('Beep Boop - word does not register')
       return
       //HANDLE A WIN
     } else if (answer.every((letter, i) => letter === currentGuess[i])) {
@@ -229,11 +273,12 @@ export default function App() {
       setIsRevealing(true)
       setTimeout(() => {
         setIsRevealing(false)
-        setShowBobby(true)
         setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
         setCurrentGuess([])
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
-      console.log('You win!')
+      setTimeout(() => {
+        setShowBobby(true)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY)
       return
       //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
     } else if (
@@ -267,8 +312,8 @@ export default function App() {
 
   function newGame() {
     //HANDLE NEW GAME PRESS DURING CURRENT GAME
-    // setAnswer(['F', 'A', 'R', 'T', 'S'])
-    setAnswer(getNewWord())
+    setAnswer(['F', 'A', 'R', 'T', 'S'])
+    // setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
     setDidLose(false)
@@ -378,6 +423,7 @@ export default function App() {
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
         didWin={didWin}
+        invalidGuessWiggle={invalidGuessWiggle}
       />
       <Keyboard
         handleKeyClick={handleKeyClick}

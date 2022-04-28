@@ -3,11 +3,12 @@ import { nanoid } from 'nanoid'
 import {
   WORD_LENGTH,
   ANIME_DELAY,
-  ANIME_DURATION
+  ANIME_DURATION,
+  WIN_ANIME_DURATION
 } from '../../data/gameSettings'
 
 export default function CurrentRow(props) {
-  const { currentGuess, answer, isRevealing } = props
+  const { currentGuess, answer, isRevealing, invalidGuessWiggle } = props
 
   useEffect(() => {
     const flippers = document.getElementsByClassName('box-flip')
@@ -28,8 +29,26 @@ export default function CurrentRow(props) {
     }
   }, [isRevealing])
 
+  // useEffect(() => {
+  //   const wigglers = document.getElementsByClassName('current-box')
+  //   if (wigglers && invalidGuessWiggle) {
+  //     ;[...wigglers].forEach((wiggler) => {
+  //       setTimeout(() => {
+  //         wiggler.classList.add('guess')
+  //       }, ANIME_DURATION)
+  //     })
+  //   }
+  // }, [invalidGuessWiggle])
+
   const currentRow = (
-    <div className="guess-row">
+    <div
+      className={
+        invalidGuessWiggle ? 'guess-row guess-row-wiggle' : 'guess-row'
+      }
+      style={{
+        animationDuration: `${WIN_ANIME_DURATION}ms`
+      }}
+    >
       {new Array(WORD_LENGTH).fill('').map((x, i) => (
         <div
           className={isRevealing ? 'guess-box box-flip' : 'guess-box'}
