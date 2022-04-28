@@ -409,7 +409,7 @@ export default function App() {
       return
     }
 
-    shareResults(answer, prevGuesses, darkMode, highContrastMode)
+    shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin)
   }
 
   const isModalOpen = showHelp || showStats || showSettings || showBobby
