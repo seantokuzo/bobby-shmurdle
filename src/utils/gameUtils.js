@@ -75,7 +75,7 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
       } else if (!answer.includes(letter)) {
         squareGrid = squareGrid + getSquare('incorrect')
       }
-      if (i === guess.length - 1 && ind !== prevGuesses.length) squareGrid = squareGrid + '\n'
+      if (i === guess.length - 1 && ind !== prevGuesses.length - 1) squareGrid = squareGrid + '\n'
     })
   })
 
