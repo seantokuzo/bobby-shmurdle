@@ -1,4 +1,5 @@
 import { ANSWERS_LIST } from '../data/words/wordList'
+import { NUMBER_GUESSES } from '../data/gameSettings'
 // import { UAParser } from 'ua-parser-js'
 // const webShareApiDeviceTypes = ['mobile', 'smarttv', 'wearable']
 // const parser = new UAParser()
@@ -78,7 +79,9 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
     })
   })
 
-  const score = `${prevGuesses.length}/${answer.length}`
+  const score = didWin
+    ? `${prevGuesses.length}/${NUMBER_GUESSES}`
+    : `X/${NUMBER_GUESSES}`
   const game = `${score}\nAnswer: '${answer.join('')}'\n\n${squareGrid}`
   const message = didWin
     ? `I beat Bobby Shmurdle!\n${game}`
