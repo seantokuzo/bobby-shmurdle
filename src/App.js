@@ -284,14 +284,14 @@ export default function App() {
       const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
         handleInvalidGuess(
-          'You must use all use all previously revealed hints in your guesses!'
+          'You must use all previously revealed hints in your guesses!'
         )
         return
       }
     }
     //HANDLE WORDS LESS THAN 5 LETTERS
     if (currentGuess.length !== WORD_LENGTH) {
-      handleInvalidGuess("That ain't a 5 letters fool")
+      handleInvalidGuess("That ain't a 5 letter word!")
       return
       // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
     } else if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
