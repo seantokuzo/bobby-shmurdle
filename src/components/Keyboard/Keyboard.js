@@ -1,33 +1,35 @@
 import React from 'react'
 import { nanoid } from 'nanoid'
-
+import { getLettersArray } from '../../utils/gameUtils'
 
 export default function Keyboard(props) {
   const { answer, prevGuesses, handleKeyClick, handleBackspace, handleEnter } =
     props
 
-  const guessedLettersArray = [
-    ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
-  ]
+  // const guessedLettersArray = [
+  //   ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
+  // ]
 
-  const correctLetters = guessedLettersArray.filter((letter) => {
-    return prevGuesses.some((word) => word[answer.indexOf(letter)] === letter)
-  })
+  // const correctLetters = guessedLettersArray.filter((letter) => {
+  //   return prevGuesses.some((word) => word[answer.indexOf(letter)] === letter)
+  // })
 
-  const wrongSpotLetters = guessedLettersArray.filter((letter) => {
-    return (
-      answer.includes(letter) &&
-      prevGuesses.some((word) => word.includes(letter)) &&
-      !correctLetters.includes(letter)
-    )
-  })
+  // const wrongSpotLetters = guessedLettersArray.filter((letter) => {
+  //   return (
+  //     answer.includes(letter) &&
+  //     prevGuesses.some((word) => word.includes(letter)) &&
+  //     !correctLetters.includes(letter)
+  //   )
+  // })
 
-  const incorrectLetters = guessedLettersArray.filter((letter) => {
-    return (
-      !correctLetters.includes(letter) && !wrongSpotLetters.includes(letter)
-    )
-  })
-
+  // const incorrectLetters = guessedLettersArray.filter((letter) => {
+  //   return (
+  //     !correctLetters.includes(letter) && !wrongSpotLetters.includes(letter)
+  //   )
+  // })
+  const correctLetters = getLettersArray('correct', answer, prevGuesses)
+  const wrongSpotLetters = getLettersArray('wrong spot', answer, prevGuesses)
+  const incorrectLetters = getLettersArray('incorrect', answer, prevGuesses)
   const areYouCorrect = (letter) => correctLetters.includes(letter)
   const areYouWrongSpot = (letter) => wrongSpotLetters.includes(letter)
   const areYouIncorrect = (letter) => incorrectLetters.includes(letter)

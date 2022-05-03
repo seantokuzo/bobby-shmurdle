@@ -13,7 +13,7 @@ function getNewWord() {
   return newWord
 }
 
-// GET ARRAYS OF CORRECT / WRONGT SPOT / AND INCORRECT GUESSED LETTERS
+// GET ARRAYS OF CORRECT / WRONG SPOT / AND INCORRECT GUESSED LETTERS
 function getLettersArray(str, answer, prevGuesses) {
   const guessedLettersArray = [
     ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
@@ -37,6 +37,10 @@ function getLettersArray(str, answer, prevGuesses) {
 
   if (str === 'wrong spot') {
     return wrongSpot
+  }
+
+  if (str === 'must use') {
+    return [...correct, ...wrongSpot]
   }
 
   const incorrect = guessedLettersArray.filter((letter) => {
@@ -75,7 +79,8 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
       } else if (!answer.includes(letter)) {
         squareGrid = squareGrid + getSquare('incorrect')
       }
-      if (i === guess.length - 1 && ind !== prevGuesses.length - 1) squareGrid = squareGrid + '\n'
+      if (i === guess.length - 1 && ind !== prevGuesses.length - 1)
+        squareGrid = squareGrid + '\n'
     })
   })
 

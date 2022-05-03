@@ -7,7 +7,7 @@ import BobbyModal from './components/Modals/BobbyModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
-import { getNewWord, shareResults } from './utils/gameUtils'
+import { getNewWord, getLettersArray, shareResults } from './utils/gameUtils'
 import {
   ANIME_DELAY,
   NUMBER_GUESSES,
@@ -266,22 +266,23 @@ export default function App() {
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     // HARD MODE CONDITION CHECKER
     if (hardMode && prevGuesses.length > 0) {
-      const guessedLettersArray = [
-        ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
-      ]
-      const correctLetters = guessedLettersArray.filter((letter) => {
-        return prevGuesses.some(
-          (word) => word[answer.indexOf(letter)] === letter
-        )
-      })
-      const wrongSpotLetters = guessedLettersArray.filter((letter) => {
-        return (
-          answer.includes(letter) &&
-          prevGuesses.some((word) => word.includes(letter)) &&
-          !correctLetters.includes(letter)
-        )
-      })
-      const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
+      // const guessedLettersArray = [
+      //   ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
+      // ]
+      // const correctLetters = guessedLettersArray.filter((letter) => {
+      //   return prevGuesses.some(
+      //     (word) => word[answer.indexOf(letter)] === letter
+      //   )
+      // })
+      // const wrongSpotLetters = guessedLettersArray.filter((letter) => {
+      //   return (
+      //     answer.includes(letter) &&
+      //     prevGuesses.some((word) => word.includes(letter)) &&
+      //     !correctLetters.includes(letter)
+      //   )
+      // })
+      // const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
+      const mustUseLetters = getLettersArray('must use', answer, prevGuesses)
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
         handleInvalidGuess(
           'You must use all previously revealed hints in your guesses!'
@@ -342,13 +343,13 @@ export default function App() {
     ) {
       setStreak(0)
       setLosses((prevLosses) => prevLosses + 1)
-      setDidLose(true)
       setIsRevealing(true)
       setTimeout(() => {
         setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
         setCurrentGuess([])
         setIsRevealing(false)
         setShowBobby(true)
+        setDidLose(true)
       }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
     }
   }
@@ -420,7 +421,7 @@ export default function App() {
       id="app"
       onKeyDown={handleComputerKeyboard}
       tabIndex="0"
-      selected="selected"
+      selected
     >
       <Header
         isModalOpen={isModalOpen}
