@@ -57,7 +57,7 @@ export default function App() {
   const [didLose, setDidLose] = useState(false)
 
   // STATE LOGS
-  // console.log(answer)
+  console.log(answer)
   // console.log(currentGuess)
   // console.log(prevGuesses)
 
@@ -260,28 +260,51 @@ export default function App() {
     }, WIN_ANIME_DURATION + 100)
   }
 
+  function updateStats(str) {
+    if (str === 'win') {
+      setWins((prevWins) => prevWins + 1)
+      setStreak((prevStreak) => prevStreak + 1)
+      if (streak + 1 > maxStreak) {
+        setMaxStreak((prevMaxStreak) => prevMaxStreak + 1)
+      }
+      setGuessStats((prevGuessStats) => {
+        const numberOfGuesses = prevGuesses.length
+        const key = Object.keys(guessStats)[numberOfGuesses]
+        return {
+          ...prevGuessStats,
+          [key]: prevGuessStats[key] + 1
+        }
+      })
+    } else if (str === 'loss') {
+      setStreak(0)
+      setLosses((prevLosses) => prevLosses + 1)
+    }
+  }
+
+  function handleReveal(str) {
+    setIsRevealing(true)
+    setTimeout(() => {
+      setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+      setCurrentGuess([])
+      setIsRevealing(false)
+      if (str === 'loss') {
+        setShowBobby(true)
+        setDidLose(true)
+      }
+    }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+    if (str === 'win') {
+      setTimeout(() => {
+        setShowBobby(true)
+      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY + 200)
+    }
+  }
+
   // HANDLE ENTER KEY
   function handleEnter() {
     // DISABLE BUTTON AFTER GAME ENDS OR DURING ANIMATIONS
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     // HARD MODE CONDITION CHECKER
     if (hardMode && prevGuesses.length > 0) {
-      // const guessedLettersArray = [
-      //   ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
-      // ]
-      // const correctLetters = guessedLettersArray.filter((letter) => {
-      //   return prevGuesses.some(
-      //     (word) => word[answer.indexOf(letter)] === letter
-      //   )
-      // })
-      // const wrongSpotLetters = guessedLettersArray.filter((letter) => {
-      //   return (
-      //     answer.includes(letter) &&
-      //     prevGuesses.some((word) => word.includes(letter)) &&
-      //     !correctLetters.includes(letter)
-      //   )
-      // })
-      // const mustUseLetters = [...correctLetters, ...wrongSpotLetters]
       const mustUseLetters = getLettersArray('must use', answer, prevGuesses)
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
         handleInvalidGuess(
@@ -300,57 +323,24 @@ export default function App() {
       return
       //HANDLE A WIN
     } else if (answer.every((letter, i) => letter === currentGuess[i])) {
-      setWins((prevWins) => prevWins + 1)
-      setStreak((prevStreak) => prevStreak + 1)
-      if (streak + 1 > maxStreak) {
-        setMaxStreak((prevMaxStreak) => prevMaxStreak + 1)
-      }
-      setGuessStats((prevGuessStats) => {
-        const numberOfGuesses = prevGuesses.length
-        const key = Object.keys(guessStats)[numberOfGuesses]
-        return {
-          ...prevGuessStats,
-          [key]: prevGuessStats[key] + 1
-        }
-      })
+      updateStats('win')
       setDidWin(true)
-      setIsRevealing(true)
-      setTimeout(() => {
-        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-        setCurrentGuess([])
-        setIsRevealing(false)
-      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
-      setTimeout(() => {
-        setShowBobby(true)
-      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY + 200)
+      handleReveal('win')
       return
       //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
     } else if (
       prevGuesses.length >= 0 &&
       prevGuesses.length < NUMBER_GUESSES - 1
     ) {
-      setIsRevealing(true)
-      setTimeout(() => {
-        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-        setCurrentGuess([])
-        setIsRevealing(false)
-      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+      handleReveal('none')
       return
       //HANDLE LOSS
     } else if (
       prevGuesses.length === NUMBER_GUESSES - 1 &&
       currentGuess !== answer
     ) {
-      setStreak(0)
-      setLosses((prevLosses) => prevLosses + 1)
-      setIsRevealing(true)
-      setTimeout(() => {
-        setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-        setCurrentGuess([])
-        setIsRevealing(false)
-        setShowBobby(true)
-        setDidLose(true)
-      }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+      updateStats('loss')
+      handleReveal('loss')
     }
   }
 
