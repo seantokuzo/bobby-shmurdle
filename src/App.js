@@ -375,22 +375,22 @@ export default function App() {
 
   // HEADER MODAL TOGGLES
   function toggleHelp() {
-    if (isRevealing) return
+    if (isRevealing || showBobby || showStats || showSettings) return
     setShowHelp((prev) => !prev)
   }
 
   function toggleStats() {
-    if (isRevealing) return
+    if (isRevealing || showBobby || showHelp || showSettings) return
     setShowStats((prev) => !prev)
   }
 
   function toggleSettings() {
-    if (isRevealing) return
+    if (isRevealing || showBobby || showHelp || showStats) return
     setShowSettings((prev) => !prev)
   }
 
   function toggleBobby() {
-    if (isRevealing) return
+    if (isRevealing || showSettings || showHelp || showStats) return
     setShowBobby((prev) => !prev)
   }
 
