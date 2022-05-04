@@ -58,7 +58,7 @@ export default function App() {
   const [isRevealing, setIsRevealing] = useState(false)
   const [showAlertModal, setShowAlertModal] = useState(false)
   const [alertPhrase, setAlertPhrase] = useState('')
-  const [showRestartWarning, setShowRestartWarning] = useState(false)
+  const [showRestartWarning, setShowRestartWarning] = useState(true)
 
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
@@ -349,7 +349,7 @@ export default function App() {
         setLosses((prevLosses) => prevLosses + 1)
         setStreak(0)
         setResetCount(0)
-        handleAlertModal('Game reset. Your current streak is now 0. New word retrieved')
+        handleAlertModal('Your win streak is now 0. New word retrieved')
       } else {
         setResetCount((prevResetCount) => prevResetCount + 1)
         handleAlertModal('Game reset. New word retrieved')

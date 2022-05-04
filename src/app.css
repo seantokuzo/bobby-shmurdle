@@ -878,8 +878,13 @@ select .app {
   min-width: 45%;
 }
 
+.restart__strike {
+  margin: 1rem 0;
+  font-size: 2em;
+}
+
 .restart__x-icon {
-  margin: 0 5px;
+  margin: 0 .5rem;
 }
 
 /* ********************************** */
