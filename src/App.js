@@ -58,7 +58,7 @@ export default function App() {
   const [isRevealing, setIsRevealing] = useState(false)
   const [showAlertModal, setShowAlertModal] = useState(false)
   const [alertPhrase, setAlertPhrase] = useState('')
-  const [showRestartWarning, setShowRestartWarning] = useState(true)
+  const [showRestartWarning, setShowRestartWarning] = useState(false)
 
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
