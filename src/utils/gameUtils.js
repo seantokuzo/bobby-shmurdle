@@ -74,18 +74,13 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
       } else if (!answer.includes(letter)) {
         squareGrid = squareGrid + getSquare('incorrect')
       }
-      if (i === guess.length - 1 && ind !== prevGuesses.length - 1)
-        squareGrid = squareGrid + '\n'
+      if (i === guess.length - 1 && ind !== prevGuesses.length - 1) squareGrid = squareGrid + '\n'
     })
   })
 
-  const score = didWin
-    ? `${prevGuesses.length}/${NUMBER_GUESSES}`
-    : `X/${NUMBER_GUESSES}`
-  const game = `${score}\nAnswer: '${answer.join('')}'\n\n${squareGrid}`
-  const message = didWin
-    ? `I beat Bobby Shmurdle!\n${game}`
-    : `Shmurdle caught a body\n${game}`
+  const score = didWin ? `${prevGuesses.length}/${NUMBER_GUESSES}` : `X/${NUMBER_GUESSES}`
+  const game = `${score}\n${squareGrid}`
+  const message = didWin ? `I beat Bobby Shmurdle!\n${game}` : `Shmurdle caught a body\n${game}`
   const shareObj = { text: message }
 
   let shareSuccess
