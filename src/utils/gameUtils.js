@@ -79,7 +79,7 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
   })
 
   const score = didWin ? `${prevGuesses.length}/${NUMBER_GUESSES}` : `X/${NUMBER_GUESSES}`
-  const game = `${score}\n${squareGrid}`
+  const game = `${score}\n\n${squareGrid}`
   const message = didWin ? `I beat Bobby Shmurdle!\n${game}` : `Shmurdle caught a body\n${game}`
   const shareObj = { text: message }
 
