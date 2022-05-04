@@ -17,6 +17,7 @@ export default function StatsModal(props) {
 
   // DESTRUCTURE USER STATS FROM PROPS
   const { streak, maxStreak, wins, losses, guessStats } = props.userStats
+  const { didWin, gameOver, lastGameGuessCount, toggleStats, newGame, handleShare } = props
 
   const guessStatsValues = Object.values(guessStats)
   const maxGuessStat = Math.max(...guessStatsValues)
@@ -72,7 +73,7 @@ export default function StatsModal(props) {
         <p className="chart-guess-stat-label">{i + 1}</p>
         <div
           className={
-            props.didWin && props.lastGameGuessCount === i + 1
+            didWin && lastGameGuessCount === i + 1
               ? 'stats__chart-bar flex-row correct'
               : 'stats__chart-bar flex-row'
           }
@@ -86,24 +87,25 @@ export default function StatsModal(props) {
 
   const statsButtons = (
     <div className="stats__buttons-div flex-row">
-      <div className="btn stats__btn" onClick={props.newGame}>
+      <div className={gameOver ? "btn stats__btn" : "btn stats__btn stats__btn-game-on"} onClick={newGame}>
         <h3 className="btn--text">NEW GAME</h3>
       </div>
-      <span className="stats__btn-divider">|</span>
-      <div
-        className="btn stats__btn stats__btn-share"
-        onClick={props.handleShare}
-      >
-        <h3 className="btn--text">SHARE</h3>
-        <i className="fas fa-share-alt stats__btn-share-icon"></i>
-      </div>
+      {gameOver && (
+        <>
+          <span className="stats__btn-divider">|</span>
+          <div className="btn stats__btn stats__btn-share" onClick={handleShare}>
+            <h3 className="btn--text">SHARE</h3>
+            <i className="fas fa-share-alt stats__btn-share-icon"></i>
+          </div>
+        </>
+      )}
     </div>
   )
 
   return (
     <div className="modal__container stats__container">
       <h4 className="modal__title">STATISTICS</h4>
-      <h4 className="modal__close" onClick={props.toggleStats}>
+      <h4 className="modal__close" onClick={toggleStats}>
         X
       </h4>
       {stats}

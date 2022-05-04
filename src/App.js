@@ -13,16 +13,15 @@ import {
   NUMBER_GUESSES,
   WIN_ANIME_DELAY,
   WIN_ANIME_DURATION,
-  WORD_LENGTH
+  WORD_LENGTH,
+  ALERT_DURATION
 } from './data/gameSettings'
 import { VALID_GUESSES } from './data/words/validGuesses'
 import AnswerModal from './components/Modals/AnswerModal'
 
 export default function App() {
   // THEME STATE
-  const prefersDarkMode = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
   const [darkMode, setDarkMode] = useState(prefersDarkMode)
   const [highContrastMode, setHighContrastMode] = useState(false)
 
@@ -53,6 +52,8 @@ export default function App() {
   const [hardMode, setHardMode] = useState(false)
   const [invalidGuessWiggle, setInvalidGuessWiggle] = useState(false)
   const [isRevealing, setIsRevealing] = useState(false)
+  const [showAlertModal, setShowAlertModal] = useState(false)
+  const [alertPhrase, setAlertPhrase] = useState('')
   const [didWin, setDidWin] = useState(false)
   const [didLose, setDidLose] = useState(false)
 
@@ -68,9 +69,7 @@ export default function App() {
     const localStats = JSON.parse(localStorage.getItem('userStats'))
     const gameState = JSON.parse(localStorage.getItem('gameState'))
     const localDarkMode = JSON.parse(localStorage.getItem('localDarkMode'))
-    const localHighContrastMode = JSON.parse(
-      localStorage.getItem('localHighContrastMode')
-    )
+    const localHighContrastMode = JSON.parse(localStorage.getItem('localHighContrastMode'))
     // console.log(localStats)
     if (localStats) {
       setWins(localStats.wins)
@@ -124,10 +123,7 @@ export default function App() {
 
   // SET HIGH CONTRAST MODE IN LOCAL STORAGE IF CHANGED
   useEffect(() => {
-    localStorage.setItem(
-      'localHighContrastMode',
-      JSON.stringify(highContrastMode)
-    )
+    localStorage.setItem('localHighContrastMode', JSON.stringify(highContrastMode))
   }, [highContrastMode])
 
   // FOCUS THE APP ON PAGE LOAD
@@ -212,17 +208,10 @@ export default function App() {
       currentGuess.length < WORD_LENGTH
     ) {
       // console.log(currentGuess)
-      setCurrentGuess((prevCurrentGuess) => [
-        ...prevCurrentGuess,
-        e.key.toUpperCase()
-      ])
+      setCurrentGuess((prevCurrentGuess) => [...prevCurrentGuess, e.key.toUpperCase()])
       return
       //HANDLE BACKSPACE
-    } else if (
-      e.key === 'Backspace' &&
-      currentGuess.length > 0 &&
-      currentGuess.length <= 5
-    ) {
+    } else if (e.key === 'Backspace' && currentGuess.length > 0 && currentGuess.length <= 5) {
       return setCurrentGuess((prevCurrentGuess) =>
         prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
       )
@@ -246,18 +235,8 @@ export default function App() {
   function handleBackspace() {
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
     if (currentGuess.length > 0) {
-      setCurrentGuess((prevCurrentGuess) =>
-        prevCurrentGuess.slice(0, prevCurrentGuess.length - 1)
-      )
+      setCurrentGuess((prevCurrentGuess) => prevCurrentGuess.slice(0, prevCurrentGuess.length - 1))
     } else return
-  }
-
-  const handleInvalidGuess = (message) => {
-    setInvalidGuessWiggle(true)
-    setTimeout(() => {
-      setInvalidGuessWiggle(false)
-      alert(message)
-    }, WIN_ANIME_DURATION + 100)
   }
 
   function updateStats(str) {
@@ -281,6 +260,13 @@ export default function App() {
     }
   }
 
+  const handleInvalidGuess = () => {
+    setInvalidGuessWiggle(true)
+    setTimeout(() => {
+      setInvalidGuessWiggle(false)
+    }, WIN_ANIME_DURATION + 100)
+  }
+
   function handleReveal(str) {
     setIsRevealing(true)
     setTimeout(() => {
@@ -299,53 +285,58 @@ export default function App() {
     }
   }
 
+  function handleAlertModal(message) {
+    setAlertPhrase(message)
+    setShowAlertModal(true)
+    setTimeout(() => {
+      setAlertPhrase('')
+      setShowAlertModal(false)
+    }, ALERT_DURATION + 150)
+  }
+
   // HANDLE ENTER KEY
   function handleEnter() {
     // DISABLE BUTTON AFTER GAME ENDS OR DURING ANIMATIONS
-    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
+    if (isRevealing || didWin || didLose || invalidGuessWiggle || showAlertModal) return
+    //HANDLE WORDS LESS THAN 5 LETTERS
+    if (currentGuess.length !== WORD_LENGTH) {
+      handleInvalidGuess()
+      handleAlertModal("That ain't a 5 letter word!")
+      return
+    }
+    // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
+    if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
+      handleInvalidGuess()
+      handleAlertModal('Beep Boop - word does not register')
+      return
+    }
     // HARD MODE CONDITION CHECKER
     if (hardMode && prevGuesses.length > 0) {
       const mustUseLetters = getLettersArray('must use', answer, prevGuesses)
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
-        handleInvalidGuess(
-          'You must use all previously revealed hints in your guesses!'
-        )
+        handleInvalidGuess()
+        handleAlertModal('You must use all previously revealed hints in your guesses!')
         return
       }
     }
-    //HANDLE WORDS LESS THAN 5 LETTERS
-    if (currentGuess.length !== WORD_LENGTH) {
-      handleInvalidGuess("That ain't a 5 letter word!")
-      return
-      // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
-    } else if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
-      handleInvalidGuess('Beep Boop - word does not register')
-      return
-      //HANDLE A WIN
-    } else if (answer.every((letter, i) => letter === currentGuess[i])) {
+    //HANDLE A WIN
+    if (answer.every((letter, i) => letter === currentGuess[i])) {
       updateStats('win')
       setDidWin(true)
       handleReveal('win')
       return
       //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
-    } else if (
-      prevGuesses.length >= 0 &&
-      prevGuesses.length < NUMBER_GUESSES - 1
-    ) {
+    } else if (prevGuesses.length >= 0 && prevGuesses.length < NUMBER_GUESSES - 1) {
       handleReveal('none')
       return
       //HANDLE LOSS
-    } else if (
-      prevGuesses.length === NUMBER_GUESSES - 1 &&
-      currentGuess !== answer
-    ) {
+    } else if (prevGuesses.length === NUMBER_GUESSES - 1 && currentGuess !== answer) {
       updateStats('loss')
       handleReveal('loss')
     }
   }
 
   function newGame() {
-    // setAnswer(['F', 'A', 'R', 'T', 'S'])
     setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
@@ -395,26 +386,25 @@ export default function App() {
   }
 
   function handleShare() {
-    if (!didWin && !didLose) {
-      alert('Finish your game to share your score!')
-      return
-    }
-
+    // if (!didWin && !didLose) {
+    //   alert('Finish your game to share your score!')
+    //   return
+    // }
     shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin)
   }
 
-  const isModalOpen = showHelp || showStats || showSettings || showBobby
+  const alertModal = (
+    <div
+      className="modal__container alert__container flex-row"
+      style={{ animationDuration: `${ALERT_DURATION}ms` }}
+    >
+      <h4 className="answer__text">{alertPhrase}</h4>
+    </div>
+  )
 
   return (
-    <div
-      className="app"
-      id="app"
-      onKeyDown={handleComputerKeyboard}
-      tabIndex="0"
-      selected
-    >
+    <div className="app" id="app" onKeyDown={handleComputerKeyboard} tabIndex="0" selected>
       <Header
-        isModalOpen={isModalOpen}
         toggleHelp={toggleHelp}
         toggleStats={toggleStats}
         toggleSettings={toggleSettings}
@@ -444,6 +434,7 @@ export default function App() {
             losses,
             guessStats
           }}
+          gameOver={didWin || didLose}
           didWin={didWin}
           lastGameGuessCount={prevGuesses.length}
           newGame={newGame}
@@ -475,6 +466,7 @@ export default function App() {
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
       />
+      {showAlertModal && alertModal}
       {didLose && <AnswerModal answer={answer} />}
     </div>
   )

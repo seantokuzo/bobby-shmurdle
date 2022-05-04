@@ -642,6 +642,10 @@ select .app {
   min-width: 45%;
 }
 
+.stats__btn-game-on {
+  min-width: 100%;
+}
+
 .stats__btn-share h3 {
   margin-right: 7.5px;
 }
@@ -807,18 +811,46 @@ select .app {
 }
 
 /* ****************************** */
+/* ***       ALERT MODAL      *** */
+/* ****************************** */
+
+.alert__container {
+  max-width: 350px;
+  top: 30%;
+  padding: 5px 25px;
+  z-index: 9999;
+  text-align: center;
+
+  animation-name: alert-fade;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes alert-fade {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.alert__text {
+  font-weight: 400;
+}
+
+/* ****************************** */
 /* ***      ANSWER MODAL      *** */
 /* ****************************** */
 
 .answer__container {
-  width: fit-content;
-  top: 40%;
-  padding: 5px 25px;
   z-index: 100;
-}
-
-.answer__text {
-  font-weight: 400;
 }
 
 /* ********************************** */
