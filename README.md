@@ -9,8 +9,12 @@ Check it out [here](https://bobby-shmurdle.netlify.app)
 or [here](https://bobby-shmurdle.netlify.app) or [here](https://bobby-shmurdle.netlify.app)
 
 <p align=center>Play as much as you want</p>
-
-<p align=center>Made with React and plain ol' CSS3</p>
+<br>
+<p align=center>Made with
+  <img align="center" width="25px" alt="bobby-shmurdle_gh-preview_readme" src="./public/react-icon.svg">
+ and plain ol'
+  <img align="center" width="25px" alt="bobby-shmurdle_gh-preview_readme" src="./public/css3-icon.svg">
+ </p>
 
   <p align="center">
     <a href="https://github.com/seantokuzo/bobby-shmurdle/issues">Report Bug</a>
