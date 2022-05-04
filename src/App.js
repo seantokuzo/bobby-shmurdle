@@ -199,7 +199,6 @@ export default function App() {
       currentGuess.length >= 0 &&
       currentGuess.length < WORD_LENGTH
     ) {
-      // console.log(currentGuess)
       setCurrentGuess((prevCurrentGuess) => [...prevCurrentGuess, e.key.toUpperCase()])
       return
       //HANDLE BACKSPACE

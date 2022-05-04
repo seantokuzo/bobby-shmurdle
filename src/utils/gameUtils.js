@@ -1,10 +1,5 @@
 import { ANSWERS_LIST } from '../data/words/wordList'
 import { NUMBER_GUESSES } from '../data/gameSettings'
-// import { UAParser } from 'ua-parser-js'
-// const webShareApiDeviceTypes = ['mobile', 'smarttv', 'wearable']
-// const parser = new UAParser()
-// const browser = parser.getBrowser()
-// const device = parser.getDevice()
 
 // GET A NEW ANSWER
 function getNewWord() {
@@ -106,22 +101,6 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
     navigator.clipboard.writeText(message)
     alert('Score copied to clipboard')
   }
-
-  // const attemptShare = (shareObj) => {
-  //   console.log(browser.name?.toUpperCase().indexOf('FIREFOX') === -1)
-  //   console.log(webShareApiDeviceTypes.indexOf(device.type ?? '') !== -1)
-  //   console.log(navigator.canShare)
-  //   console.log(navigator.canShare(shareObj))
-  //   console.log(navigator.share)
-  //   return (
-  //     // Deliberately exclude Firefox Mobile, because its Web Share API isn't working correctly
-  //     browser.name?.toUpperCase().indexOf('FIREFOX') === -1 &&
-  //     webShareApiDeviceTypes.indexOf(device.type ?? '') !== -1 &&
-  //     navigator.canShare &&
-  //     navigator.canShare(shareObj) &&
-  //     navigator.share
-  //   )
-  // }
 }
 
 export { getNewWord, getLettersArray, shareResults }
