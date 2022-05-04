@@ -78,7 +78,7 @@ export default function SettingsModal(props) {
             target="_blank"
             rel="noreferrer"
           >
-            Email
+            GitHub
           </a>
         </p>
         <p>|</p>
