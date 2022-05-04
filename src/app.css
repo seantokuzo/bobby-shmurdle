@@ -9,6 +9,7 @@
   --green: #6aaa64;
   --orange: #f5793a;
   --blue: #85c0f9;
+  --warning-text: #f53a3a;
 
   --bs: 0 0 0.75em rgba(0, 0, 0, .25),
   0 0 0.25em rgba(0, 0, 0, .15);
@@ -877,12 +878,8 @@ select .app {
   min-width: 45%;
 }
 
-.restart__btn-yes {
-
-}
-
-.restart__btn-no {
-
+.restart__x-icon {
+  margin: 0 5px;
 }
 
 /* ********************************** */
@@ -970,7 +967,6 @@ select .app {
 }
 
 .warning__text {
-  color: red;
-  text-decoration: underline;
+  color: var(--warning-text);
   font-weight: bolder;
 }

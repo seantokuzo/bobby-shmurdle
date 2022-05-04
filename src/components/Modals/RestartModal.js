@@ -1,4 +1,5 @@
 import React from 'react'
+import { nanoid } from 'nanoid'
 
 export default function RestartModal(props) {
   const { resetCount, newGame, cancelRestart } = props
@@ -15,7 +16,25 @@ export default function RestartModal(props) {
     </div>
   )
 
-  const strikes = resetCount === 0 ? '0' : new Array(resetCount).fill('❌').join(' ')
+  const strikes =
+    resetCount === 0 ? (
+      '0'
+    ) : (
+      <>
+        {new Array(resetCount).fill('').map((slot) => {
+          return (
+            <i
+              className={
+                resetCount === 2
+                  ? 'fa-solid fa-x restart__x-icon warning__text'
+                  : 'fa-solid fa-x restart__x-icon'
+              }
+              key={nanoid()}
+            ></i>
+          )
+        })}
+      </>
+    )
 
   return (
     <div className="modal__container restart__container flex-column">
@@ -32,7 +51,10 @@ export default function RestartModal(props) {
       </p>
       <h1 className="modal__title restart__strike">{strikes}</h1>
       {resetCount === 2 && (
-        <p className="modal__text restart__text warning__text">
+        <p
+          className="modal__text restart__text warning__text"
+          style={{ textDecoration: 'underline' }}
+        >
           If you restart now it will count as a loss
         </p>
       )}

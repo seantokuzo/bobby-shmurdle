@@ -60,8 +60,6 @@ export default function App() {
   const [alertPhrase, setAlertPhrase] = useState('')
   const [showRestartWarning, setShowRestartWarning] = useState(false)
 
-  console.log(answer)
-
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
     const localStats = JSON.parse(localStorage.getItem('userStats'))
@@ -158,10 +156,8 @@ export default function App() {
   //DARKMODE SET BACKGROUND COLOR
   useEffect(() => {
     if (darkMode) {
-      // console.log("code class added")
       document.body.classList.add('dark-mode')
     } else {
-      // console.log("code class removed")
       document.body.classList.remove('dark-mode')
       return
     }
@@ -169,10 +165,8 @@ export default function App() {
   //DARKMODE SET BACKGROUND COLOR
   useEffect(() => {
     if (highContrastMode) {
-      // console.log("code class added")
       document.body.classList.add('high-contrast')
     } else {
-      // console.log("code class removed")
       document.body.classList.remove('high-contrast')
       return
     }
@@ -415,10 +409,6 @@ export default function App() {
   }
 
   function handleShare() {
-    // if (!didWin && !didLose) {
-    //   alert('Finish your game to share your score!')
-    //   return
-    // }
     shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin)
   }
 
