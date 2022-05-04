@@ -1,7 +1,7 @@
 {
   "name": "bobby-shmurdle",
   "author": "seantokuzo",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Another Wordle clone made with React",
   "homepage": "https://bobby-shmurdle.netlify.app",
   "main": "index.js",
