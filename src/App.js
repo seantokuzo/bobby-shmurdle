@@ -49,7 +49,7 @@ export default function App() {
     five: 0,
     six: 0
   })
-  const [resetCount, setResetCount] = useState(1)
+  const [resetCount, setResetCount] = useState(0)
   // GAME CONTEXT STATE
   const [didWin, setDidWin] = useState(false)
   const [didLose, setDidLose] = useState(false)
@@ -60,12 +60,7 @@ export default function App() {
   const [alertPhrase, setAlertPhrase] = useState('')
   const [showRestartWarning, setShowRestartWarning] = useState(false)
 
-  // STATE LOGS
   console.log(answer)
-  // console.log(currentGuess)
-  // console.log(prevGuesses)
-
-  // localStorage.clear()
 
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
@@ -73,7 +68,6 @@ export default function App() {
     const gameState = JSON.parse(localStorage.getItem('gameState'))
     const localDarkMode = JSON.parse(localStorage.getItem('localDarkMode'))
     const localHighContrastMode = JSON.parse(localStorage.getItem('localHighContrastMode'))
-    // console.log(localStats)
     if (localStats) {
       setWins(localStats.wins)
       setLosses(localStats.losses)
@@ -92,7 +86,6 @@ export default function App() {
     }
     if (localDarkMode) setDarkMode(localDarkMode)
     if (localHighContrastMode) setHighContrastMode(localHighContrastMode)
-    // if (gameState.didWin || gameState.didLose) setShowBobby(true)
   }, [])
 
   // SET USER STATS IN LOCAL STORAGE
@@ -141,12 +134,12 @@ export default function App() {
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
-    if (showHelp || showStats || showSettings || showBobby) {
+    if (showHelp || showStats || showSettings || showBobby || showRestartWarning) {
       document.body.classList.add('modal-open')
     } else {
       document.body.classList.remove('modal-open')
     }
-  }, [showHelp, showStats, showSettings, showBobby])
+  }, [showHelp, showStats, showSettings, showBobby, showRestartWarning])
 
   // EVENT LISTENER FOR CHANGES IN BROWSER'S COLOR SCHEME PREFERENCE
   useEffect(() => {
@@ -389,24 +382,26 @@ export default function App() {
     setHighContrastMode((prevMode) => !prevMode)
   }
 
+  const disableToggler = isRevealing || showAlertModal || showRestartWarning
+
   // HEADER MODAL TOGGLES
   function toggleHelp() {
-    if (isRevealing || showBobby || showStats || showSettings) return
+    if (disableToggler || showBobby || showStats || showSettings) return
     setShowHelp((prev) => !prev)
   }
 
   function toggleStats() {
-    if (isRevealing || showBobby || showHelp || showSettings) return
+    if (disableToggler || showBobby || showHelp || showSettings) return
     setShowStats((prev) => !prev)
   }
 
   function toggleSettings() {
-    if (isRevealing || showBobby || showHelp || showStats) return
+    if (disableToggler || showBobby || showHelp || showStats) return
     setShowSettings((prev) => !prev)
   }
 
   function toggleBobby() {
-    if (isRevealing || showSettings || showHelp || showStats) return
+    if (disableToggler || showSettings || showHelp || showStats) return
     setShowBobby((prev) => !prev)
   }
 
