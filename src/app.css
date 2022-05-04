@@ -569,6 +569,7 @@ select .app {
 .stats__stat-container {
   width: 100%;
   justify-content: space-evenly;
+  text-align: center;
 
   margin-top: 1rem;
 }
@@ -654,14 +655,14 @@ select .app {
   margin-left: 7.5px;
 }
 
-.stats__btn-divider {
+.btn-divider {
   font-size: 3rem;
   font-family: 'Inter';
   font-weight: 100;
   color: var(--med-grey);
 }
 
-.dark-mode .stats__btn-divider {
+.dark-mode .btn-divider {
   color: var(--dark-grey);
 }
 
@@ -815,7 +816,7 @@ select .app {
 /* ****************************** */
 
 .alert__container {
-  max-width: 350px;
+  max-width: 250px;
   top: 30%;
   padding: 5px 25px;
   z-index: 9999;
@@ -824,6 +825,12 @@ select .app {
   animation-name: alert-fade;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
+}
+
+@media (min-width: 750px) {
+  .alert__container {
+    max-width: 350px;
+  }
 }
 
 @keyframes alert-fade {
@@ -851,6 +858,31 @@ select .app {
 
 .answer__container {
   z-index: 100;
+}
+
+/* ******************************* */
+/* ***  RESTART WARNING MODAL  *** */
+/* ******************************* */
+
+.restart__container {
+  align-items: center;
+  text-align: center;
+}
+
+.restart__text {
+  max-width: 75%;
+}
+
+.restart__btn {
+  min-width: 45%;
+}
+
+.restart__btn-yes {
+
+}
+
+.restart__btn-no {
+
 }
 
 /* ********************************** */
@@ -935,4 +967,10 @@ select .app {
 
 .min-content {
   width: min-content;
+}
+
+.warning__text {
+  color: red;
+  text-decoration: underline;
+  font-weight: bolder;
 }

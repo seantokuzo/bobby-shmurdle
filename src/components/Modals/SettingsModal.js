@@ -9,7 +9,7 @@ export default function SettingsModal(props) {
     toggleSettings,
     hardMode,
     toggleHardMode,
-    newGame
+    handleNewGameWarning
   } = props
 
   const settingsTitleDiv = (
@@ -39,9 +39,7 @@ export default function SettingsModal(props) {
         <div className="setting--name-div">
           <h5 className="setting--name">{name}</h5>
           {info && (
-            <p className="setting--info">
-              Any revealed hints must be used in subsequent guesses
-            </p>
+            <p className="setting--info">Any revealed hints must be used in subsequent guesses</p>
           )}
         </div>
         <div className="settings__toggler-div">
@@ -60,12 +58,7 @@ export default function SettingsModal(props) {
     toggleHardMode
   )
 
-  const darkModeSettings = createSetting(
-    'Dark Theme',
-    '',
-    darkMode,
-    toggleDarkMode
-  )
+  const darkModeSettings = createSetting('Dark Theme', '', darkMode, toggleDarkMode)
 
   const highContrastSettings = createSetting(
     'High Contrast Mode',
@@ -103,7 +96,7 @@ export default function SettingsModal(props) {
     </div>
   )
   const newGameButton = (
-    <div className="btn settings__btn" onClick={newGame}>
+    <div className="btn settings__btn" onClick={handleNewGameWarning}>
       <h3 className="btn--text">NEW GAME</h3>
     </div>
   )

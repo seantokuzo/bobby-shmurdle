@@ -4,6 +4,7 @@ import HelpModal from './components/Modals/HelpModal'
 import SettingsModal from './components/Modals/SettingsModal'
 import StatsModal from './components/Modals/StatsModal'
 import BobbyModal from './components/Modals/BobbyModal'
+import RestartModal from './components/Modals/RestartModal'
 import GuessGrid from './components/GuessGrid/GuessGrid'
 import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
@@ -48,14 +49,16 @@ export default function App() {
     five: 0,
     six: 0
   })
+  const [resetCount, setResetCount] = useState(1)
   // GAME CONTEXT STATE
+  const [didWin, setDidWin] = useState(false)
+  const [didLose, setDidLose] = useState(false)
   const [hardMode, setHardMode] = useState(false)
   const [invalidGuessWiggle, setInvalidGuessWiggle] = useState(false)
   const [isRevealing, setIsRevealing] = useState(false)
   const [showAlertModal, setShowAlertModal] = useState(false)
   const [alertPhrase, setAlertPhrase] = useState('')
-  const [didWin, setDidWin] = useState(false)
-  const [didLose, setDidLose] = useState(false)
+  const [showRestartWarning, setShowRestartWarning] = useState(false)
 
   // STATE LOGS
   console.log(answer)
@@ -77,6 +80,7 @@ export default function App() {
       setStreak(localStats.streak)
       setMaxStreak(localStats.maxStreak)
       setGuessStats(localStats.guessStats)
+      setResetCount(localStats.resetCount)
     }
     if (gameState) {
       setAnswer(gameState.answer)
@@ -98,10 +102,11 @@ export default function App() {
       losses,
       streak,
       maxStreak,
-      guessStats
+      guessStats,
+      resetCount
     }
     localStorage.setItem('userStats', JSON.stringify(userStats))
-  }, [wins, losses, streak, maxStreak, guessStats])
+  }, [wins, losses, streak, maxStreak, guessStats, resetCount])
 
   // SET GAME STATE IN LOCAL STORAGE
   useEffect(() => {
@@ -127,12 +132,12 @@ export default function App() {
   }, [highContrastMode])
 
   // FOCUS THE APP ON PAGE LOAD
-  // useEffect(() => {
-  //   const app = document.getElementById('app')
-  //   setTimeout(() => {
-  //     app.focus()
-  //   }, 100)
-  // }, [])
+  useEffect(() => {
+    const app = document.getElementById('app')
+    setTimeout(() => {
+      app.focus()
+    }, 100)
+  }, [])
 
   // DISABLE HEADER BUTTONS IF MODAL OPEN
   useEffect(() => {
@@ -324,6 +329,7 @@ export default function App() {
       updateStats('win')
       setDidWin(true)
       handleReveal('win')
+      setResetCount(0)
       return
       //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
     } else if (prevGuesses.length >= 0 && prevGuesses.length < NUMBER_GUESSES - 1) {
@@ -333,17 +339,45 @@ export default function App() {
     } else if (prevGuesses.length === NUMBER_GUESSES - 1 && currentGuess !== answer) {
       updateStats('loss')
       handleReveal('loss')
+      setResetCount(0)
     }
   }
 
+  function handleNewGameWarning() {
+    if (!didWin && !didLose) {
+      setShowRestartWarning(true)
+      setShowSettings(false)
+      setShowStats(false)
+    } else newGame()
+  }
+
+  function cancelRestart() {
+    setShowRestartWarning(false)
+    setShowStats(false)
+    setShowSettings(false)
+  }
+
   function newGame() {
+    if (!didLose && !didWin) {
+      if (resetCount === 2) {
+        setLosses((prevLosses) => prevLosses + 1)
+        setStreak(0)
+        setResetCount(0)
+        handleAlertModal('Game reset. Your current streak is now 0. New word retrieved')
+      } else {
+        setResetCount((prevResetCount) => prevResetCount + 1)
+        handleAlertModal('Game reset. New word retrieved')
+      }
+    }
+    setShowRestartWarning(false)
+    setShowStats(false)
+    setShowSettings(false)
     setAnswer(getNewWord())
     setCurrentGuess([])
     setPrevGuesses([])
     setDidLose(false)
     setDidWin(false)
-    setShowStats(false)
-    setShowSettings(false)
+    if (didLose || didWin) handleAlertModal('New word retrieved. Good luck!')
   }
 
   // THEME TOGGLERS
@@ -417,7 +451,7 @@ export default function App() {
           toggleSettings={toggleSettings}
           hardMode={hardMode}
           toggleHardMode={toggleHardMode}
-          newGame={newGame}
+          handleNewGameWarning={handleNewGameWarning}
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
           highContrastMode={highContrastMode}
@@ -437,7 +471,7 @@ export default function App() {
           gameOver={didWin || didLose}
           didWin={didWin}
           lastGameGuessCount={prevGuesses.length}
-          newGame={newGame}
+          handleNewGameWarning={handleNewGameWarning}
           handleShare={handleShare}
         />
       )}
@@ -466,6 +500,9 @@ export default function App() {
         prevGuesses={prevGuesses}
         isRevealing={isRevealing}
       />
+      {showRestartWarning && (
+        <RestartModal resetCount={resetCount} newGame={newGame} cancelRestart={cancelRestart} />
+      )}
       {showAlertModal && alertModal}
       {didLose && <AnswerModal answer={answer} />}
     </div>

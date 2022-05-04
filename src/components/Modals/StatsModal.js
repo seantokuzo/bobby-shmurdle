@@ -17,7 +17,7 @@ export default function StatsModal(props) {
 
   // DESTRUCTURE USER STATS FROM PROPS
   const { streak, maxStreak, wins, losses, guessStats } = props.userStats
-  const { didWin, gameOver, lastGameGuessCount, toggleStats, newGame, handleShare } = props
+  const { didWin, gameOver, lastGameGuessCount, toggleStats, handleNewGameWarning, handleShare } = props
 
   const guessStatsValues = Object.values(guessStats)
   const maxGuessStat = Math.max(...guessStatsValues)
@@ -87,12 +87,12 @@ export default function StatsModal(props) {
 
   const statsButtons = (
     <div className="stats__buttons-div flex-row">
-      <div className={gameOver ? "btn stats__btn" : "btn stats__btn stats__btn-game-on"} onClick={newGame}>
+      <div className={gameOver ? "btn stats__btn" : "btn stats__btn stats__btn-game-on"} onClick={handleNewGameWarning}>
         <h3 className="btn--text">NEW GAME</h3>
       </div>
       {gameOver && (
         <>
-          <span className="stats__btn-divider">|</span>
+          <span className="btn-divider">|</span>
           <div className="btn stats__btn stats__btn-share" onClick={handleShare}>
             <h3 className="btn--text">SHARE</h3>
             <i className="fas fa-share-alt stats__btn-share-icon"></i>
