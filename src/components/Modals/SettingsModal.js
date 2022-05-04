@@ -73,7 +73,7 @@ export default function SettingsModal(props) {
       <div className="settings__feedback-links-div">
         <p className="link">
           <a
-            href="mailto:idontcarewhatyouthink@justkiddingidocare.com"
+            href="https://github.com/seantokuzo/bobby-shmurdle/issues"
             className="settings__feedback-link settings__email"
             target="_blank"
             rel="noreferrer"
@@ -84,7 +84,7 @@ export default function SettingsModal(props) {
         <p>|</p>
         <p>
           <a
-            href="https://twitter.com/joebiden"
+            href="https://twitter.com/seantokuzo"
             className="settings__feedback-link settings__twitter"
             target="_blank"
             rel="noreferrer"
@@ -109,9 +109,6 @@ export default function SettingsModal(props) {
       {darkModeSettings}
       {highContrastSettings}
       {feedbackSettings}
-      {/* {settingsDarkMode}
-      {settingsColorBlindMode}
-      {settingsFeedback} */}
       {newGameButton}
     </div>
   )
