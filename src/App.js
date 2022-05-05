@@ -59,7 +59,7 @@ export default function App() {
   const [showAlertModal, setShowAlertModal] = useState(false)
   const [alertPhrase, setAlertPhrase] = useState('')
   const [showRestartWarning, setShowRestartWarning] = useState(false)
-  // localStorage.clear()
+
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
     const localStats = JSON.parse(localStorage.getItem('userStats'))
