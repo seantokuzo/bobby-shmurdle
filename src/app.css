@@ -270,6 +270,7 @@ select .app {
   max-width: 700px;
   max-height: 95vh;
   box-shadow: var(--bs);
+  border-radius: 5px;
   animation: modal-slide 250ms;
   color: #000000;
   background-color: #ffffff;
@@ -661,25 +662,16 @@ select .app {
 /* ****************************** */
 
 .alert__container {
+  width: fit-content;
   max-width: 250px;
   top: 30%;
-  padding: 5px 25px;
+  padding: 0 25px;
   z-index: 9999;
   text-align: center;
-
+  
   animation-name: alert-fade;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-}
-
-@media (min-width: 750px) {
-  .alert__container {
-    max-width: 350px;
-  }
-}
-
-.alert__text {
-  font-weight: 400;
 }
 
 /* ****************************** */
@@ -687,6 +679,8 @@ select .app {
 /* ****************************** */
 
 .answer__container {
+  max-width: fit-content;
+  padding: 0 25px;
   z-index: 100;
 }
 
@@ -1251,6 +1245,19 @@ and (-webkit-min-device-pixel-ratio: 1) {
   }
   .stats__chart-bar {
     height: 30px;
+  }
+  .alert__container {
+    width: fit-content;
+    max-width: 300px;
+    padding: 10px 25px;
+  }
+  .alert__text {
+    font-size: larger;
+  }
+  .answer__container {
+    max-width: fit-content;
+    padding: 10px 35px;
+    z-index: 100;
   }
 }
 

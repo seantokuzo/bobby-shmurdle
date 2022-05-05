@@ -416,7 +416,7 @@ export default function App() {
       className="modal__container alert__container flex-row"
       style={{ animationDuration: `${ALERT_DURATION}ms` }}
     >
-      <h4 className="answer__text">{alertPhrase}</h4>
+      <h4 className="alert__text modal__text">{alertPhrase}</h4>
     </div>
   )
 
