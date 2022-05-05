@@ -5,19 +5,22 @@ export default function StatsModal(props) {
   const [windowWidth, setWindowWidth] = useState(0)
 
   const maxBarWidth =
-    windowWidth > 450
-      ? 280
+    windowWidth > 600
+      ? 350
+      : windowWidth > 500
+      ? 300
       : windowWidth > 425
       ? 260
       : windowWidth > 400
-      ? 250
-      : windowWidth > 350
       ? 220
+      : windowWidth > 350
+      ? 210
       : 200
 
   // DESTRUCTURE USER STATS FROM PROPS
   const { streak, maxStreak, wins, losses, guessStats } = props.userStats
-  const { didWin, gameOver, lastGameGuessCount, toggleStats, handleNewGameWarning, handleShare } = props
+  const { didWin, gameOver, lastGameGuessCount, toggleStats, handleNewGameWarning, handleShare } =
+    props
 
   const guessStatsValues = Object.values(guessStats)
   const maxGuessStat = Math.max(...guessStatsValues)
@@ -87,7 +90,10 @@ export default function StatsModal(props) {
 
   const statsButtons = (
     <div className="stats__buttons-div flex-row">
-      <div className={gameOver ? "btn stats__btn" : "btn stats__btn stats__btn-game-on"} onClick={handleNewGameWarning}>
+      <div
+        className={gameOver ? 'btn stats__btn' : 'btn stats__btn stats__btn-game-on'}
+        onClick={handleNewGameWarning}
+      >
         <h3 className="btn--text">NEW GAME</h3>
       </div>
       {gameOver && (

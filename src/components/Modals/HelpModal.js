@@ -49,26 +49,26 @@ export default function HelpPage(props) {
         <h4 className="modal__close" onClick={props.toggleHelp}>
           X
         </h4>
-        <p className="modal__text">{helpText[0]}</p>
-        <p className="modal__text">{helpText[1]}</p>
-        <p className="modal__text">{helpText[2]}</p>
+        <p className="modal__text help__text">{helpText[0]}</p>
+        <p className="modal__text help__text">{helpText[1]}</p>
+        <p className="modal__text help__text">{helpText[2]}</p>
       </div>
       <div className="help__examples border-bottom">
-        <h4 className="modal__subtitle">{helpSubtitle}</h4>
+        <h4 className="modal__subtitle help__subtitle">{helpSubtitle}</h4>
         {exampleOne}
-        <p className="modal__text">
+        <p className="modal__text help__text">
           {helpText[3]}
           <strong>{exampleWords[0][exampleIndices[0]]}</strong>
           {helpText[4]}
         </p>
         {exampleTwo}
-        <p className="modal__text">
+        <p className="modal__text help__text">
           {helpText[3]}
           <strong>{exampleWords[1][exampleIndices[1]]}</strong>
           {helpText[5]}
         </p>
         {exampleThree}
-        <p className="modal__text">
+        <p className="modal__text help__text">
           {helpText[3]}
           <strong>{exampleWords[2][exampleIndices[2]]}</strong>
           {helpText[6]}

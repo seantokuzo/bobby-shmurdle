@@ -395,27 +395,6 @@ select .app {
   font-size: 2em;
 }
 
-@media (min-width: 750px) {
-  .help__eg-box {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .help__eg-box {
-    width: 50px;
-    height: 50px;
-  }
-}
-
-@media (min-width: 1250px) {
-  .help__eg-box {
-    width: 55px;
-    height: 55px;
-  }
-}
-
 /* ******************************* */
 /* ***       STATS MODAL       *** */
 /* ******************************* */
@@ -1083,6 +1062,42 @@ and (max-device-height: 375px) {
   .keys__key-enter {
     font-size: .75em;
   }
+  .modal__container {
+    max-height: 100%;
+    padding: 1rem;
+    font-size: smaller;
+  }
+  .modal__title {
+    margin: 0 0 5px;
+    font-size: smaller;
+  }
+  .help__eg-box {
+    width: 30px;
+    height: 30px;
+    font-size: smaller;
+  }
+  .help__title,
+  .help__subtitle,
+  .help__text {
+    margin: 4px 0;
+  }
+  .stats__chart-title {
+    margin: 15px 10px;
+  }
+  .stats__chart-bar {
+    height: 1.15rem;
+  }
+  .settings__subtitle {
+    margin: 0;
+    font-size: smaller;
+  }
+  .settings__toggler {
+    transform: scale(1.2);
+  }
+  .settings__btn,
+  .stats__btn {
+    margin: 0 0 5px;
+  }
 }
 
 @media only screen
@@ -1234,6 +1249,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
   .settings__toggler {
     transform: scale(2);
   }
+  .stats__chart-bar {
+    height: 30px;
+  }
 }
 
 @media only screen
@@ -1282,6 +1300,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
   .settings__toggler {
     transform: scale(2.15);
   }
+  .stats__chart-bar {
+    height: 35px;
+  }
 }
 
 @media only screen
@@ -1299,6 +1320,13 @@ and (orientation: landscape) {
   .modal__container {
     max-width: 550px;
   }
+  .stats__chart-title {
+    margin: 3rem 0 2rem;
+  }
+  
+  .stats__chart-bar-container {
+    padding: .35em 0;
+  }
 }
 
 @media only screen
@@ -1312,5 +1340,26 @@ and (min-device-width: 500px) {
 and (min-device-width: 740px) {
   .app {
     padding: 0 0 2rem;
+  }
+}
+
+@media (min-width: 750px) {
+  .help__eg-box {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .help__eg-box {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1250px) {
+  .help__eg-box {
+    width: 55px;
+    height: 55px;
   }
 }
