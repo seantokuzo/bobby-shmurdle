@@ -1314,12 +1314,6 @@ and (-webkit-min-device-pixel-ratio: 1) {
 }
 
 @media only screen
-and (min-device-width: 500px)
-and (orientation: landscape) {
-
-}
-
-@media only screen
 and (min-device-width: 740px)
 and (orientation: landscape) {
   .header__container {
@@ -1335,6 +1329,7 @@ and (orientation: landscape) {
   .stats__chart-bar-container {
     padding: .35em 0;
   }
+  
 }
 
 @media only screen

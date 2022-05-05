@@ -408,7 +408,7 @@ export default function App() {
   }
 
   function handleShare() {
-    shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin)
+    shareResults(answer, prevGuesses, hardMode, darkMode, highContrastMode, didWin)
   }
 
   const alertModal = (

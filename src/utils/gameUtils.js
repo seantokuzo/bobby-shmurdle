@@ -48,7 +48,7 @@ function getLettersArray(str, answer, prevGuesses) {
 }
 
 // SHARE BUTTON FUNCTION
-function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
+function shareResults(answer, prevGuesses, hardMode, darkMode, highContrastMode, didWin) {
   const getSquare = (str) => {
     return str === 'correct' && highContrastMode
       ? '🟧'
@@ -78,7 +78,10 @@ function shareResults(answer, prevGuesses, darkMode, highContrastMode, didWin) {
     })
   })
 
-  const score = didWin ? `${prevGuesses.length}/${NUMBER_GUESSES}` : `X/${NUMBER_GUESSES}`
+  const asterisk = hardMode ? '*' : ''
+  const score = didWin
+    ? `${prevGuesses.length}/${NUMBER_GUESSES}${asterisk}`
+    : `X/${NUMBER_GUESSES}${asterisk}`
   const game = `${score}\n\n${squareGrid}`
   const message = didWin ? `I beat Bobby Shmurdle!\n${game}` : `Shmurdle caught a body\n${game}`
   const shareObj = { text: message }
