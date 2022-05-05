@@ -1231,6 +1231,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
   .stats__buttons-div {
     margin: 3rem 0;
   }
+  .settings__toggler {
+    transform: scale(2);
+  }
 }
 
 @media only screen
@@ -1275,6 +1278,9 @@ and (-webkit-min-device-pixel-ratio: 1) {
   }
   .keys__key-enter {
     font-size: 1em;
+  }
+  .settings__toggler {
+    transform: scale(2.15);
   }
 }
 
