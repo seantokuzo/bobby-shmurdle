@@ -674,6 +674,10 @@ select .app {
   animation-fill-mode: forwards;
 }
 
+.alert__text {
+  font-size: larger;
+}
+
 /* ****************************** */
 /* ***      ANSWER MODAL      *** */
 /* ****************************** */
@@ -1250,9 +1254,6 @@ and (-webkit-min-device-pixel-ratio: 1) {
     width: fit-content;
     max-width: 300px;
     padding: 10px 25px;
-  }
-  .alert__text {
-    font-size: larger;
   }
   .answer__container {
     max-width: fit-content;
