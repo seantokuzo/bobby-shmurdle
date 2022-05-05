@@ -501,7 +501,7 @@ select .app {
 .stats__buttons-div {
   width: 100%;
   justify-content: space-between;
-  margin-top: 40px;
+  margin: 2rem 0;
 }
 
 .stats__btn {
@@ -671,7 +671,7 @@ select .app {
 }
 
 .bobby__gif {
-  /* width: 350px; */
+  width: 100%;
   max-width: 100%;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -958,23 +958,7 @@ and (max-device-height: 550px) {
   }
   
   .stats__buttons-div {
-    margin-top: 15px;
-  }
-  
-  .stats__btn-share h3 {
-    /* margin-right: 7.5px; */
-  }
-  
-  .stats__btn-share i {
-    /* margin-left: 7.5px; */
-  }
-  
-  .btn-divider {
-    /* font-size: 3rem; */
-  }
-  
-  .stats__btn-share-icon {
-    /* font-size: 1.1em; */
+    margin: 1.5rem 0;
   }
 }
 
@@ -1217,6 +1201,36 @@ and (-webkit-min-device-pixel-ratio: 1) {
   .keys__key-enter {
     font-size: 1em;
   }
+  .modal__container {
+    width: 98%;
+    max-width: 600px;
+    padding: 2rem 4rem 2rem;
+    font-size: larger;
+  }
+  
+  .modal__title {
+    font-size: 1.5em;
+    line-height: 1em;
+  }
+  
+  .modal__close {
+    font-size: 1.5em;
+  }
+  
+  .modal__subtitle {
+    margin: 1rem 0;
+  }
+  
+  .modal__text {
+    font-size: .8em;
+    margin: 10px 0px;
+  }
+  .stats__chart-title {
+    margin: 3rem 0 2rem;
+  }
+  .stats__buttons-div {
+    margin: 3rem 0;
+  }
 }
 
 @media only screen
@@ -1279,18 +1293,6 @@ and (orientation: landscape) {
   .modal__container {
     max-width: 550px;
   }
-}
-
-@media only screen
-and (min-device-width: 1000px)
-and (orientation: landscape) {
-  
-}
-
-@media only screen
-and (min-device-width: 1250px)
-and (orientation: landscape) {
-  
 }
 
 @media only screen
