@@ -26,38 +26,6 @@ body {
   transition: background-color 250ms;
 }
 
-@media (max-width: 400px) {
-  body {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 370px) {
-  body {
-    font-size: .9rem;
-  }
-}
-
-@media (min-width: 750px) {
-  body {
-    font-size: 1.1rem;
-  }
-}
-
-@media (min-width: 1000px) {
-  body {
-    font-size: 1.15rem;
-  }
-  
-}
-
-@media (min-width: 1250px) {
-  body {
-    font-size: 1.2rem;
-  }
-
-}
-
 .dark-mode {
   background-color: var(--background);
 }
@@ -299,7 +267,7 @@ select .app {
 
 .modal__container {
   width: 98%;
-  max-width: 475px;
+  max-width: 700px;
   max-height: 95vh;
   box-shadow: var(--bs);
   animation: modal-slide 250ms;
@@ -681,7 +649,7 @@ select .app {
 }
 
 .settings__btn {
-  margin-top: 5rem;
+  margin: 5rem 0 1rem;
 }
 
 /* ******************************* */
@@ -691,19 +659,20 @@ select .app {
 .bobby__container {
   align-items: center;
   max-width: 400px;
-  top: 40%;
+  top: 50%;
   padding: 2rem;
   border-radius: 20px;
   z-index: 1000;
 }
 
 .bobby__title {
-  margin: 2rem 0 2rem;
+  margin: 2rem 0;
   line-height: 1.1em;
 }
 
 .bobby__gif {
-  width: 350px;
+  /* width: 350px; */
+  max-width: 100%;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -941,6 +910,74 @@ select .app {
 /* ***    MEDIA QUERIES    *** */
 /* *************************** */
 
+/* FONT SIZES */
+@media (max-width: 400px) {
+  body {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 370px) {
+  body {
+    font-size: .9rem;
+  }
+}
+
+@media (min-width: 750px) {
+  body {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  body {
+    font-size: 1.15rem;
+  }
+
+}
+
+@media (min-width: 1250px) {
+  body {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen
+and (max-device-height: 550px) {
+  .stats__container {
+    /* max-width: 450px; */
+    padding: 10px 30px;
+  }
+  
+  .stats__stat-container {
+    margin-top: 0;
+  }
+  
+  .stats__chart-title {
+    margin-bottom: 10px;
+  }
+  
+  .stats__buttons-div {
+    margin-top: 15px;
+  }
+  
+  .stats__btn-share h3 {
+    /* margin-right: 7.5px; */
+  }
+  
+  .stats__btn-share i {
+    /* margin-left: 7.5px; */
+  }
+  
+  .btn-divider {
+    /* font-size: 3rem; */
+  }
+  
+  .stats__btn-share-icon {
+    /* font-size: 1.1em; */
+  }
+}
+
 @media only screen
 and (max-device-width: 375px)
 and (max-device-height: 630px)
@@ -1024,6 +1061,9 @@ and (max-device-height: 530px) {
 @media only screen
 and (max-device-width: 325px)
 and (max-device-height: 375px) {
+  body {
+    font-size: .8rem;
+  }
   .app {
     padding: 0 0 .25rem;
   }
@@ -1198,22 +1238,22 @@ and (-webkit-min-device-pixel-ratio: 1) {
     margin: 0 1rem;
   }
   .guess-box {
-    width: 6rem;
-    height: 6rem;
+    width: 5.5rem;
+    height: 5.5rem;
     border-width: 3px;
   }
   .guess-box-text {
-    font-size: 4.25em;
+    font-size: 3.75em;
   }
   .keys__key {
-    height: 5.25rem;
+    height: 5rem;
     margin: 1px 2px;
   }
   .keys__key-letter {
-    width: 3.25rem;
+    width: 2.75rem;
   }
   .keys__key-btn {
-    width: 6rem;
+    width: 4.5rem;
     font-size: 1.15em;
   }
   .keys__key-text {
@@ -1221,86 +1261,6 @@ and (-webkit-min-device-pixel-ratio: 1) {
   }
   .keys__key-enter {
     font-size: 1em;
-  }
-}
-
-@media only screen
-and (min-device-width: 1000px)
-and (min-device-height: 800px)
-and (orientation: portrait) {
-    .header__title {
-      font-size: 2.5em;
-    }
-    
-    .header__btn {
-      font-size: 2em;
-      margin: 0 1.5rem;
-    }
-    
-    .guess-box {
-      width: 7rem;
-      height: 7rem;
-    }
-    
-    .guess-box-text {
-      font-size: 4.5em;
-    }
-    
-    .keys__key {
-      height: 6rem;
-    }
-    
-    .keys__key-letter {
-      width: 3.75rem;
-    }
-    
-    .keys__key-btn {
-      width: 7rem;
-      font-size: 1.35em;
-    }
-    
-    .keys__key-text {
-      font-size: 1.25em;
-    }
-    
-    .keys__key-enter {
-      font-size: 1.15em;
-    }
-}
-
-@media only screen
-and (min-device-width: 1200px)
-and (min-device-height: 800px)
-and (orientation: portrait)
-and (-webkit-min-device-pixel-ratio: 1) {
-  .header__container {
-    padding: 30px 25px;
-  }
-  .header__title {
-    font-size: 3.15em;
-  }
-  .header__btn {
-    font-size: 2.65em;
-  }
-  .guess-box {
-    width: 10rem;
-    height: 10rem;
-  }
-  .guess-box-text {
-    font-size: 6.15em;
-  }
-  .keys__key {
-    height: 8rem;
-    font-size: 1.5em;
-  }
-  .keys__key-letter {
-    width: 5rem;
-  }
-  .keys__key-btn {
-    width: 8rem;
-  }
-  .keys__key-backspace {
-    font-size: 1.65em;
   }
 }
 
@@ -1313,7 +1273,12 @@ and (orientation: landscape) {
 @media only screen
 and (min-device-width: 740px)
 and (orientation: landscape) {
-
+  .header__container {
+    max-width: 700px;
+  }
+  .modal__container {
+    max-width: 550px;
+  }
 }
 
 @media only screen
