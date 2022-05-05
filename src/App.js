@@ -59,7 +59,7 @@ export default function App() {
   const [showAlertModal, setShowAlertModal] = useState(false)
   const [alertPhrase, setAlertPhrase] = useState('')
   const [showRestartWarning, setShowRestartWarning] = useState(false)
-
+  // localStorage.clear()
   // GET EVERYTHING FROM LOCAL STORAGE ON PAGE LOAD
   useEffect(() => {
     const localStats = JSON.parse(localStorage.getItem('userStats'))
@@ -404,7 +404,9 @@ export default function App() {
   }
 
   function toggleHardMode() {
-    setHardMode((prev) => !prev)
+    if (prevGuesses.length === 0 && !didLose && !didWin) {
+      setHardMode((prev) => !prev)
+    } else handleAlertModal("You can't change hardmode after your first guess!")
   }
 
   function handleShare() {

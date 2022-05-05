@@ -39,7 +39,10 @@ export default function SettingsModal(props) {
         <div className="setting--name-div">
           <h5 className="setting--name">{name}</h5>
           {info && (
-            <p className="setting--info">Any revealed hints must be used in subsequent guesses</p>
+            <p className="setting--info">{info}</p>
+            )}
+          {name === 'Hard Mode' && (
+            <p className="setting--info">Cannot be changed after first guess</p>
           )}
         </div>
         <div className="settings__toggler-div">

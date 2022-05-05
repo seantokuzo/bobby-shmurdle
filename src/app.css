@@ -552,6 +552,7 @@ select .app {
   font-weight: 300;
   color: var(--light-grey);
   margin-top: 2px;
+  margin-bottom: 0;
 }
 
 .settings__toggler-div {
