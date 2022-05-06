@@ -1223,7 +1223,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
   }
   
   .modal__title {
-    font-size: 1.5em;
+    font-size: 1.25em;
     line-height: 1em;
   }
   
@@ -1320,17 +1320,65 @@ and (orientation: landscape) {
   .header__container {
     max-width: 700px;
   }
+  .header__title {
+    font-size: 1.85em;
+  }
+
+  .header__btn {
+    font-size: 1.5em;
+    margin: 0 .75rem;
+  }
   .modal__container {
-    max-width: 550px;
+    width: 98%;
+    max-width: 600px;
+    padding: 2rem 4rem 2rem;
+    font-size: larger;
+  }
+  .modal__title {
+    font-size: 1em;
+    line-height: 1em;
+  }
+  .modal__close {
+    font-size: 1.1em;
+  }
+  .modal__subtitle {
+    margin: 1rem 0;
   }
   .stats__chart-title {
     margin: 3rem 0 2rem;
   }
-  
   .stats__chart-bar-container {
     padding: .35em 0;
   }
-  
+  .settings__toggler {
+    transform: scale(2.1);
+  }
+  .guess-box {
+    width: 4rem;
+    height: 4rem;
+  }
+  .guess-box-text {
+    font-size: 3em;
+  }
+  .keys__key {
+    height: 4rem;
+  }
+
+  .keys__key-letter {
+    width: 2.5rem;
+  }
+
+  .keys__key-btn {
+    width: 4.5rem;
+  }
+
+  .keys__key-text {
+    font-size: 1em;
+  }
+
+  .keys__key-enter {
+    font-size: .9em;
+  }
 }
 
 @media only screen
