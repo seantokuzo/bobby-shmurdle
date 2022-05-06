@@ -23,9 +23,7 @@ or [here](https://bobby-shmurdle.netlify.app) or [here](https://bobby-shmurdle.n
   </p>
   <br>
   <br>
+  <img align="center" width="40px" alt="seantokuo logo" src="https://avatars.githubusercontent.com/u/89617737?s=96&v=4">
   <br>
-  <img align="center" width="40px" alt="seantokuo logo" src="https://user-images.githubusercontent.com/89617737/166433676-ff1e1aca-8f38-47a3-925b-d7ffc2964408.png">
-  <br>
-  <br>
-  <p>By seantokuzo</p>
+  <p>by seantokuzo</p>
 </div>
