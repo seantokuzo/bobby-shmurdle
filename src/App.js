@@ -10,6 +10,15 @@ import Keyboard from './components/Keyboard/Keyboard'
 import './app.css'
 import { getNewWord, getLettersArray, shareResults } from './utils/gameUtils'
 import {
+  ALERT_MS_GUESS_NOT_FIVE,
+  ALERT_MS_NOT_A_WORD,
+  ALERT_MS_HARDMODE_CHECKER,
+  ALERT_MS_RESET_PENALTY,
+  ALERT_MS_RESET_MS,
+  ALERT_MS_NEW_GAME,
+  ALERT_MS_HARDMODE_TOGGLE
+} from './data/alertsData'
+import {
   ANIME_DELAY,
   NUMBER_GUESSES,
   WIN_ANIME_DELAY,
@@ -292,13 +301,13 @@ export default function App() {
     //HANDLE WORDS LESS THAN 5 LETTERS
     if (currentGuess.length !== WORD_LENGTH) {
       handleInvalidGuess()
-      handleAlertModal("That ain't a 5 letter word!")
+      handleAlertModal(ALERT_MS_GUESS_NOT_FIVE)
       return
     }
     // CONDITION TO CHECK IF WORD IS ON WORDS LIST - NEED TO REF DICTIONARY
     if (!VALID_GUESSES.includes(currentGuess.join('').toLowerCase())) {
       handleInvalidGuess()
-      handleAlertModal('Beep Boop - word does not register')
+      handleAlertModal(ALERT_MS_NOT_A_WORD)
       return
     }
     // HARD MODE CONDITION CHECKER
@@ -306,7 +315,7 @@ export default function App() {
       const mustUseLetters = getLettersArray('must use', answer, prevGuesses)
       if (!mustUseLetters.every((letter) => currentGuess.includes(letter))) {
         handleInvalidGuess()
-        handleAlertModal('You must use all previously revealed hints in your guesses!')
+        handleAlertModal(ALERT_MS_HARDMODE_CHECKER)
         return
       }
     }
@@ -349,10 +358,10 @@ export default function App() {
         setLosses((prevLosses) => prevLosses + 1)
         setStreak(0)
         setResetCount(0)
-        handleAlertModal('Your win streak is now 0. New word retrieved')
+        handleAlertModal(ALERT_MS_RESET_PENALTY)
       } else {
         setResetCount((prevResetCount) => prevResetCount + 1)
-        handleAlertModal('Game reset. New word retrieved')
+        handleAlertModal(ALERT_MS_RESET_MS)
       }
     }
     setShowRestartWarning(false)
@@ -363,7 +372,7 @@ export default function App() {
     setPrevGuesses([])
     setDidLose(false)
     setDidWin(false)
-    if (didLose || didWin) handleAlertModal('New word retrieved. Good luck!')
+    if (didLose || didWin) handleAlertModal(ALERT_MS_NEW_GAME)
   }
 
   // THEME TOGGLERS
@@ -406,7 +415,7 @@ export default function App() {
   function toggleHardMode() {
     if (prevGuesses.length === 0 && !didLose && !didWin) {
       setHardMode((prev) => !prev)
-    } else handleAlertModal("You can't change hardmode after your first guess!")
+    } else handleAlertModal(ALERT_MS_HARDMODE_TOGGLE)
   }
 
   function handleShare() {
