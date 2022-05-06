@@ -1287,7 +1287,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
     border-width: 3px;
   }
   .guess-box-text {
-    font-size: 3.75em;
+    font-size: 3.7em;
   }
   .keys__key {
     height: 5rem;
@@ -1316,6 +1316,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
 
 @media only screen
 and (min-device-width: 740px)
+and (min-device-height: 740px)
 and (orientation: landscape) {
   .header__container {
     max-width: 700px;
@@ -1354,18 +1355,18 @@ and (orientation: landscape) {
     transform: scale(2.1);
   }
   .guess-box {
-    width: 4rem;
-    height: 4rem;
+    width: 4.25rem;
+    height: 4.25rem;
   }
   .guess-box-text {
-    font-size: 3em;
+    font-size: 2.5em;
   }
   .keys__key {
-    height: 4rem;
+    height: 3.75rem;
   }
 
   .keys__key-letter {
-    width: 2.5rem;
+    width: 2.25rem;
   }
 
   .keys__key-btn {
@@ -1373,11 +1374,22 @@ and (orientation: landscape) {
   }
 
   .keys__key-text {
-    font-size: 1em;
+    font-size: .95em;
   }
 
   .keys__key-enter {
     font-size: .9em;
+  }
+  .alert__container {
+    width: fit-content;
+    max-width: 300px;
+    padding: 10px 25px;
+  }
+
+  .answer__container {
+    max-width: fit-content;
+    padding: 10px 35px;
+    z-index: 100;
   }
 }
 
