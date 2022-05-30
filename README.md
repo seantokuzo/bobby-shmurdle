@@ -1,6 +1,7 @@
 <div align="center">
 <p align="center">
-  <img align="center" width="300px" alt="bobby-shmurdle_gh-preview_readme" src="https://user-images.githubusercontent.com/89617737/166426002-cc39696c-c97c-43a1-a7f8-7bca242584f4.png">
+  <img align="center" width="49%" alt="bobby-shmurdle_gh-preview_readme" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/portfolio-img/project-images/bobby-readme1.png">
+  <img align="center" width="49%" alt="bobby-shmurdle_gh-preview_readme" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/portfolio-img/project-images/bobby-readme2.png">
 </p>
 <h1 align="center">Bobby Shmurdle</h1>
 <h3 align="center">Yep, it's another Wordle clone</h3>
@@ -8,7 +9,8 @@
 Check it out [here](https://bobby-shmurdle.netlify.app)
 or [here](https://bobby-shmurdle.netlify.app) or [here](https://bobby-shmurdle.netlify.app)
 
-<p align=center>Play as much as you want</p>
+<p align=center>Play as much as you want.</p>
+<p align=center>Daily word mode coming soon... or eventually</p>
 <br>
 <p align=center>Made with
   <img align="center" width="25px" alt="bobby-shmurdle_gh-preview_readme" src="./public/react-icon.svg">
@@ -23,7 +25,8 @@ or [here](https://bobby-shmurdle.netlify.app) or [here](https://bobby-shmurdle.n
   </p>
   <br>
   <br>
-  <img align="center" width="40px" alt="seantokuo logo" src="https://avatars.githubusercontent.com/u/89617737?s=96&v=4">
+  <img align="center" width="100px" alt="seantokuo logo" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/fav-icons/kuzo-nobck-576.png">
+  <br>
   <br>
   <p>by seantokuzo</p>
 </div>
