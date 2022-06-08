@@ -741,17 +741,6 @@ select .app {
 
 /* --- GLOBAL COLOR CLASSES --- */
 
-.correct,
-.dark-mode .correct {
-  background-color: var(--green);
-  border-color: var(--green);
-  color: #ffffff;
-}
-
-.high-contrast .correct {
-  background-color: var(--orange);
-  border-color: var(--orange);
-}
 
 .wrong-spot,
 .dark-mode .wrong-spot {
@@ -763,6 +752,18 @@ select .app {
 .high-contrast .wrong-spot {
   background-color: var(--blue);
   border-color: var(--blue);
+}
+
+.correct,
+.dark-mode .correct {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: #ffffff;
+}
+
+.high-contrast .correct {
+  background-color: var(--orange);
+  border-color: var(--orange);
 }
 
 .incorrect {
